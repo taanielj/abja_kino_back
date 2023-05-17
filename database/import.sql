@@ -1,5 +1,6 @@
-INSERT INTO public."user" (id, username, password, role_id) VALUES (1, 'admin', '123', 1);
-INSERT INTO public."user" (id, username, password, role_id) VALUES (2, 'tuuli', '123', 2);
+INSERT INTO public.role (id, name) VALUES (DEFAULT, 'ROLE_ADMIN');
+INSERT INTO public.role (id, name) VALUES (DEFAULT, 'ROLE_CUSTOMER');
 
-INSERT INTO public.role (id, name) VALUES (1, 'ROLE_ADMIN');
-INSERT INTO public.role (id, name) VALUES (2, 'ROLE_USER')
+INSERT INTO public."user" (id, username, password, role_id, email) VALUES (DEFAULT, 'admin', '123', 1, 'tuuli@abja.com');
+INSERT INTO public."user" (id, username, password, role_id, email) VALUES (DEFAULT, 'tuuli', '123', 2, 'tuuli2@abja.com');
+

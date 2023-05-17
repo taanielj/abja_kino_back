@@ -22,8 +22,8 @@ public class UserService {
 
     public void register(RegistrationRequest registrationRequest) {
         User user = userMapper.toUser(registrationRequest);
-        user.setRole(roleRepository.findByName("ROLE_CUSTOMER"));
-        userRepository.save(userMapper.toUser(registrationRequest));
-
+        Role defaultRole = roleRepository.findByName("ROLE_CUSTOMER");
+        user.setRole(defaultRole);
+        userRepository.save(user);
     }
 }

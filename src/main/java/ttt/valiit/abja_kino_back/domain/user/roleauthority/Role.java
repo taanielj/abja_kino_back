@@ -5,7 +5,6 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
-import ttt.valiit.abja_kino_back.domain.user.roleauthority.Authority;
 
 import java.util.Set;
 
@@ -23,13 +22,5 @@ public class Role {
     @NotNull
     @Column(name = "name", nullable = false)
     private String name;
-
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "role_authority",
-            joinColumns = @JoinColumn(name = "role_id"),
-            inverseJoinColumns = @JoinColumn(name = "authority_id")
-    )
-    Set<Authority> authorities;
 
 }

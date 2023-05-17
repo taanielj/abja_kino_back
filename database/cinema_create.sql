@@ -1,14 +1,7 @@
 -- Created by Vertabelo (http://vertabelo.com)
--- Last modification date: 2023-05-17 08:02:19.837
+-- Last modification date: 2023-05-17 12:13:00.273
 
 -- tables
--- Table: authority
-CREATE TABLE authority (
-                           id serial  NOT NULL,
-                           name varchar(255)  NOT NULL,
-                           CONSTRAINT authority_pk PRIMARY KEY (id)
-);
-
 -- Table: genre
 CREATE TABLE genre (
                        id serial  NOT NULL,
@@ -36,14 +29,6 @@ CREATE TABLE role (
                       id serial  NOT NULL,
                       name varchar(255)  NOT NULL,
                       CONSTRAINT role_pk PRIMARY KEY (id)
-);
-
--- Table: role_authority
-CREATE TABLE role_authority (
-                                id serial  NOT NULL,
-                                authority_id int  NOT NULL,
-                                role_id int  NOT NULL,
-                                CONSTRAINT role_authority_pk PRIMARY KEY (id)
 );
 
 -- Table: room
@@ -99,8 +84,8 @@ CREATE TABLE "user" (
                         id serial  NOT NULL,
                         username varchar(255)  NOT NULL,
                         password varchar(255)  NOT NULL,
-                        email varchar(255)  NOT NULL,
                         role_id int  NOT NULL,
+                        email varchar(255)  NOT NULL,
                         CONSTRAINT user_pk PRIMARY KEY (id)
 );
 
@@ -109,22 +94,6 @@ CREATE TABLE "user" (
 ALTER TABLE movie ADD CONSTRAINT movie_genre
     FOREIGN KEY (genre_id)
         REFERENCES genre (id)
-        NOT DEFERRABLE
-            INITIALLY IMMEDIATE
-;
-
--- Reference: role_authority_authority (table: role_authority)
-ALTER TABLE role_authority ADD CONSTRAINT role_authority_authority
-    FOREIGN KEY (authority_id)
-        REFERENCES authority (id)
-        NOT DEFERRABLE
-            INITIALLY IMMEDIATE
-;
-
--- Reference: role_authority_role (table: role_authority)
-ALTER TABLE role_authority ADD CONSTRAINT role_authority_role
-    FOREIGN KEY (role_id)
-        REFERENCES role (id)
         NOT DEFERRABLE
             INITIALLY IMMEDIATE
 ;
@@ -192,6 +161,3 @@ ALTER TABLE "user" ADD CONSTRAINT user_role
         NOT DEFERRABLE
             INITIALLY IMMEDIATE
 ;
-
--- End of file.
-
