@@ -1,6 +1,5 @@
-package ttt.valiit.abja_kino_back.business.movie.genre;
+package ttt.valiit.abja_kino_back.business.genre;
 
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ttt.valiit.abja_kino_back.domain.genre.Genre;

@@ -1,4 +1,4 @@
-package ttt.valiit.abja_kino_back.business.movie.genre;
+package ttt.valiit.abja_kino_back.business.genre;
 
 import org.springframework.stereotype.Service;
 import ttt.valiit.abja_kino_back.domain.genre.Genre;
