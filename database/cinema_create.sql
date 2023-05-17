@@ -99,6 +99,7 @@ CREATE TABLE "user" (
                         id serial  NOT NULL,
                         username varchar(255)  NOT NULL,
                         password varchar(255)  NOT NULL,
+                        email varchar(255)  NOT NULL,
                         role_id int  NOT NULL,
                         CONSTRAINT user_pk PRIMARY KEY (id)
 );
