@@ -1,4 +1,4 @@
-package ttt.valiit.abja_kino_back.business.login;
+package ttt.valiit.abja_kino_back.business.user.login;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -22,8 +22,7 @@ public class LoginController {
             @ApiResponse(responseCode = "200", description = "OK"),
             @ApiResponse(responseCode = "403", description = "Vale kasutajanimi või parool")})
     public LoginResponse login(@RequestParam String username, @RequestParam String password) {
-        LoginResponse loginResponse = loginService.login(username, password);
-        return loginResponse;
+        return loginService.login(username, password);
     }
 
 }

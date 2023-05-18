@@ -1,7 +1,7 @@
 package ttt.valiit.abja_kino_back.business.user;
 
 import org.springframework.stereotype.Service;
-import ttt.valiit.abja_kino_back.business.login.LoginResponse;
+import ttt.valiit.abja_kino_back.business.user.login.LoginResponse;
 import ttt.valiit.abja_kino_back.domain.user.User;
 import ttt.valiit.abja_kino_back.domain.user.UserMapper;
 import ttt.valiit.abja_kino_back.domain.user.UserRepository;
@@ -37,9 +37,5 @@ public class UserService {
         User user = userOptional.get();
         return user;
     }
-    public LoginResponse login(String username, String password) {
-        User user = userRepository.findUserBy(username, password);
-        LoginResponse loginResponse = userMapper.toLoginResponse(user);
-        return loginResponse;
-    }
+
 }

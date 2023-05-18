@@ -1,4 +1,4 @@
-package ttt.valiit.abja_kino_back.business.login;
+package ttt.valiit.abja_kino_back.business.user.login;
 
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
@@ -17,8 +17,11 @@ public class LoginService {
     public LoginResponse login(String username, String password) {
         User user = userService.findUserBy(username, password);
         LoginResponse loginResponse = userMapper.toLoginResponse(user);
+        loginResponse.setToken("token");
         return loginResponse;
     }
+
+
 }
 
 

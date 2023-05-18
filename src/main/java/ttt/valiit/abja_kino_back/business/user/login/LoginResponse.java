@@ -1,4 +1,4 @@
-package ttt.valiit.abja_kino_back.business.login;
+package ttt.valiit.abja_kino_back.business.user.login;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -22,5 +22,7 @@ public class LoginResponse implements Serializable {
     @Size(max = 255)
     @NotNull
     private String roleName;
+    @Size(max = 255)
+    private String token;
 
 }
