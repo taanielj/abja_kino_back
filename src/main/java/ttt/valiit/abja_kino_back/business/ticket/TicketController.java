@@ -8,7 +8,7 @@ import ttt.valiit.abja_kino_back.domain.ticketType.TicketType;
 
 import java.util.List;
 
-@RequestMapping("ticket")
+@RequestMapping("/ticket")
 @RestController
 public class TicketController {
 
