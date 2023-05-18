@@ -3,25 +3,30 @@ package ttt.valiit.abja_kino_back.business.movie;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.io.Serializable;
 
 /**
  * A DTO for the {@link ttt.valiit.abja_kino_back.domain.movie.Movie} entity
  */
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
 public class MovieDto implements Serializable {
     @Size(max = 255)
     @NotNull
-    private final String title;
+    private String title;
     @NotNull
-    private final Integer runtime;
+    private Integer runtime;
     @Size(max = 255)
     @NotNull
-    private final String director;
+    private String director;
     @Size(max = 255)
     @NotNull
-    private final String genre;
+    private String genre;
     @NotNull
-    private final byte[] poster;
+    private byte[] poster;
 }

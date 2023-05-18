@@ -4,6 +4,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
 import org.mapstruct.ReportingPolicy;
+import ttt.valiit.abja_kino_back.business.login.LoginResponse;
 import ttt.valiit.abja_kino_back.business.user.RegistrationRequest;
 
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING)
@@ -15,6 +16,11 @@ public interface UserMapper {
     @Mapping(source = "email", target = "email")
     @Mapping(ignore = true, target = "role.name")
     User toUser(RegistrationRequest registrationRequest);
+    @Mapping(source = "id", target = "userId")
+    @Mapping(source = "role.name", target = "roleName")
+    LoginResponse toLoginResponse(User user);
+
+
 
 
 

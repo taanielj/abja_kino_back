@@ -17,4 +17,6 @@ public class UserController {
     public void registration(@RequestBody RegistrationRequest registrationRequest) {
         userService.register(registrationRequest);
     }
+
+
 }
