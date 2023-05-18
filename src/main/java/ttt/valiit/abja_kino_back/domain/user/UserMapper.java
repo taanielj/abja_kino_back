@@ -4,8 +4,8 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
 import org.mapstruct.ReportingPolicy;
-import ttt.valiit.abja_kino_back.business.user.login.LoginResponse;
-import ttt.valiit.abja_kino_back.business.user.RegistrationRequest;
+import ttt.valiit.abja_kino_back.business.user.dto.LoginResponse;
+import ttt.valiit.abja_kino_back.business.user.dto.RegistrationRequest;
 
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING)
 public interface UserMapper {

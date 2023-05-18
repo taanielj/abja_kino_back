@@ -1,4 +1,4 @@
-package ttt.valiit.abja_kino_back.business.user.login;
+package ttt.valiit.abja_kino_back.business.user.dto;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
