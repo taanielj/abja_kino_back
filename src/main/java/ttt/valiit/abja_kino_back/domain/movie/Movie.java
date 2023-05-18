@@ -46,10 +46,6 @@ public class Movie {
     private String description;
 
     @NotNull
-    @Column(name = "poster_landscape", nullable = false)
-    private byte[] posterLandscape;
-
-    @NotNull
     @Column(name = "poster_portrait", nullable = false)
     private byte[] posterPortrait;
 

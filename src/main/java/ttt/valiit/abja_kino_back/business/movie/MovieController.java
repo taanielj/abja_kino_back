@@ -18,4 +18,9 @@ public class MovieController {
         return movieService.getMovie(id);
     }
 
+    @PostMapping("/add")
+    public void addNewMovie(@RequestBody MovieAddRequest request) {
+        movieService.addNewMovie(request);
+    }
+
 }

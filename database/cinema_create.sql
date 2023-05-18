@@ -18,7 +18,6 @@ CREATE TABLE movie (
                        director varchar(255)  NOT NULL,
                        youtube_link varchar(255)  NOT NULL,
                        description text  NOT NULL,
-                       poster_landscape bytea  NOT NULL,
                        poster_portrait bytea  NOT NULL,
                        status char(1)  NOT NULL,
                        CONSTRAINT movie_pk PRIMARY KEY (id)
