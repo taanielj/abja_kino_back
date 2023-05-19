@@ -13,21 +13,22 @@ import ttt.valiit.abja_kino_back.infrastructure.exception.UsernameExistsExceptio
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(InvalidCredentialsException.class)
-    protected ResponseEntity<Object> handleInvalidCredentials(
+    protected ResponseEntity<ApiError> handleInvalidCredentials(
             InvalidCredentialsException ex, WebRequest request) {
         ApiError apiError = new ApiError(HttpStatus.UNAUTHORIZED, HttpStatus.UNAUTHORIZED.value(), ex.getMessage());
         return new ResponseEntity<>(apiError, apiError.getStatus());
     }
     @ExceptionHandler(UsernameExistsException.class)
-    protected ResponseEntity<Object> handleUsernameExists(
+    protected ResponseEntity<ApiError> handleUsernameExists(
             UsernameExistsException ex, WebRequest request) {
         ApiError apiError = new ApiError(HttpStatus.CONFLICT, HttpStatus.CONFLICT.value(), ex.getMessage());
         return new ResponseEntity<>(apiError, apiError.getStatus());
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, WebRequest request){
-        ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, HttpStatus.BAD_REQUEST.value(), ex.getMessage());
+    public ResponseEntity<ApiError> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, WebRequest request){
+        String errorMessage = ex.getBindingResult().getFieldErrors().get(0).getDefaultMessage();
+        ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, HttpStatus.BAD_REQUEST.value(), errorMessage);
         return new ResponseEntity<>(apiError, apiError.getStatus());
     }
 

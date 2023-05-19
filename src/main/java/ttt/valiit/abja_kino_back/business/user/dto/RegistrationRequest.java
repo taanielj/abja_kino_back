@@ -22,16 +22,16 @@ import java.io.Serializable;
 @AllArgsConstructor
 @Validated
 public class RegistrationRequest implements Serializable {
-    @Size(max = 255)
+    @Size(min = 1, max = 255)
     @NotNull
     private String username;
     @Size(max = 255)
     @NotNull
-    @Min(value = 8, message = "Parool peab olema vähemalt 8 tähemärki")
+    @Size(min = 8, message = "Parool peab olema vähemalt 8 tähemärki")
     private String password;
     @Size(max = 255)
     @NotNull
-    @Email(message = "Email peab olema korrektne")
+    @Email(message = "Email peab sisaldama @ sümbolit, ning domeeni")
     private String email;
 
 

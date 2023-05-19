@@ -30,6 +30,11 @@ public class UserService {
         if (userRepository.existsBy(registrationRequest.getUsername())) {
             throw new UsernameExistsException("Kasutajanimi on juba kasutusel");
         }
+
+        if (userRepository.existsByEmail(registrationRequest.getEmail())) {
+            throw new UsernameExistsException("Email on juba kasutusel");
+        }
+
         User user = userMapper.toUser(registrationRequest);
         Role defaultRole = roleRepository.findByName("ROLE_CUSTOMER");
         user.setRole(defaultRole);
