@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.validation.annotation.Validated;
 import ttt.valiit.abja_kino_back.domain.user.User;
 
 import java.io.Serializable;
@@ -19,6 +20,7 @@ import java.io.Serializable;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Validated
 public class RegistrationRequest implements Serializable {
     @Size(max = 255)
     @NotNull
