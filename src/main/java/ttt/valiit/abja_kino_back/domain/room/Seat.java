@@ -1,20 +1,17 @@
-package ttt.valiit.abja_kino_back.domain.seance;
+package ttt.valiit.abja_kino_back.domain.room;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
-import ttt.valiit.abja_kino_back.domain.movie.Movie;
 import ttt.valiit.abja_kino_back.domain.room.Room;
-
-import java.time.Instant;
 
 @Getter
 @Setter
 @Entity
-@Table(name = "seance")
-public class Seance {
+@Table(name = "seat")
+public class Seat {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -25,23 +22,14 @@ public class Seance {
     @JoinColumn(name = "room_id", nullable = false)
     private Room room;
 
+    @Size(max = 255)
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "movie_id", nullable = false)
-    private Movie movie;
-
-    @NotNull
-    @Column(name = "start_time", nullable = false)
-    private Instant startTime;
+    @Column(name = "col", nullable = false)
+    private Integer col;
 
     @Size(max = 255)
     @NotNull
-    @Column(name = "language", nullable = false)
-    private String language;
-
-    @Size(max = 255)
-    @NotNull
-    @Column(name = "subtitles", nullable = false)
-    private String subtitles;
+    @Column(name = "\"row\"", nullable = false)
+    private Integer row;
 
 }

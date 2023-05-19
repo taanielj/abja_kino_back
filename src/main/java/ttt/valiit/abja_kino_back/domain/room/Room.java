@@ -1,13 +1,12 @@
-package ttt.valiit.abja_kino_back.domain.seance;
+package ttt.valiit.abja_kino_back.domain.room;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -20,7 +19,7 @@ public class Room {
 
     @Size(max = 255)
     @NotNull
-    @Column(name = "name", nullable = false)
+    @Column(name = "name", nullable = false, unique = true)
     private String name;
 
     @NotNull
@@ -30,5 +29,7 @@ public class Room {
     @NotNull
     @Column(name = "cols", nullable = false)
     private Integer cols;
+    @OneToMany(mappedBy = "room", cascade = CascadeType.ALL, orphanRemoval = true)
+    List<Seat> seats;
 
 }
