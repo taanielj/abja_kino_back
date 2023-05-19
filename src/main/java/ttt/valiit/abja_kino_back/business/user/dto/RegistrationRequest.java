@@ -25,11 +25,11 @@ public class RegistrationRequest implements Serializable {
     private String username;
     @Size(max = 255)
     @NotNull
-    @Min(value = 8, message = "Password must be at least 8 characters long")
+    @Min(value = 8, message = "Parool peab olema vähemalt 8 tähemärki")
     private String password;
     @Size(max = 255)
     @NotNull
-    @Email(message = "Email should be valid")
+    @Email(message = "Email peab olema korrektne")
     private String email;
 
 

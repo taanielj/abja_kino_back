@@ -9,6 +9,7 @@ import ttt.valiit.abja_kino_back.domain.user.UserRepository;
 import ttt.valiit.abja_kino_back.domain.user.roleauthority.Role;
 import ttt.valiit.abja_kino_back.domain.user.roleauthority.RoleRepository;
 import ttt.valiit.abja_kino_back.infrastructure.exception.InvalidCredentialsException;
+import ttt.valiit.abja_kino_back.infrastructure.exception.UsernameExistsException;
 
 import java.util.Optional;
 
@@ -25,11 +26,15 @@ public class UserService {
         this.roleRepository = roleRepository;
     }
 
-    public void register(RegistrationRequest registrationRequest) {
+    public LoginResponse register(RegistrationRequest registrationRequest) {
+        if (userRepository.existsBy(registrationRequest.getUsername())) {
+            throw new UsernameExistsException("Kasutajanimi on juba kasutusel");
+        }
         User user = userMapper.toUser(registrationRequest);
         Role defaultRole = roleRepository.findByName("ROLE_CUSTOMER");
         user.setRole(defaultRole);
         userRepository.save(user);
+        return login(registrationRequest.getUsername(), registrationRequest.getPassword());
     }
 
     public LoginResponse login(String username, String password) {

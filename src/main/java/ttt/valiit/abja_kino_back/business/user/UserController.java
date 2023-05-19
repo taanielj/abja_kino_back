@@ -3,6 +3,7 @@ package ttt.valiit.abja_kino_back.business.user;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 import ttt.valiit.abja_kino_back.business.user.dto.LoginResponse;
 import ttt.valiit.abja_kino_back.business.user.dto.RegistrationRequest;
@@ -19,8 +20,15 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public void registration(@RequestBody RegistrationRequest registrationRequest) {
-        userService.register(registrationRequest);
+    @Operation(summary = "Registreerimine. Tagastab userId ja roleName",
+            description = """
+                    Süsteemis luuakse uus kasutaja.
+                    Kui kasutajanimi on juba olemas vistakse viga errorCode'ga """)
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "OK"),
+            @ApiResponse(responseCode = "401", description = "Kasutajanimi on juba olemas")})
+    public LoginResponse registration(@Valid @RequestBody RegistrationRequest registrationRequest) {
+        return userService.register(registrationRequest);
     }
 
     @GetMapping("/login")
