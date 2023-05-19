@@ -54,8 +54,8 @@ CREATE TABLE seance (
 CREATE TABLE seat (
                       id serial  NOT NULL,
                       room_id int  NOT NULL,
-                      col varchar(255)  NOT NULL,
-                      row varchar(255)  NOT NULL,
+                      col int NOT NULL,
+                      row int NOT NULL,
                       CONSTRAINT seat_pk PRIMARY KEY (id)
 );
 
