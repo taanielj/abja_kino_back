@@ -30,26 +30,30 @@ public class GenreController {
     public List<Genre> getAllGenres() {
         return genreService.getAllGenres();
     }
+
     @PostMapping("/add")
     @Operation(summary = "Lisab uue žanri",
             description = """
                     Süsteemis luuakse uus žanr.
-                    Kui žanr on juba olemas vistakse viga errorCode'ga """)
+                    Kui žanr on juba olemas vistakse viga errorCode'ga""")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK"),
             @ApiResponse(responseCode = "401", description = "Žanr on juba olemas")})
-    public void addGenre(@RequestParam String genreName) { genreService.addGenre(genreName); }
+    public void addGenre(@RequestParam String genreName) {
+        genreService.addGenre(genreName);
+    }
 
 
     @PutMapping ("/{id}")
     @Operation(summary = "Muudab žanri nime.",
             description = """
                     Süsteemis muudetakse žanri nime.
-                    Kui žanri ei ole olemas vistakse viga errorCode'ga """)
+                    Kui žanri ei ole olemas vistakse viga errorCode'ga""")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK"),
             @ApiResponse(responseCode = "401", description = "Žanr on juba olemas")})
-    public void updateGenre(@PathVariable ("id") Integer Id, @RequestParam String genreName) { genreService.updateGenreName(Id, genreName);
+    public void updateGenre(@PathVariable ("id") Integer id, @RequestParam String genreName) {
+        genreService.updateGenreName(id, genreName);
     }
 
     @DeleteMapping("/{id}")

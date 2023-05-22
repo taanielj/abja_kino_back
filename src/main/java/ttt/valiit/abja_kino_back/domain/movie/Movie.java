@@ -18,7 +18,7 @@ public class Movie {
     private Integer id;
 
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "genre_id", nullable = false)
     private Genre genre;
 

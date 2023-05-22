@@ -10,6 +10,7 @@ public class ImageUtil {
     public static String byteArrayToBase64ImageData(byte[] byteArray) {
         return new String(byteArray, StandardCharsets.UTF_8);
     }
+
     private ImageUtil() {
     }
 
