@@ -5,6 +5,7 @@ import ttt.valiit.abja_kino_back.domain.genre.Genre;
 import ttt.valiit.abja_kino_back.domain.genre.GenreRepository;
 import ttt.valiit.abja_kino_back.domain.movie.MovieMapper;
 import ttt.valiit.abja_kino_back.infrastructure.exception.GenreExistsException;
+import ttt.valiit.abja_kino_back.infrastructure.exception.ResourceNotFoundException;
 
 import java.util.List;
 
@@ -24,14 +25,39 @@ public class GenreService {
     }
 
     public void addGenre(String genreName) {
+        validateGenre(genreName);
+
         Genre genre = new Genre();
         genre.setName(genreName);
-        if (genreRepository.existsBy(genreName)) {
-            throw new GenreExistsException("Žanr on juba olemas");
-        }
         genreRepository.save(genre);
     }
 
+    private void validateGenre(String genreName) {
+        if (genreName == null || genreName.isEmpty()) {
+            throw new GenreExistsException("Žanri nimi ei tohi olla tühi");
+        }
+
+        if (genreRepository.existsBy(genreName)) {
+            throw new GenreExistsException("Žanr on juba olemas");
+        }
+    }
 
 
+    public void deleteGenreBy(Integer id) {
+        Genre genre = genreRepository.findById(id).orElseThrow(
+                () -> new ResourceNotFoundException("Žanri ID ei leitud")
+        );
+        genreRepository.delete(genre);
+
+
+    }
+
+    public void updateGenreName(Integer id, String newName) {
+        validateGenre(newName);
+        Genre genre = genreRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Žanri ID ei leitud"));
+        genre.setName(newName);
+        genreRepository.save(genre);
+
+
+    }
 }
