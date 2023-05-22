@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.validation.annotation.Validated;
 import ttt.valiit.abja_kino_back.domain.user.User;
 
 import java.io.Serializable;
@@ -19,17 +20,18 @@ import java.io.Serializable;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Validated
 public class RegistrationRequest implements Serializable {
-    @Size(max = 255)
+    @Size(min = 1, max = 255)
     @NotNull
     private String username;
     @Size(max = 255)
     @NotNull
-    @Min(value = 8, message = "Password must be at least 8 characters long")
+    @Size(min = 8, message = "Parool peab olema vähemalt 8 tähemärki")
     private String password;
     @Size(max = 255)
     @NotNull
-    @Email(message = "Email should be valid")
+    @Email(message = "Email peab sisaldama @ sümbolit, ning domeeni")
     private String email;
 
 

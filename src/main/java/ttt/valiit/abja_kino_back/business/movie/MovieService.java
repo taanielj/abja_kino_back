@@ -36,6 +36,11 @@ public class MovieService {
 
 
     public void addNewMovie(MovieAddRequest request) {
+
+        if(movieRepository.existsByTitle(request.getTitle())) {
+            throw new MovieTitleExistsException("Selle nimega film on juba olemas!");
+        }
+
         Movie movie = movieMapper.toMovie(request);
         Genre genre = genreRepository.findById(request.getGenreId()).get();
         movie.setGenre(genre);
