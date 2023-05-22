@@ -7,6 +7,7 @@ import ttt.valiit.abja_kino_back.domain.movie.Movie;
 import ttt.valiit.abja_kino_back.domain.movie.MovieMapper;
 import ttt.valiit.abja_kino_back.domain.movie.MovieRepository;
 import ttt.valiit.abja_kino_back.infrastructure.Status;
+import ttt.valiit.abja_kino_back.infrastructure.exception.MovieTitleExistsException;
 
 import static ttt.valiit.abja_kino_back.infrastructure.Status.ACTIVE;
 
@@ -30,6 +31,11 @@ public class MovieService {
 
 
     public void addNewMovie(MovieAddRequest request) {
+
+        if(movieRepository.existsByTitle(request.getTitle())) {
+            throw new MovieTitleExistsException("Selle nimega film on juba olemas!");
+        }
+
         Movie movie = movieMapper.toMovie(request);
         Genre genre = genreRepository.findById(request.getGenreId()).get();
         movie.setGenre(genre);

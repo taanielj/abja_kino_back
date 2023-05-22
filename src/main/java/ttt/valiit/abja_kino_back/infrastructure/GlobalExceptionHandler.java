@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import ttt.valiit.abja_kino_back.infrastructure.exception.GenreExistsException;
 import ttt.valiit.abja_kino_back.infrastructure.exception.InvalidCredentialsException;
+import ttt.valiit.abja_kino_back.infrastructure.exception.MovieTitleExistsException;
 import ttt.valiit.abja_kino_back.infrastructure.exception.UsernameExistsException;
 
 @ControllerAdvice
@@ -37,4 +38,16 @@ public class GlobalExceptionHandler {
         ApiError apiError = new ApiError(HttpStatus.CONFLICT, HttpStatus.CONFLICT.value(), ex.getMessage());
         return new ResponseEntity<>(apiError, apiError.getStatus());
     }
+
+    @ExceptionHandler(MovieTitleExistsException.class)
+    protected ResponseEntity<ApiError>handleMovieTitleExists(MovieTitleExistsException ex, WebRequest request) {
+        ApiError apiError =new ApiError(
+                HttpStatus.CONFLICT,
+                HttpStatus.CONFLICT.value(),
+                ex.getMessage()
+        );
+        return new ResponseEntity<>(apiError, apiError.getStatus());
+    }
+
+
 }
