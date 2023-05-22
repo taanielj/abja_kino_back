@@ -8,6 +8,7 @@ import ttt.valiit.abja_kino_back.domain.movie.Movie;
 import ttt.valiit.abja_kino_back.domain.movie.MovieMapper;
 import ttt.valiit.abja_kino_back.domain.movie.MovieRepository;
 import ttt.valiit.abja_kino_back.domain.seance.SeanceRepository;
+import ttt.valiit.abja_kino_back.infrastructure.exception.MovieTitleExistsException;
 
 import java.util.ArrayList;
 import java.util.List;
