@@ -7,7 +7,6 @@ import ttt.valiit.abja_kino_back.domain.movie.Movie;
 import ttt.valiit.abja_kino_back.domain.movie.MovieMapper;
 import ttt.valiit.abja_kino_back.domain.movie.MovieRepository;
 import ttt.valiit.abja_kino_back.infrastructure.Status;
-import ttt.valiit.abja_kino_back.infrastructure.exception.MovieTitleExistsException;
 
 import static ttt.valiit.abja_kino_back.infrastructure.Status.ACTIVE;
 
@@ -16,11 +15,13 @@ public class MovieService {
 
     private final MovieRepository movieRepository;
     private final GenreRepository genreRepository;
+    private final SeanceRepository seanceRepository;
     private final MovieMapper movieMapper;
 
-    public MovieService(MovieRepository movieRepository, GenreRepository genreRepository, MovieMapper movieMapper) {
+    public MovieService(MovieRepository movieRepository, GenreRepository genreRepository, SeanceRepository seanceRepository, MovieMapper movieMapper) {
         this.movieRepository = movieRepository;
         this.genreRepository = genreRepository;
+        this.seanceRepository = seanceRepository;
         this.movieMapper = movieMapper;
     }
 
@@ -41,6 +42,20 @@ public class MovieService {
         movie.setGenre(genre);
         movie.setStatus(ACTIVE.getLetter());
         movieRepository.save(movie);
+
+    }
+
+    public List<MovieAdminSummary> getMovieAdminSummary() {
+        List<Movie> movies = movieRepository.findAll();
+        List<MovieAdminSummary> movieSummaries = new ArrayList<>();
+
+        for (Movie movie: movies) {
+            MovieAdminSummary summary = movieMapper.toAdminSummary(movie);
+            summary.setNumberOfSeances(seanceRepository.countByMovie(movie.getId()));
+            movieSummaries.add(summary);
+        }
+
+        return movieSummaries;
 
     }
 }
