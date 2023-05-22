@@ -10,4 +10,5 @@ public class ApiError {
     private HttpStatus status;
     private Integer errorCode;
     private String message;
+    private String path;
 }
