@@ -1,12 +1,18 @@
 package ttt.valiit.abja_kino_back.business.movie;
 
 import org.springframework.stereotype.Service;
+import ttt.valiit.abja_kino_back.business.movie.dto.MovieAdminSummary;
 import ttt.valiit.abja_kino_back.domain.genre.Genre;
 import ttt.valiit.abja_kino_back.domain.genre.GenreRepository;
 import ttt.valiit.abja_kino_back.domain.movie.Movie;
 import ttt.valiit.abja_kino_back.domain.movie.MovieMapper;
 import ttt.valiit.abja_kino_back.domain.movie.MovieRepository;
-import ttt.valiit.abja_kino_back.infrastructure.Status;
+import ttt.valiit.abja_kino_back.domain.seance.SeanceRepository;
+import ttt.valiit.abja_kino_back.infrastructure.exception.MovieTitleExistsException;
+import ttt.valiit.abja_kino_back.infrastructure.exception.ResourceNotFoundException;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static ttt.valiit.abja_kino_back.infrastructure.Status.ACTIVE;
 
@@ -26,8 +32,13 @@ public class MovieService {
     }
 
 
-    public Movie getMovie(Integer movieId) {
-        return movieRepository.findById(movieId).get();
+    public MovieDto getMovie(Integer movieId) {
+        Movie movie = movieRepository.findById(movieId).orElseThrow(
+                () -> new ResourceNotFoundException("Sellise id-ga filmi ei leitud!")
+        );
+
+        return movieMapper.toMovieDto(movie);
+
     }
 
 
@@ -38,7 +49,10 @@ public class MovieService {
         }
 
         Movie movie = movieMapper.toMovie(request);
-        Genre genre = genreRepository.findById(request.getGenreId()).get();
+        Genre genre = genreRepository.findById(request.getGenreId()).orElseThrow(
+                () -> new ResourceNotFoundException("Sellise id-ga žanri ei leitud!")
+        );
+
         movie.setGenre(genre);
         movie.setStatus(ACTIVE.getLetter());
         movieRepository.save(movie);
@@ -57,5 +71,17 @@ public class MovieService {
 
         return movieSummaries;
 
+    }
+
+    public List<MovieListDto> getAllMovies() {
+        List<Movie> movies = movieRepository.findAll();
+        List<MovieListDto> movieListDtos = new ArrayList<>();
+
+        for (Movie movie: movies) {
+            MovieListDto movieListDto = movieMapper.toMovieListDto(movie);
+            movieListDtos.add(movieListDto);
+        }
+
+        return movieListDtos;
     }
 }

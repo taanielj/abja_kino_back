@@ -47,7 +47,7 @@ public class Movie {
 
     @NotNull
     @Column(name = "poster_portrait", nullable = false)
-    private byte[] posterPortrait;
+    private byte[] posterImage;
 
     @Size(max = 1)
     @NotNull

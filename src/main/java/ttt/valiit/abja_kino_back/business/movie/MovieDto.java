@@ -1,8 +1,5 @@
 package ttt.valiit.abja_kino_back.business.movie;
 
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -16,17 +13,12 @@ import java.io.Serializable;
 @Setter
 @NoArgsConstructor
 public class MovieDto implements Serializable {
-    @Size(max = 255)
-    @NotNull
+    private Integer id;
     private String title;
-    @NotNull
     private Integer runtime;
-    @Size(max = 255)
-    @NotNull
     private String director;
-    @Size(max = 255)
-    @NotNull
-    private String genre;
-    @NotNull
-    private byte[] poster;
+    private String genreName;
+    private String posterImage;
+    private String youtubeLink;
+    private String description;
 }

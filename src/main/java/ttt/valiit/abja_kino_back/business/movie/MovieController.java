@@ -3,7 +3,7 @@ package ttt.valiit.abja_kino_back.business.movie;
 
 import org.springframework.web.bind.annotation.*;
 import ttt.valiit.abja_kino_back.business.movie.dto.MovieAdminSummary;
-import ttt.valiit.abja_kino_back.domain.movie.Movie;
+
 
 import java.util.List;
 
@@ -17,7 +17,7 @@ public class MovieController {
     }
 
     @GetMapping("/{id}")
-    public Movie getMovie(@PathVariable("id") Integer id) {
+    public MovieDto getMovie(@PathVariable("id") Integer id) {
         return movieService.getMovie(id);
     }
 
@@ -29,6 +29,11 @@ public class MovieController {
     @GetMapping("/admin-summary")
     public List<MovieAdminSummary> getMovieAdminSummary() {
         return movieService.getMovieAdminSummary();
+    }
+
+    @GetMapping("/all")
+    public List<MovieListDto> getAllMovies() {
+        return movieService.getAllMovies();
     }
 
 }

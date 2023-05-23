@@ -8,6 +8,8 @@ import ttt.valiit.abja_kino_back.domain.room.RoomMapper;
 import ttt.valiit.abja_kino_back.domain.room.RoomRepository;
 import ttt.valiit.abja_kino_back.domain.room.Seat;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class RoomService {
@@ -46,4 +48,7 @@ public class RoomService {
         roomRepository.deleteById(roomId);
     }
 
+    public List<RoomDto> getAllRooms() {
+        return roomMapper.toRoomDtos(roomRepository.findAll());
+    }
 }
