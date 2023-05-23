@@ -7,6 +7,9 @@ INSERT INTO public.ticket_type (id, name, price) VALUES (DEFAULT, 'tava', 10.00)
 INSERT INTO public.ticket_type (id, name, price) VALUES (DEFAULT, 'soodus', 8.00);
 INSERT INTO public.ticket_type (id, name, price) VALUES (DEFAULT, 'klubipilet', 8.50);
 
+INSERT INTO public.room (id, name, rows, cols) VALUES (DEFAULT, 'MArss', 10, 10);
+INSERT INTO public.room (id, name, rows, cols) VALUES (DEFAULT, 'Jupiter', 5, 5);
+
 INSERT INTO public.role (id, name) VALUES (DEFAULT, 'ROLE_ADMIN');
 INSERT INTO public.role (id, name) VALUES (DEFAULT, 'ROLE_CUSTOMER');
 
