@@ -1,13 +1,18 @@
 package ttt.valiit.abja_kino_back.business.movie;
 
 import org.springframework.stereotype.Service;
+import ttt.valiit.abja_kino_back.business.movie.dto.MovieAdminSummary;
 import ttt.valiit.abja_kino_back.domain.genre.Genre;
 import ttt.valiit.abja_kino_back.domain.genre.GenreRepository;
 import ttt.valiit.abja_kino_back.domain.movie.Movie;
 import ttt.valiit.abja_kino_back.domain.movie.MovieMapper;
 import ttt.valiit.abja_kino_back.domain.movie.MovieRepository;
-import ttt.valiit.abja_kino_back.infrastructure.Status;
+import ttt.valiit.abja_kino_back.domain.seance.SeanceRepository;
 import ttt.valiit.abja_kino_back.infrastructure.exception.MovieTitleExistsException;
+import ttt.valiit.abja_kino_back.infrastructure.exception.ResourceNotFoundException;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static ttt.valiit.abja_kino_back.infrastructure.Status.ACTIVE;
 
@@ -39,15 +44,11 @@ public class MovieService {
 
     public void addNewMovie(MovieAddRequest request) {
 
-        if(movieRepository.existsByTitle(request.getTitle())) {
+        if (movieRepository.existsByTitle(request.getTitle())) {
             throw new MovieTitleExistsException("Selle nimega film on juba olemas!");
         }
 
         Movie movie = movieMapper.toMovie(request);
-        Genre genre = genreRepository.findById(request.getGenreId()).orElseThrow(
-                () -> new ResourceNotFoundException("Sellise id-ga žanri ei leitud!")
-        );
-
 
         Genre genre = genreRepository.findById(request.getGenreId()).orElseThrow(
                 () -> new ResourceNotFoundException("Sellise id-ga žanri ei leitud!")
@@ -58,13 +59,12 @@ public class MovieService {
         movieRepository.save(movie);
     }
 
-    }
 
     public List<MovieAdminSummary> getMovieAdminSummary() {
         List<Movie> movies = movieRepository.findAll();
         List<MovieAdminSummary> movieSummaries = new ArrayList<>();
 
-        for (Movie movie: movies) {
+        for (Movie movie : movies) {
             MovieAdminSummary summary = movieMapper.toAdminSummary(movie);
             summary.setNumberOfSeances(seanceRepository.countByMovie(movie.getId()));
             movieSummaries.add(summary);
@@ -72,20 +72,23 @@ public class MovieService {
 
         return movieSummaries;
 
+
     }
 
     public List<MovieListDto> getAllMovies() {
         List<Movie> movies = movieRepository.findAll();
         List<MovieListDto> movieListDtos = new ArrayList<>();
 
-        for (Movie movie: movies) {
+        for (Movie movie : movies) {
             MovieListDto movieListDto = movieMapper.toMovieListDto(movie);
             movieListDtos.add(movieListDto);
         }
 
         return movieListDtos;
-    public Integer[] getAllMovieIds() {
-        return movieRepository.findAllMovieIds();
+
     }
 
+    public Integer[] getAllMovieIds () {
+        return movieRepository.findAllMovieIds();
+    }
 }

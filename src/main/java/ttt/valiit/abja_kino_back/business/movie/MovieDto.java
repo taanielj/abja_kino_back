@@ -1,16 +1,11 @@
 package ttt.valiit.abja_kino_back.business.movie;
 
-import lombok.Data;
-
-import java.io.Serializable;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Data
-public class MovieDto implements Serializable {
-    private Integer id;
 import java.io.Serializable;
+
 
 /**
  * A DTO for the {@link ttt.valiit.abja_kino_back.domain.movie.Movie} entity
