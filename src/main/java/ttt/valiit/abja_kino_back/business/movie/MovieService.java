@@ -36,22 +36,20 @@ public class MovieService {
         Movie movie = movieRepository.findById(movieId).orElseThrow(
                 () -> new ResourceNotFoundException("Sellise id-ga filmi ei leitud!")
         );
-
         return movieMapper.toMovieDto(movie);
-
     }
 
 
-    public void addNewMovie(MovieAddRequest request) {
+    public void addNewMovie(MovieDto movieDto) {
 
-        if (movieRepository.existsByTitle(request.getTitle())) {
+        if (movieRepository.existsByTitle(movieDto.getTitle())) {
             throw new MovieTitleExistsException("Selle nimega film on juba olemas!");
         }
 
-        Movie movie = movieMapper.toMovie(request);
+        Movie movie = movieMapper.toMovie(movieDto);
 
-        Genre genre = genreRepository.findById(request.getGenreId()).orElseThrow(
-                () -> new ResourceNotFoundException("Sellise id-ga žanri ei leitud!")
+        Genre genre = genreRepository.findById(movieDto.getGenreId()).orElseThrow(
+                () -> new ResourceNotFoundException("Sellise id-ga žanrit ei leitud!")
         );
 
         movie.setGenre(genre);

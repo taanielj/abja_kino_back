@@ -13,4 +13,6 @@ INSERT INTO public.role (id, name) VALUES (DEFAULT, 'ROLE_CUSTOMER');
 INSERT INTO public."user" (id, username, password, role_id, email) VALUES (DEFAULT, 'admin', '123', 1, 'tuuli@abja.com');
 INSERT INTO public."user" (id, username, password, role_id, email) VALUES (DEFAULT, 'tuuli', '123', 2, 'tuuli2@abja.com');
 
-
+INSERT INTO public.room (id, name, rows, cols) VALUES (DEFAULT, 'Maa', 10, 9)
+INSERT INTO public.room (id, name, rows, cols) VALUES (DEFAULT, 'Jupiter', 5, 9)
+INSERT INTO public.room (id, name, rows, cols) VALUES (DEFAULT, 'Pluto', 8, 6)

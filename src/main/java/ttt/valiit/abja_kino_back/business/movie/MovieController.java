@@ -22,14 +22,16 @@ public class MovieController {
     }
 
     @PostMapping("/add")
-    public void addNewMovie(@RequestBody MovieAddRequest request) {
-        movieService.addNewMovie(request);
+    public void addNewMovie(@RequestBody MovieDto movieDto) {
+        movieService.addNewMovie(movieDto);
     }
 
     @GetMapping("/all-ids")
     public Integer[] getAllMovieIds() {
         return movieService.getAllMovieIds();
     }
+
+
 
     @GetMapping("/admin-summary")
     public List<MovieAdminSummary> getMovieAdminSummary() {
