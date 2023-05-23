@@ -20,7 +20,7 @@ public class GenreService {
 
     public List<Genre> getAllGenres() {
 
-        return genreRepository.findAll();
+        return genreRepository.findAllAlphabetic();
     }
 
     public void addGenre(String genreName) {
