@@ -31,7 +31,10 @@ public class MovieController {
         return movieService.getAllMovieIds();
     }
 
-
+    @PutMapping("/update")
+    public void updateMovie(@RequestBody MovieDto movieDto) {
+        movieService.updateMovie(movieDto);
+    }
 
     @GetMapping("/admin-summary")
     public List<MovieAdminSummary> getMovieAdminSummary() {

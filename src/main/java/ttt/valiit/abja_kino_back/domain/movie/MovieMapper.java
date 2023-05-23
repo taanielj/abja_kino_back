@@ -51,5 +51,7 @@ public interface MovieMapper {
 
     List<MovieAdminSummary> toAdminSummaries(List<Movie> movies);
 
+    @Mapping(source = "posterImage", target = "posterImage" , qualifiedByName = "imageStringToByteArray" )
+    Movie partialUpdate(@MappingTarget Movie movie, MovieDto movieDto);
 
 }
