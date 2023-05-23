@@ -47,6 +47,7 @@ CREATE TABLE seance (
                         start_time timestamp  NOT NULL,
                         language varchar(255)  NOT NULL,
                         subtitles varchar(255)  NOT NULL,
+                        status char(1)  NOT NULL,
                         CONSTRAINT seance_pk PRIMARY KEY (id)
 );
 

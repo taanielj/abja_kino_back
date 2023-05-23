@@ -12,6 +12,7 @@ import java.io.Serializable;
  */
 @Data
 public class SeanceAdminSummary implements Serializable {
+    private Integer id;
     @Size(max = 255)
     @NotNull
     private final String roomName;

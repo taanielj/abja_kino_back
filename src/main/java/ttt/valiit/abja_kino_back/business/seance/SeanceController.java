@@ -26,6 +26,21 @@ public class SeanceController {
         seanceService.createSeance(seanceDto);
     }
 
+    @GetMapping("/{id}")
+    public SeanceDto getSeance(@PathVariable("id") Integer id) {
+        return seanceService.getSeance(id);
+    }
+
+    @PutMapping("/{id}")
+    public void updateSeance(@PathVariable("id") Integer id, @RequestBody SeanceDto seanceDto) {
+        seanceService.updateSeance(id, seanceDto);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteSeance(@PathVariable("id") Integer id) {
+        seanceService.deleteSeance(id);
+    }
+
     @GetMapping("/admin-summary")
     public List<SeanceAdminSummary> getSeanceAdminSummary() {
         return seanceService.getSeanceAdminSummary();

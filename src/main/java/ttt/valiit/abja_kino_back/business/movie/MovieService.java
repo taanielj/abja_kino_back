@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static ttt.valiit.abja_kino_back.infrastructure.Status.ACTIVE;
+import static ttt.valiit.abja_kino_back.infrastructure.Status.DELETED;
 
 @Service
 public class MovieService {
@@ -59,7 +60,7 @@ public class MovieService {
 
 
     public List<MovieAdminSummary> getMovieAdminSummary() {
-        List<Movie> movies = movieRepository.findAll();
+        List<Movie> movies = movieRepository.findAllMoviesBy(ACTIVE.getLetter());
         List<MovieAdminSummary> movieSummaries = new ArrayList<>();
 
         for (Movie movie : movies) {
@@ -74,7 +75,7 @@ public class MovieService {
     }
 
     public List<MovieListDto> getAllMovies() {
-        List<Movie> movies = movieRepository.findAll();
+        List<Movie> movies = movieRepository.findAllMoviesBy(ACTIVE.getLetter());
         List<MovieListDto> movieListDtos = new ArrayList<>();
 
         for (Movie movie : movies) {
@@ -87,7 +88,7 @@ public class MovieService {
     }
 
     public Integer[] getAllMovieIds() {
-        return movieRepository.findAllMovieIds();
+        return movieRepository.findAllActiveMovieIds();
     }
 
     public void updateMovie(Integer id, MovieDto movieDto) {
@@ -108,6 +109,16 @@ public class MovieService {
 
         movieRepository.save(movie);
 
+
+    }
+
+    public void deleteMovie(Integer id) {
+        Movie movie = movieRepository.findById(id).orElseThrow(
+                () -> new ResourceNotFoundException("Sellise id'ga filmi ei leitud")
+        );
+
+        movie.setStatus(DELETED.getLetter());
+        movieRepository.save(movie);
 
     }
 }

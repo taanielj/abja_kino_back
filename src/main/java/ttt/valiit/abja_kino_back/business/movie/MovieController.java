@@ -26,14 +26,19 @@ public class MovieController {
         movieService.addNewMovie(movieDto);
     }
 
+    @PutMapping("/{id}")
+    public void updateMovie(@PathVariable("id") Integer id, @RequestBody MovieDto movieDto) {
+        movieService.updateMovie(id, movieDto);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteMovie(@PathVariable("id") Integer id) {
+        movieService.deleteMovie(id);
+    }
+
     @GetMapping("/all-ids")
     public Integer[] getAllMovieIds() {
         return movieService.getAllMovieIds();
-    }
-
-    @PutMapping("/update/{id}")
-    public void updateMovie(@PathVariable("id") Integer id, @RequestBody MovieDto movieDto) {
-        movieService.updateMovie(id, movieDto);
     }
 
     @GetMapping("/admin-summary")

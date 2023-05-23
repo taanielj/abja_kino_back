@@ -33,9 +33,12 @@ public interface SeanceMapper {
     @Mapping(source = "startTime", target = "dateTime", qualifiedByName = "instantToDateTime")
     @Mapping(source = "movie.title", target = "movieTitle")
     @Mapping(source = "room.name", target = "roomName")
+    @Mapping(source = "id", target = "id")
     SeanceAdminSummary toAdminSummary(Seance seance);
 
     List<SeanceAdminSummary> toAdminSummaries(List<Seance> seances);
+
+    void updateSeance(SeanceDto seanceDto, @MappingTarget Seance seance);
 
     @Named("dateTimeToInstant")
     static Instant dateTimeToInstant(String dateTime) {

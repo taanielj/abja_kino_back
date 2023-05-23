@@ -5,7 +5,6 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.time.Instant;
 import java.util.List;
-import java.util.Scanner;
 
 public interface SeanceRepository extends JpaRepository<Seance, Integer> {
     @Query("select s from Seance s where s.startTime > ?1")
@@ -13,6 +12,11 @@ public interface SeanceRepository extends JpaRepository<Seance, Integer> {
 
     @Query("select count(s) from Seance s where s.movie.id = ?1")
     long countByMovie(Integer id);
+
+    @Query("select s from Seance s where s.movie.status = ?1 order by s.startTime")
+    List<Seance> findAllSeancesBy(String status);
+
+
 
 
 

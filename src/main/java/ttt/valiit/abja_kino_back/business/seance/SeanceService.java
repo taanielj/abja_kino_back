@@ -15,6 +15,9 @@ import ttt.valiit.abja_kino_back.infrastructure.exception.ResourceNotFoundExcept
 import java.time.Clock;
 import java.util.List;
 
+import static ttt.valiit.abja_kino_back.infrastructure.Status.ACTIVE;
+import static ttt.valiit.abja_kino_back.infrastructure.Status.DELETED;
+
 
 @Service
 @RequiredArgsConstructor
@@ -25,8 +28,6 @@ public class SeanceService {
     private final RoomRepository roomRepository;
     private final SeanceMapper seanceMapper;
     private final Clock clock;
-
-
 
 
     public int[] findAllFutureSeances() {
@@ -40,23 +41,47 @@ public class SeanceService {
         Seance seance = seanceMapper.toSeance(seanceDto);
 
         Room room = roomRepository.findById(seanceDto.getRoomId()).orElseThrow(
-                () -> new ResourceNotFoundException("Room with id " + seanceDto.getRoomId() + " not found")
+                () -> new ResourceNotFoundException("Selle id-ga ruumi ei leitud")
         );
         seance.setRoom(room);
 
         Movie movie = movieRepository.findById(seanceDto.getMovieId()).orElseThrow(
-                () -> new ResourceNotFoundException("Movie with id " + seanceDto.getMovieId() + " not found")
+                () -> new ResourceNotFoundException("Selle id-ga filmi ei leitud")
         );
 
         seance.setMovie(movie);
-
+        seance.setStatus(ACTIVE.getLetter());
 
         seanceRepository.save(seance);
     }
 
 
     public List<SeanceAdminSummary> getSeanceAdminSummary() {
-        List<Seance> seances = seanceRepository.findAll();
+        List<Seance> seances = seanceRepository.findAllSeancesBy(ACTIVE.getLetter());
         return seanceMapper.toAdminSummaries(seances);
+    }
+
+    public SeanceDto getSeance(Integer id) {
+        Seance seance = seanceRepository.findById(id).orElseThrow(
+                () -> new ResourceNotFoundException("Selle id-ga seanssi ei leitud")
+        );
+        return seanceMapper.toSeanceDto(seance);
+    }
+
+    public void updateSeance(Integer id, SeanceDto seanceDto) {
+        Seance seance = seanceRepository.findById(id).orElseThrow(
+                () -> new ResourceNotFoundException("Selle id-ga seanssi ei leitud")
+        );
+        seanceMapper.updateSeance(seanceDto, seance);
+        seanceRepository.save(seance);
+    }
+
+    public void deleteSeance(Integer id) {
+        Seance seance = seanceRepository.findById(id).orElseThrow(
+                () -> new ResourceNotFoundException("Seance with id " + id + " not found")
+        );
+        seance.setStatus(DELETED.getLetter());
+        seanceRepository.save(seance);
+
     }
 }
