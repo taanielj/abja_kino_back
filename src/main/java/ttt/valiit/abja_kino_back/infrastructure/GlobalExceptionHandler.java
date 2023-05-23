@@ -79,5 +79,15 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(apiError, apiError.getStatus());
     }
 
+    @ExceptionHandler(DataBaseConstraintException.class)
+    protected ResponseEntity<ApiError> handleDataBaseConstraint(DataBaseConstraintException ex, HttpServletRequest request) {
+        ApiError apiError = new ApiError(
+                HttpStatus.BAD_REQUEST,
+                HttpStatus.BAD_REQUEST.value(),
+                ex.getMessage(),
+                request.getRequestURI()
+        );
+        return new ResponseEntity<>(apiError, apiError.getStatus());
+    }
 
 }

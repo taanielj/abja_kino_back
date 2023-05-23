@@ -26,6 +26,11 @@ public class MovieController {
         movieService.addNewMovie(request);
     }
 
+    @GetMapping("/all-ids")
+    public Integer[] getAllMovieIds() {
+        return movieService.getAllMovieIds();
+    }
+
     @GetMapping("/admin-summary")
     public List<MovieAdminSummary> getMovieAdminSummary() {
         return movieService.getMovieAdminSummary();
