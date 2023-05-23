@@ -90,12 +90,12 @@ public class MovieService {
         return movieRepository.findAllMovieIds();
     }
 
-    public void updateMovie(MovieDto movieDto) {
-        Movie movie = movieRepository.findById(movieDto.getId()).orElseThrow(
+    public void updateMovie(Integer id, MovieDto movieDto) {
+        Movie movie = movieRepository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException("Sellise id'ga filmi ei leitud")
         );
 
-        movieMapper.partialUpdate(movie, movieDto);
+        movieMapper.updateMovieFromMovieDto(movieDto, movie);
 
         movie.setGenre(genreRepository.findById(movieDto.getGenreId()).orElseThrow(
                 () -> new ResourceNotFoundException("Sellise id-ga žanrit ei leitud!")

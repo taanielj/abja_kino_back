@@ -31,9 +31,9 @@ public class MovieController {
         return movieService.getAllMovieIds();
     }
 
-    @PutMapping("/update")
-    public void updateMovie(@RequestBody MovieDto movieDto) {
-        movieService.updateMovie(movieDto);
+    @PutMapping("/update/{id}")
+    public void updateMovie(@PathVariable("id") Integer id, @RequestBody MovieDto movieDto) {
+        movieService.updateMovie(id, movieDto);
     }
 
     @GetMapping("/admin-summary")
