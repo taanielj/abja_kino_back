@@ -86,7 +86,7 @@ public class MovieService {
 
     }
 
-    public Integer[] getAllMovieIds () {
+    public Integer[] getAllMovieIds() {
         return movieRepository.findAllMovieIds();
     }
 
@@ -94,6 +94,11 @@ public class MovieService {
         Movie movie = movieRepository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException("Sellise id'ga filmi ei leitud")
         );
+
+        if (movieRepository.existsByTitle(movieDto.getTitle()) && !movie.getTitle().equals(movieDto.getTitle())
+        ) {
+            throw new MovieTitleExistsException("Selle nimega film on juba olemas!");
+        }
 
         movieMapper.updateMovieFromMovieDto(movieDto, movie);
 
