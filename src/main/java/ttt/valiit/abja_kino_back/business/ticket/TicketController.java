@@ -4,12 +4,8 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.web.bind.annotation.*;
-import ttt.valiit.abja_kino_back.domain.ticketType.TicketType;
 
-import java.math.BigDecimal;
 import java.util.List;
-
-import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 
 @RequestMapping("/ticket")
 @RestController

@@ -1,9 +1,11 @@
 package ttt.valiit.abja_kino_back.business.ticket;
 
 import org.springframework.stereotype.Service;
-import ttt.valiit.abja_kino_back.domain.ticketType.TicketType;
-import ttt.valiit.abja_kino_back.domain.ticketType.TicketTypeMapper;
-import ttt.valiit.abja_kino_back.domain.ticketType.TicketTypeRepository;
+import ttt.valiit.abja_kino_back.domain.tickettype.TicketType;
+import ttt.valiit.abja_kino_back.domain.tickettype.TicketTypeMapper;
+import ttt.valiit.abja_kino_back.domain.tickettype.TicketTypeRepository;
+import ttt.valiit.abja_kino_back.infrastructure.exception.DatabaseNameConflictException;
+import ttt.valiit.abja_kino_back.infrastructure.exception.ResourceNotFoundException;
 
 import java.util.List;
 
@@ -18,7 +20,7 @@ public class TicketService {
     }
 
     public List<TicketTypeDto> getAllTicketTypes() {
-        return ticketTypeMapper.toDto(ticketTypeRepository.findAll());
+        return ticketTypeMapper.toDto(ticketTypeRepository.findAllAlphabetic());
     }
 
     void deleteTicketType(int id) {
@@ -26,23 +28,25 @@ public class TicketService {
     }
 
     public void addTicketType(TicketTypeDto dto) {
-        validateTicketTypeName(dto.getName());
+        if (ticketTypeRepository.existsBy(dto.getName())) {
+            throw new DatabaseNameConflictException("Selle nimega piletitüüp on juba olemas");
+        }
         TicketType ticketType = ticketTypeMapper.toEntity(dto);
         ticketTypeRepository.save(ticketType);
     }
 
-    private void validateTicketTypeName(String ticketTypeName) {
-        if(ticketTypeName == null || ticketTypeName.isEmpty()) {
-            throw new RuntimeException("Ticket type name cannot be empty");
-        }
-        if(ticketTypeRepository.existsBy(ticketTypeName)) {
-            throw new RuntimeException("Ticket type already exists");
-        }
-    }
+
 
     public void updateTicketType(Integer id, TicketTypeDto dto) {
-        validateTicketTypeName(dto.getName());
-        TicketType ticketType = ticketTypeMapper.toEntity(dto);
+
+        TicketType ticketType = ticketTypeRepository.findById(id).orElseThrow(
+                () -> new ResourceNotFoundException("Selle ID-ga piletitüüpi ei leitud")
+        );
+
+        if (ticketTypeRepository.existsBy(dto.getName()) && !ticketType.getName().equals(dto.getName())) {
+            throw new DatabaseNameConflictException("Selle nimega film on juba olemas!");
+        }
+
         ticketType.setName(dto.getName());
         ticketType.setPrice(dto.getPrice());
         ticketTypeRepository.save(ticketType);

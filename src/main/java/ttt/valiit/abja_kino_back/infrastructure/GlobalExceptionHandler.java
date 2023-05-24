@@ -6,7 +6,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.context.request.WebRequest;
 import ttt.valiit.abja_kino_back.infrastructure.exception.*;
 
 @ControllerAdvice
@@ -45,19 +44,8 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(apiError, apiError.getStatus());
     }
 
-    @ExceptionHandler(GenreExistsException.class)
-    protected ResponseEntity<ApiError> handleGenreExists(GenreExistsException ex, HttpServletRequest request) {
-        ApiError apiError = new ApiError(
-                HttpStatus.CONFLICT,
-                HttpStatus.CONFLICT.value(),
-                ex.getMessage(),
-                request.getRequestURI()
-        );
-        return new ResponseEntity<>(apiError, apiError.getStatus());
-    }
-
-    @ExceptionHandler(MovieTitleExistsException.class)
-    protected ResponseEntity<ApiError>handleMovieTitleExists(MovieTitleExistsException ex, HttpServletRequest request) {
+    @ExceptionHandler(DatabaseNameConflictException.class)
+    protected ResponseEntity<ApiError>handleDatabaseNameConflict(DatabaseNameConflictException ex, HttpServletRequest request) {
         ApiError apiError =new ApiError(
                 HttpStatus.CONFLICT,
                 HttpStatus.CONFLICT.value(),
@@ -79,8 +67,8 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(apiError, apiError.getStatus());
     }
 
-    @ExceptionHandler(DataBaseConstraintException.class)
-    protected ResponseEntity<ApiError> handleDataBaseConstraint(DataBaseConstraintException ex, HttpServletRequest request) {
+    @ExceptionHandler(DatabaseConstraintExcept.class)
+    protected ResponseEntity<ApiError> handleDataBaseConstraint(DatabaseConstraintExcept ex, HttpServletRequest request) {
         ApiError apiError = new ApiError(
                 HttpStatus.BAD_REQUEST,
                 HttpStatus.BAD_REQUEST.value(),

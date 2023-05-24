@@ -7,10 +7,12 @@ import java.util.List;
 
 public interface MovieRepository extends JpaRepository<Movie, Integer> {
     @Query("select (count(m) > 0) from Movie m where m.title = ?1")
-    boolean existsByTitle(String title);
+    boolean existsBy(String title);
 
+    @Query("select (count(m) > 0) from Movie m where m.title = ?1 and m.status = 'D'")
+    boolean deletedByTitle(String title);
 
-    @Query("select id from Movie m where m.status = 'A' order by m.title")
+    @Query("select id from Movie where status = 'A' order by m.title")
     Integer[] findAllActiveMovieIds();
 
     @Query("select m from Movie m where m.status = ?1 order by m.title")
@@ -22,4 +24,9 @@ public interface MovieRepository extends JpaRepository<Movie, Integer> {
     boolean existsByGenre(Integer id);
 
 
+    @Query("select id from Movie where title = ?1")
+    Integer getIdByTitle(String title);
+
+    @Query("select (count(m) > 0) from Movie m where m.id = ?1 and m.status = 'A'")
+    boolean activeMovieExistsBy(Integer id);
 }

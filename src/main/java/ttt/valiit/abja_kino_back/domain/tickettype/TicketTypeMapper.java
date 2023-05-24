@@ -1,4 +1,4 @@
-package ttt.valiit.abja_kino_back.domain.ticketType;
+package ttt.valiit.abja_kino_back.domain.tickettype;
 
 import org.mapstruct.*;
 import ttt.valiit.abja_kino_back.business.ticket.TicketTypeDto;

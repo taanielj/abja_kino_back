@@ -8,7 +8,8 @@ import ttt.valiit.abja_kino_back.domain.movie.Movie;
 import ttt.valiit.abja_kino_back.domain.movie.MovieMapper;
 import ttt.valiit.abja_kino_back.domain.movie.MovieRepository;
 import ttt.valiit.abja_kino_back.domain.seance.SeanceRepository;
-import ttt.valiit.abja_kino_back.infrastructure.exception.MovieTitleExistsException;
+import ttt.valiit.abja_kino_back.infrastructure.exception.DatabaseConstraintExcept;
+import ttt.valiit.abja_kino_back.infrastructure.exception.DatabaseNameConflictException;
 import ttt.valiit.abja_kino_back.infrastructure.exception.ResourceNotFoundException;
 
 import java.util.ArrayList;
@@ -43,8 +44,13 @@ public class MovieService {
 
     public void addNewMovie(MovieDto movieDto) {
 
-        if (movieRepository.existsByTitle(movieDto.getTitle())) {
-            throw new MovieTitleExistsException("Selle nimega film on juba olemas!");
+        if (movieRepository.deletedByTitle(movieDto.getTitle())) {
+            reactivateMovie(movieDto);
+            return;
+        }
+
+        if (movieRepository.existsBy(movieDto.getTitle())) {
+            throw new DatabaseNameConflictException("Selle nimega film on juba olemas!");
         }
 
         Movie movie = movieMapper.toMovie(movieDto);
@@ -55,6 +61,14 @@ public class MovieService {
 
         movie.setGenre(genre);
         movie.setStatus(ACTIVE.getLetter());
+        movieRepository.save(movie);
+    }
+
+    private void reactivateMovie(MovieDto movieDto) {
+        Integer movieId = movieRepository.getIdByTitle(movieDto.getTitle());
+        Movie movie = movieMapper.toMovie(movieDto);
+        movie.setStatus(ACTIVE.getLetter());
+        movie.setId(movieId);
         movieRepository.save(movie);
     }
 
@@ -96,9 +110,8 @@ public class MovieService {
                 () -> new ResourceNotFoundException("Sellise id'ga filmi ei leitud")
         );
 
-        if (movieRepository.existsByTitle(movieDto.getTitle()) && !movie.getTitle().equals(movieDto.getTitle())
-        ) {
-            throw new MovieTitleExistsException("Selle nimega film on juba olemas!");
+        if (movieRepository.existsBy(movieDto.getTitle()) && !movie.getTitle().equals(movieDto.getTitle())) {
+            throw new DatabaseNameConflictException("Selle nimega film on juba olemas!");
         }
 
         movieMapper.updateMovieFromMovieDto(movieDto, movie);
@@ -116,6 +129,10 @@ public class MovieService {
         Movie movie = movieRepository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException("Sellise id'ga filmi ei leitud")
         );
+
+        if (seanceRepository.countByMovieAndStatus(id, ACTIVE.getLetter())) {
+            throw new DatabaseConstraintExcept("Sellel filmil on aktiivseid seansse!");
+        }
 
         movie.setStatus(DELETED.getLetter());
         movieRepository.save(movie);

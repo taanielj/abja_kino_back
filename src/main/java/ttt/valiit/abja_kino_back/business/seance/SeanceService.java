@@ -77,9 +77,12 @@ public class SeanceService {
     }
 
     public void deleteSeance(Integer id) {
+
         Seance seance = seanceRepository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException("Seance with id " + id + " not found")
         );
+
+
         seance.setStatus(DELETED.getLetter());
         seanceRepository.save(seance);
 

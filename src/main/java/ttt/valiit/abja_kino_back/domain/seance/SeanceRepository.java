@@ -13,14 +13,10 @@ public interface SeanceRepository extends JpaRepository<Seance, Integer> {
     @Query("select count(s) from Seance s where s.movie.id = ?1")
     long countByMovie(Integer id);
 
-    @Query("select s from Seance s where s.movie.status = ?1 order by s.startTime")
+    @Query("select s from Seance s where s.status = ?1 order by s.startTime")
     List<Seance> findAllSeancesBy(String status);
 
 
-
-
-
-
-
-
+    @Query("select (count(s)>0) from Seance s where s.movie.id = ?1 and s.status = ?2")
+    boolean countByMovieAndStatus(Integer id, String letter);
 }
