@@ -3,6 +3,7 @@ package ttt.valiit.abja_kino_back.business.seance;
 import org.springframework.web.bind.annotation.*;
 import ttt.valiit.abja_kino_back.business.seance.dto.SeanceAdminSummary;
 import ttt.valiit.abja_kino_back.business.seance.dto.SeanceDto;
+import ttt.valiit.abja_kino_back.business.seance.dto.SeanceScheduleDto;
 
 import java.util.List;
 
@@ -16,10 +17,11 @@ public class SeanceController {
         this.seanceService = seanceService;
     }
 
-    @GetMapping("/all-future")
-    public int[] getAllSeanceIds() {
+    @GetMapping("/all-future-id")
+    public int[] getAllFutureSeanceIds() {
         return seanceService.findAllFutureSeances();
     }
+
 
     @PostMapping
     public void createSeance(@RequestBody SeanceDto seanceDto) {
@@ -27,7 +29,7 @@ public class SeanceController {
     }
 
     @GetMapping("/{id}")
-    public SeanceDto getSeance(@PathVariable("id") Integer id) {
+    public SeanceScheduleDto getSeance(@PathVariable("id") Integer id) {
         return seanceService.getSeance(id);
     }
 

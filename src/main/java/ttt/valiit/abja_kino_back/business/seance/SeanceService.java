@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ttt.valiit.abja_kino_back.business.seance.dto.SeanceAdminSummary;
 import ttt.valiit.abja_kino_back.business.seance.dto.SeanceDto;
+import ttt.valiit.abja_kino_back.business.seance.dto.SeanceScheduleDto;
 import ttt.valiit.abja_kino_back.domain.movie.Movie;
 import ttt.valiit.abja_kino_back.domain.movie.MovieRepository;
 import ttt.valiit.abja_kino_back.domain.room.Room;
@@ -61,11 +62,11 @@ public class SeanceService {
         return seanceMapper.toAdminSummaries(seances);
     }
 
-    public SeanceDto getSeance(Integer id) {
+    public SeanceScheduleDto getSeance(Integer id) {
         Seance seance = seanceRepository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException("Selle id-ga seanssi ei leitud")
         );
-        return seanceMapper.toSeanceDto(seance);
+        return seanceMapper.toScheduleDto(seance);
     }
 
     public void updateSeance(Integer id, SeanceDto seanceDto) {
@@ -87,4 +88,5 @@ public class SeanceService {
         seanceRepository.save(seance);
 
     }
+
 }

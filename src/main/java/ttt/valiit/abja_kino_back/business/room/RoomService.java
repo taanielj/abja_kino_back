@@ -75,4 +75,9 @@ public class RoomService {
         existingRoom.setCols(roomDto.getCols());
         roomRepository.save(existingRoom);
     }
+
+    public RoomDto getRoom(Integer id) {
+        Room room = roomRepository.findById(id).orElseThrow(() -> new RuntimeException("Room not found"));
+        return roomMapper.toRoomDto(room);
+    }
 }
