@@ -12,7 +12,7 @@ public interface MovieRepository extends JpaRepository<Movie, Integer> {
     @Query("select (count(m) > 0) from Movie m where m.title = ?1 and m.status = 'D'")
     boolean deletedByTitle(String title);
 
-    @Query("select id from Movie where status = 'A' order by m.title")
+    @Query("select id from Movie where status = 'A' order by title")
     Integer[] findAllActiveMovieIds();
 
     @Query("select m from Movie m where m.status = ?1 order by m.title")
