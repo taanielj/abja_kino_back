@@ -17,6 +17,7 @@ public class RoomService {
     private final RoomRepository roomRepository;
     private final RoomMapper roomMapper;
 
+
     @Transactional
     public void createRoom(RoomDto roomDto) {
         Room room = roomMapper.toRoom(roomDto);
@@ -50,5 +51,28 @@ public class RoomService {
 
     public List<RoomDto> getAllRooms() {
         return roomMapper.toRoomDtos(roomRepository.findAll());
+    }
+
+    public void addRoom(RoomDto dto) {
+        validateRoom(dto.getName());
+        Room room = roomMapper.toRoom(dto);
+        roomRepository.save(room);
+    }
+
+    private void validateRoom(String roomName) {
+        if(roomName == null || roomName.isEmpty()) {
+            throw new RuntimeException("Room name cannot be empty");
+        }
+        if(roomRepository.existsBy(roomName)) {
+            throw new RuntimeException("Room already exists");
+        }
+    }
+
+    public void updateRoom(Integer id, RoomDto roomDto) {
+        Room existingRoom = roomRepository.findById(id).orElseThrow(() -> new RuntimeException("Room not found"));
+        existingRoom.setName(roomDto.getName());
+        existingRoom.setRows(roomDto.getRows());
+        existingRoom.setCols(roomDto.getCols());
+        roomRepository.save(existingRoom);
     }
 }

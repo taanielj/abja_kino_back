@@ -1,11 +1,15 @@
 package ttt.valiit.abja_kino_back.business.ticket;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import org.springframework.web.bind.annotation.*;
 import ttt.valiit.abja_kino_back.domain.ticketType.TicketType;
 
+import java.math.BigDecimal;
 import java.util.List;
+
+import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 
 @RequestMapping("/ticket")
 @RestController
@@ -17,8 +21,34 @@ public class TicketController {
     public TicketController(TicketService ticketService) {this.ticketService = ticketService;
     }
     @GetMapping ("/types")
-    public List<TicketType> getAllTicketTypes() {
+    public List<TicketTypeDto> getAllTicketTypes() {
         return ticketService.getAllTicketTypes();
     }
 
+    @PostMapping("/add")
+    @Operation(summary = "Lisab uue piletitüübi",
+            description = """
+                    Süsteemis luuakse uus piletitüüp.
+                    Kui piletitüüp on juba olemas vistakse viga errorCode'ga""")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "OK"),
+            @ApiResponse(responseCode = "401", description = "Piletitüüp on juba olemas")})
+    public void addTicketType(@RequestBody TicketTypeDto ticketTypeDto) {
+        ticketService.addTicketType(ticketTypeDto);
+    }
+    @PutMapping ("/{id}")
+    @Operation(summary = "Muudab piletitüübi nime.",
+            description = """
+                    Süsteemis muudetakse piletitüübi nime.
+                    Kui piletitüüpi ei ole olemas vistakse viga errorCode'ga""")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "OK"),
+            @ApiResponse(responseCode = "401", description = "Piletitüüp on juba olemas")})
+    public void updateTicketType(@PathVariable ("id") Integer id,@RequestBody TicketTypeDto ticketTypeDto) {
+        ticketService.updateTicketType(id, ticketTypeDto);
+    }
+    @DeleteMapping ("/types/{id}")
+    public void deleteTicketType(@PathVariable Integer id) {
+        ticketService.deleteTicketType(id);
+    }
 }

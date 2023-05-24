@@ -25,7 +25,6 @@ public class GenreService {
 
     public void addGenre(String genreName) {
         validateGenre(genreName);
-
         Genre genre = new Genre();
         genre.setName(genreName);
         genreRepository.save(genre);
