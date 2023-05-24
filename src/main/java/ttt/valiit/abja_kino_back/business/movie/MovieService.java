@@ -8,6 +8,7 @@ import ttt.valiit.abja_kino_back.domain.movie.Movie;
 import ttt.valiit.abja_kino_back.domain.movie.MovieMapper;
 import ttt.valiit.abja_kino_back.domain.movie.MovieRepository;
 import ttt.valiit.abja_kino_back.domain.seance.SeanceRepository;
+import ttt.valiit.abja_kino_back.infrastructure.exception.MovieTitleExistsException;
 import ttt.valiit.abja_kino_back.infrastructure.exception.DatabaseConstraintExcept;
 import ttt.valiit.abja_kino_back.infrastructure.exception.DatabaseNameConflictException;
 import ttt.valiit.abja_kino_back.infrastructure.exception.ResourceNotFoundException;
