@@ -63,4 +63,11 @@ public class GenreService {
 
 
     }
+
+    public String getGenreName(Integer id) {
+        Genre genre = genreRepository.findById(id).orElseThrow(
+                () -> new ResourceNotFoundException("Žanri ID ei leitud")
+        );
+        return genre.getName();
+    }
 }

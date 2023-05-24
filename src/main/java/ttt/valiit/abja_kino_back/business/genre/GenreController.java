@@ -43,6 +43,16 @@ public class GenreController {
         genreService.addGenre(genreName);
     }
 
+    @GetMapping ("/{id}")
+    @Operation(summary = "Tagastab žanri nime id järgi",
+            description = """
+                    Kui žanri ei ole olemas vastatakse  errorCode'ga""")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "OK"),
+            @ApiResponse(responseCode = "401", description = "Žanr on juba olemas")})
+    public String getGenre(@PathVariable ("id") Integer id) {
+        return genreService.getGenreName(id);
+    }
 
     @PutMapping ("/{id}")
     @Operation(summary = "Muudab žanri nime.",
