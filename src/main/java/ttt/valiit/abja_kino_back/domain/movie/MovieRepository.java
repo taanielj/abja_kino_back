@@ -10,7 +10,7 @@ public interface MovieRepository extends JpaRepository<Movie, Integer> {
     boolean existsByTitle(String title);
 
 
-    @Query("select id from Movie m where m.status = 'ACTIVE' order by m.title")
+    @Query("select id from Movie m where m.status = 'A' order by m.title")
     Integer[] findAllActiveMovieIds();
 
     @Query("select m from Movie m where m.status = ?1 order by m.title")
