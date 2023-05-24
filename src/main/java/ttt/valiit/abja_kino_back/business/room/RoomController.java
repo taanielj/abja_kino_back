@@ -52,4 +52,8 @@ public class RoomController {
     public void deleteRoom(@PathVariable Integer id) {
         roomService.deleteRoom(id);
     }
+    @GetMapping("/{id}")
+    public RoomDto getRoom(@PathVariable Integer id) {
+        return roomService.getRoom(id);
+    }
 }
