@@ -33,6 +33,17 @@ public class RoomController {
     public void addRoom(@RequestBody RoomDto roomDto) {
         roomService.addRoom(roomDto);
     }
+    @PutMapping("/{id}")
+    @Operation(summary = "Muudab saali nime.",
+            description = """
+                    Süsteemis muudetakse saali nime.
+                    Kui saali ei ole olemas vistakse viga errorCode'ga""")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "OK"),
+            @ApiResponse(responseCode = "401", description = "Saal on juba olemas")})
+    public void updateRoom(@PathVariable Integer id,@RequestBody RoomDto roomDto) {
+        roomService.updateRoom(id, roomDto);
+    }
     @GetMapping("/all")
     public List<RoomDto> getAllRooms() {
         return roomService.getAllRooms();

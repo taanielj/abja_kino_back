@@ -67,4 +67,12 @@ public class RoomService {
             throw new RuntimeException("Room already exists");
         }
     }
+
+    public void updateRoom(Integer id, RoomDto roomDto) {
+        Room existingRoom = roomRepository.findById(id).orElseThrow(() -> new RuntimeException("Room not found"));
+        existingRoom.setName(roomDto.getName());
+        existingRoom.setRows(roomDto.getRows());
+        existingRoom.setCols(roomDto.getCols());
+        roomRepository.save(existingRoom);
+    }
 }
