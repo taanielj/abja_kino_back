@@ -1,4 +1,4 @@
-package ttt.valiit.abja_kino_back.domain.movie;
+package ttt.valiit.abja_kino_back.business.movie;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

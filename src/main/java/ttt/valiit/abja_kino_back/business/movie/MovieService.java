@@ -2,12 +2,9 @@ package ttt.valiit.abja_kino_back.business.movie;
 
 import org.springframework.stereotype.Service;
 import ttt.valiit.abja_kino_back.business.movie.dto.MovieAdminSummary;
-import ttt.valiit.abja_kino_back.domain.genre.Genre;
-import ttt.valiit.abja_kino_back.domain.genre.GenreRepository;
-import ttt.valiit.abja_kino_back.domain.movie.Movie;
-import ttt.valiit.abja_kino_back.domain.movie.MovieMapper;
-import ttt.valiit.abja_kino_back.domain.movie.MovieRepository;
-import ttt.valiit.abja_kino_back.domain.seance.SeanceRepository;
+import ttt.valiit.abja_kino_back.business.genre.Genre;
+import ttt.valiit.abja_kino_back.business.genre.GenreRepository;
+import ttt.valiit.abja_kino_back.business.seance.SeanceRepository;
 import ttt.valiit.abja_kino_back.infrastructure.exception.DatabaseConstraintExcept;
 import ttt.valiit.abja_kino_back.infrastructure.exception.DatabaseNameConflictException;
 import ttt.valiit.abja_kino_back.infrastructure.exception.ResourceNotFoundException;

@@ -3,11 +3,8 @@ package ttt.valiit.abja_kino_back.business.user;
 import org.springframework.stereotype.Service;
 import ttt.valiit.abja_kino_back.business.user.dto.LoginResponse;
 import ttt.valiit.abja_kino_back.business.user.dto.RegistrationRequest;
-import ttt.valiit.abja_kino_back.domain.user.User;
-import ttt.valiit.abja_kino_back.domain.user.UserMapper;
-import ttt.valiit.abja_kino_back.domain.user.UserRepository;
-import ttt.valiit.abja_kino_back.domain.user.roleauthority.Role;
-import ttt.valiit.abja_kino_back.domain.user.roleauthority.RoleRepository;
+import ttt.valiit.abja_kino_back.business.user.roleauthority.Role;
+import ttt.valiit.abja_kino_back.business.user.roleauthority.RoleRepository;
 import ttt.valiit.abja_kino_back.infrastructure.exception.InvalidCredentialsException;
 import ttt.valiit.abja_kino_back.infrastructure.exception.UsernameExistsException;
 

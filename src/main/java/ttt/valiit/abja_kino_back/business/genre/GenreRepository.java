@@ -1,4 +1,4 @@
-package ttt.valiit.abja_kino_back.domain.genre;
+package ttt.valiit.abja_kino_back.business.genre;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;

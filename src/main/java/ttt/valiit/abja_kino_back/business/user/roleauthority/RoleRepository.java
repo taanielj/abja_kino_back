@@ -1,4 +1,4 @@
-package ttt.valiit.abja_kino_back.domain.user.roleauthority;
+package ttt.valiit.abja_kino_back.business.user.roleauthority;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

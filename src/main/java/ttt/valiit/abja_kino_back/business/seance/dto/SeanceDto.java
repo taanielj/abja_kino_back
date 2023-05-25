@@ -6,11 +6,12 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import ttt.valiit.abja_kino_back.business.seance.Seance;
 
 import java.io.Serializable;
 
 /**
- * A DTO for the {@link ttt.valiit.abja_kino_back.domain.seance.Seance} entity
+ * A DTO for the {@link Seance} entity
  */
 @Getter
 @Setter

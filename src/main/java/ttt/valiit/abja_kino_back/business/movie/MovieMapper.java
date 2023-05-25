@@ -1,8 +1,6 @@
-package ttt.valiit.abja_kino_back.domain.movie;
+package ttt.valiit.abja_kino_back.business.movie;
 
 import org.mapstruct.*;
-import ttt.valiit.abja_kino_back.business.movie.MovieDto;
-import ttt.valiit.abja_kino_back.business.movie.MovieListDto;
 import ttt.valiit.abja_kino_back.business.movie.dto.MovieAdminSummary;
 import ttt.valiit.abja_kino_back.util.ImageUtil;
 

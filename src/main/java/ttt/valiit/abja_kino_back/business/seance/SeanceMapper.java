@@ -4,7 +4,6 @@ import org.mapstruct.*;
 import ttt.valiit.abja_kino_back.business.seance.dto.SeanceAdminSummary;
 import ttt.valiit.abja_kino_back.business.seance.dto.SeanceDto;
 import ttt.valiit.abja_kino_back.business.seance.dto.SeanceScheduleDto;
-import ttt.valiit.abja_kino_back.domain.seance.Seance;
 import ttt.valiit.abja_kino_back.util.ImageUtil;
 
 import java.time.*;

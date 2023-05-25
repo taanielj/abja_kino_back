@@ -1,4 +1,4 @@
-package ttt.valiit.abja_kino_back.domain.room;
+package ttt.valiit.abja_kino_back.business.room;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;

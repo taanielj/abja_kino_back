@@ -3,7 +3,7 @@ package ttt.valiit.abja_kino_back.business.movie.dto;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
-import ttt.valiit.abja_kino_back.domain.movie.Movie;
+import ttt.valiit.abja_kino_back.business.movie.Movie;
 
 import java.io.Serializable;
 

@@ -8,7 +8,7 @@ import java.io.Serializable;
 
 
 /**
- * A DTO for the {@link ttt.valiit.abja_kino_back.domain.movie.Movie} entity
+ * A DTO for the {@link Movie} entity
  */
 @Getter
 @Setter

@@ -1,7 +1,6 @@
 package ttt.valiit.abja_kino_back.business.user.dto;
 
 import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -9,7 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.validation.annotation.Validated;
-import ttt.valiit.abja_kino_back.domain.user.User;
+import ttt.valiit.abja_kino_back.business.user.User;
 
 import java.io.Serializable;
 

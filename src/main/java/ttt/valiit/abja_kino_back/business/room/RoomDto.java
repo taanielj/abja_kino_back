@@ -7,7 +7,7 @@ import lombok.Data;
 import java.io.Serializable;
 
 /**
- * A DTO for the {@link ttt.valiit.abja_kino_back.domain.room.Room} entity
+ * A DTO for the {@link Room} entity
  */
 @Data
 public class RoomDto implements Serializable {

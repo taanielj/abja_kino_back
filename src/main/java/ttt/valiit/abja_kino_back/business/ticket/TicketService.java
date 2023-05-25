@@ -1,9 +1,6 @@
 package ttt.valiit.abja_kino_back.business.ticket;
 
 import org.springframework.stereotype.Service;
-import ttt.valiit.abja_kino_back.domain.tickettype.TicketType;
-import ttt.valiit.abja_kino_back.domain.tickettype.TicketTypeMapper;
-import ttt.valiit.abja_kino_back.domain.tickettype.TicketTypeRepository;
 import ttt.valiit.abja_kino_back.infrastructure.exception.DatabaseNameConflictException;
 import ttt.valiit.abja_kino_back.infrastructure.exception.ResourceNotFoundException;
 

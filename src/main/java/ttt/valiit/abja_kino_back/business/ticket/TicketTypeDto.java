@@ -12,7 +12,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 
 /**
- * A DTO for the {@link ttt.valiit.abja_kino_back.domain.tickettype.TicketType} entity
+ * A DTO for the {@link TicketType} entity
  */
 @Getter
 @Setter

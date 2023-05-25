@@ -1,7 +1,6 @@
-package ttt.valiit.abja_kino_back.domain.room;
+package ttt.valiit.abja_kino_back.business.room;
 
 import org.mapstruct.*;
-import ttt.valiit.abja_kino_back.business.room.RoomDto;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package ttt.valiit.abja_kino_back.domain.user;
+package ttt.valiit.abja_kino_back.business.user;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

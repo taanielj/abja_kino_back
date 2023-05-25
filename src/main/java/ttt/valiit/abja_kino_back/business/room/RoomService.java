@@ -3,10 +3,6 @@ package ttt.valiit.abja_kino_back.business.room;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import ttt.valiit.abja_kino_back.domain.room.Room;
-import ttt.valiit.abja_kino_back.domain.room.RoomMapper;
-import ttt.valiit.abja_kino_back.domain.room.RoomRepository;
-import ttt.valiit.abja_kino_back.domain.room.Seat;
 
 import java.util.List;
 

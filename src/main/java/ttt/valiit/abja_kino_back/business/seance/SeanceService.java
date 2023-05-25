@@ -5,12 +5,10 @@ import org.springframework.stereotype.Service;
 import ttt.valiit.abja_kino_back.business.seance.dto.SeanceAdminSummary;
 import ttt.valiit.abja_kino_back.business.seance.dto.SeanceDto;
 import ttt.valiit.abja_kino_back.business.seance.dto.SeanceScheduleDto;
-import ttt.valiit.abja_kino_back.domain.movie.Movie;
-import ttt.valiit.abja_kino_back.domain.movie.MovieRepository;
-import ttt.valiit.abja_kino_back.domain.room.Room;
-import ttt.valiit.abja_kino_back.domain.room.RoomRepository;
-import ttt.valiit.abja_kino_back.domain.seance.Seance;
-import ttt.valiit.abja_kino_back.domain.seance.SeanceRepository;
+import ttt.valiit.abja_kino_back.business.movie.Movie;
+import ttt.valiit.abja_kino_back.business.movie.MovieRepository;
+import ttt.valiit.abja_kino_back.business.room.Room;
+import ttt.valiit.abja_kino_back.business.room.RoomRepository;
 import ttt.valiit.abja_kino_back.infrastructure.exception.ResourceNotFoundException;
 
 import java.time.Clock;

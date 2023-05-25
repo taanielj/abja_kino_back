@@ -3,12 +3,12 @@ package ttt.valiit.abja_kino_back.business.seance.dto;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
+import ttt.valiit.abja_kino_back.business.seance.Seance;
 
 import java.io.Serializable;
-import java.time.Instant;
 
 /**
- * A DTO for the {@link ttt.valiit.abja_kino_back.domain.seance.Seance} entity
+ * A DTO for the {@link Seance} entity
  */
 @Data
 public class SeanceScheduleDto implements Serializable {

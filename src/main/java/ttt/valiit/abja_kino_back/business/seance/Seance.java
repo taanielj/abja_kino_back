@@ -1,12 +1,12 @@
-package ttt.valiit.abja_kino_back.domain.seance;
+package ttt.valiit.abja_kino_back.business.seance;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
-import ttt.valiit.abja_kino_back.domain.movie.Movie;
-import ttt.valiit.abja_kino_back.domain.room.Room;
+import ttt.valiit.abja_kino_back.business.movie.Movie;
+import ttt.valiit.abja_kino_back.business.room.Room;
 
 import java.time.Instant;
 
