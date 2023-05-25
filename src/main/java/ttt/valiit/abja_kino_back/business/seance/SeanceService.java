@@ -36,6 +36,13 @@ public class SeanceService {
                 .toArray();
     }
 
+    public int[] findMovieAllFutureSeances(Integer movieId) {
+        return seanceRepository.findByStartTimeGreaterThanAndMovieId(clock.instant(), movieId)
+                .stream()
+                .mapToInt(Seance::getId)
+                .toArray();
+    }
+
     public void createSeance(SeanceDto seanceDto) {
         Seance seance = seanceMapper.toSeance(seanceDto);
 
@@ -86,5 +93,6 @@ public class SeanceService {
         seanceRepository.save(seance);
 
     }
+
 
 }

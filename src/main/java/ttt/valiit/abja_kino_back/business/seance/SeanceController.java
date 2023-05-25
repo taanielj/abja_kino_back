@@ -22,6 +22,10 @@ public class SeanceController {
         return seanceService.findAllFutureSeances();
     }
 
+    @GetMapping("/all-future/{movie-id}")
+    public int[] getAllMovieFutureSeanceIds(@PathVariable("movie-id") Integer movieId) {
+        return seanceService.findMovieAllFutureSeances(movieId);
+    }
 
     @PostMapping
     public void createSeance(@RequestBody SeanceDto seanceDto) {

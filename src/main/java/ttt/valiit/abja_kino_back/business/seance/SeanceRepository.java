@@ -4,10 +4,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.time.Instant;
+import java.util.Collection;
 import java.util.List;
 
 public interface SeanceRepository extends JpaRepository<Seance, Integer> {
-    @Query("select s from Seance s where s.startTime > ?1")
+    @Query("select s from Seance s where s.startTime > ?1 order by s.movie.runtime")
     List<Seance> findByStartTimeGreaterThan(Instant startTime);
 
     @Query("select count(s) from Seance s where s.movie.id = ?1")
@@ -19,4 +20,10 @@ public interface SeanceRepository extends JpaRepository<Seance, Integer> {
 
     @Query("select (count(s)>0) from Seance s where s.movie.id = ?1 and s.status = ?2")
     boolean countByMovieAndStatus(Integer id, String letter);
+
+    @Query("select s from Seance s where s.startTime >= ?1 and s.movie.id = ?2 order by s.movie.runtime")
+    List<Seance> findByStartTimeGreaterThanAndMovieId(Instant startTime, Integer id);
+
+
+
 }
