@@ -111,7 +111,7 @@ public class MovieService {
             throw new DatabaseNameConflictException("Selle nimega film on juba olemas!");
         }
 
-        movieMapper.updateMovieFromMovieDto(movieDto, movie);
+        movieMapper.updateMovieFromDto(movieDto, movie);
 
         movie.setGenre(genreRepository.findById(movieDto.getGenreId()).orElseThrow(
                 () -> new ResourceNotFoundException("Sellise id-ga žanrit ei leitud!")

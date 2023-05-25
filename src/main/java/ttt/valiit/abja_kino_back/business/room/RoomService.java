@@ -3,6 +3,9 @@ package ttt.valiit.abja_kino_back.business.room;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import ttt.valiit.abja_kino_back.infrastructure.exception.DatabaseConstraintExcept;
+import ttt.valiit.abja_kino_back.infrastructure.exception.DatabaseNameConflictException;
+import ttt.valiit.abja_kino_back.infrastructure.exception.ResourceNotFoundException;
 
 import java.util.List;
 
@@ -17,7 +20,7 @@ public class RoomService {
     @Transactional
     public void addRoom(RoomDto roomDto) {
         Room room = roomMapper.toRoom(roomDto);
-
+        validateRoomName(room.getName());
         roomRepository.save(room);
         addSeats(room);
 
@@ -49,17 +52,19 @@ public class RoomService {
 
 
 
-    private void validateRoom(String roomName) {
+    private void validateRoomName(String roomName) {
         if(roomName == null || roomName.isEmpty()) {
-            throw new RuntimeException("Room name cannot be empty");
+            throw new DatabaseConstraintExcept("Ruumi nimi ei tohi olla tühi");
         }
         if(roomRepository.existsBy(roomName)) {
-            throw new RuntimeException("Room already exists");
+            throw new DatabaseNameConflictException("Selle nimega saal on juba olemas");
         }
     }
 
     public void updateRoom(Integer id, RoomDto roomDto) {
-        Room existingRoom = roomRepository.findById(id).orElseThrow(() -> new RuntimeException("Room not found"));
+        Room existingRoom = roomRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Room not found"));
+        validateRoomName(roomDto.getName());
+
         existingRoom.setName(roomDto.getName());
         existingRoom.setRows(roomDto.getRows());
         existingRoom.setCols(roomDto.getCols());

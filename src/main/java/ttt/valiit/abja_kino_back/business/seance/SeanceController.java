@@ -1,8 +1,8 @@
 package ttt.valiit.abja_kino_back.business.seance;
 
 import org.springframework.web.bind.annotation.*;
+import ttt.valiit.abja_kino_back.business.seance.dto.SeanceAdminDto;
 import ttt.valiit.abja_kino_back.business.seance.dto.SeanceAdminSummary;
-import ttt.valiit.abja_kino_back.business.seance.dto.SeanceDto;
 import ttt.valiit.abja_kino_back.business.seance.dto.SeanceScheduleDto;
 
 import java.util.List;
@@ -28,18 +28,23 @@ public class SeanceController {
     }
 
     @PostMapping
-    public void createSeance(@RequestBody SeanceDto seanceDto) {
-        seanceService.createSeance(seanceDto);
+    public void createSeance(@RequestBody SeanceAdminDto seanceAdminDto) {
+        seanceService.createSeance(seanceAdminDto);
     }
 
     @GetMapping("/{id}")
-    public SeanceScheduleDto getSeance(@PathVariable("id") Integer id) {
-        return seanceService.getSeance(id);
+    public SeanceScheduleDto getSeanceScheduleDto(@PathVariable("id") Integer id) {
+        return seanceService.getSeanceScheduleDto(id);
+    }
+
+    @GetMapping("/admin/{id}")
+    public SeanceAdminDto getSeanceAdminDto(@PathVariable("id") Integer id) {
+        return seanceService.getSeanceAdminDto(id);
     }
 
     @PutMapping("/{id}")
-    public void updateSeance(@PathVariable("id") Integer id, @RequestBody SeanceDto seanceDto) {
-        seanceService.updateSeance(id, seanceDto);
+    public void updateSeance(@PathVariable("id") Integer id, @RequestBody SeanceAdminDto seanceAdminDto) {
+        seanceService.updateSeance(id, seanceAdminDto);
     }
 
     @DeleteMapping("/{id}")

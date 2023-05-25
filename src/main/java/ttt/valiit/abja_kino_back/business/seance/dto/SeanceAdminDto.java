@@ -17,7 +17,7 @@ import java.io.Serializable;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class SeanceDto implements Serializable {
+public class SeanceAdminDto implements Serializable {
     private Integer roomId;
     private Integer movieId;
     @NotNull

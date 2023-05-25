@@ -53,7 +53,7 @@ public interface MovieMapper {
     @Mapping(source = "youtubeLink", target = "youtubeLink")
     @Mapping(source = "genreId", target = "genre.id")
     @Mapping(source = "description", target = "description")
-    void updateMovieFromMovieDto(MovieDto movieDto, @MappingTarget Movie movie);
+    void updateMovieFromDto(MovieDto movieDto, @MappingTarget Movie movie);
 
 
 }

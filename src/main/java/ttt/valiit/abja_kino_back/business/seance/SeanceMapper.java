@@ -2,7 +2,7 @@ package ttt.valiit.abja_kino_back.business.seance;
 
 import org.mapstruct.*;
 import ttt.valiit.abja_kino_back.business.seance.dto.SeanceAdminSummary;
-import ttt.valiit.abja_kino_back.business.seance.dto.SeanceDto;
+import ttt.valiit.abja_kino_back.business.seance.dto.SeanceAdminDto;
 import ttt.valiit.abja_kino_back.business.seance.dto.SeanceScheduleDto;
 import ttt.valiit.abja_kino_back.util.ImageUtil;
 
@@ -19,12 +19,12 @@ public interface SeanceMapper {
     @Mapping(source = "movieId", target = "movie.id")
     @Mapping(source = "roomId", target = "room.id")
     @Mapping(source = "dateTime", target = "startTime", qualifiedByName = "dateTimeToInstant")
-    Seance toSeance(SeanceDto seanceDto);
+    Seance toSeance(SeanceAdminDto seanceAdminDto);
 
     @Mapping(source = "startTime", target = "dateTime", qualifiedByName = "instantToDateTime")
     @Mapping(source = "movie.id", target = "movieId")
     @Mapping(source = "room.id", target = "roomId")
-    SeanceDto toSeanceDto(Seance seance);
+    SeanceAdminDto toAdminDto(Seance seance);
 
     @Mapping(source = "startTime", target = "dateTime", qualifiedByName = "instantToDateTime")
     @Mapping(source = "movie.posterImage", target = "moviePosterImage", qualifiedByName = "byteArrayToImageString")
@@ -43,7 +43,13 @@ public interface SeanceMapper {
 
     List<SeanceAdminSummary> toAdminSummaries(List<Seance> seances);
 
-    void updateSeance(SeanceDto seanceDto, @MappingTarget Seance seance);
+
+    @Mapping(source = "movieId", target = "movie.id")
+    @Mapping(source = "language", target = "language")
+    @Mapping(source = "subtitles", target = "subtitles")
+    @Mapping(source = "roomId", target = "room.id")
+    @Mapping(source = "dateTime", target = "startTime", qualifiedByName = "dateTimeToInstant")
+    void updateSeanceFromDto(SeanceAdminDto seanceAdminDto, @MappingTarget Seance seance);
 
     @Named("dateTimeToInstant")
     static Instant dateTimeToInstant(String dateTime) {
