@@ -13,7 +13,7 @@ import java.io.Serializable;
 @Getter
 @Setter
 @NoArgsConstructor
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class MovieAdminSummary implements Serializable {
     private Integer id;
     @Size(max = 255)

@@ -6,7 +6,7 @@ import org.springframework.http.HttpStatus;
 @Getter
 @Setter
 @NoArgsConstructor
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class ApiError {
     private HttpStatus status;
     private Integer errorCode;

@@ -13,7 +13,7 @@ import java.io.Serializable;
 @Getter
 @Setter
 @NoArgsConstructor
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class SeanceScheduleDto implements Serializable {
     @Size(max = 255)
     @NotNull
