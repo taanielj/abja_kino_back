@@ -2,7 +2,7 @@ package ttt.valiit.abja_kino_back.business.seance.dto;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.Data;
+import lombok.*;
 import ttt.valiit.abja_kino_back.business.seance.Seance;
 
 import java.io.Serializable;
@@ -10,15 +10,18 @@ import java.io.Serializable;
 /**
  * A DTO for the {@link Seance} entity
  */
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@RequiredArgsConstructor
 public class SeanceAdminSummary implements Serializable {
     private Integer id;
     @Size(max = 255)
     @NotNull
-    private final String roomName;
+    private String roomName;
     @Size(max = 255)
     @NotNull
-    private final String movieTitle;
+    private String movieTitle;
     @NotNull
-    private final String dateTime;
+    private String dateTime;
 }

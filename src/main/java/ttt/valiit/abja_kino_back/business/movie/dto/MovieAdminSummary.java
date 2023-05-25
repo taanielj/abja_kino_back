@@ -2,7 +2,7 @@ package ttt.valiit.abja_kino_back.business.movie.dto;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.Data;
+import lombok.*;
 import ttt.valiit.abja_kino_back.business.movie.Movie;
 
 import java.io.Serializable;
@@ -10,7 +10,10 @@ import java.io.Serializable;
 /**
  * A DTO for the {@link Movie} entity
  */
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@RequiredArgsConstructor
 public class MovieAdminSummary implements Serializable {
     private Integer id;
     @Size(max = 255)

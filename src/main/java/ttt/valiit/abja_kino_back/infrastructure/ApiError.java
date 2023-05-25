@@ -1,11 +1,12 @@
 package ttt.valiit.abja_kino_back.infrastructure;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.*;
 import org.springframework.http.HttpStatus;
 
-@Data
-@AllArgsConstructor
+@Getter
+@Setter
+@NoArgsConstructor
+@RequiredArgsConstructor
 public class ApiError {
     private HttpStatus status;
     private Integer errorCode;
