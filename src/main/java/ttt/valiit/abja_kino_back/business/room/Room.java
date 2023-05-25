@@ -6,6 +6,7 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -15,7 +16,7 @@ import java.util.List;
 public class Room {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
+    @Column(name = "id" , nullable = false)
     private Integer id;
 
     @Size(max = 255)
@@ -30,7 +31,7 @@ public class Room {
     @NotNull
     @Column(name = "cols", nullable = false)
     private Integer cols;
-    @OneToMany(mappedBy = "room", cascade = CascadeType.ALL, orphanRemoval = true)
-    List<Seat> seats;
+    @OneToMany(mappedBy = "room", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    List<Seat> seats = new ArrayList<>();
 
 }

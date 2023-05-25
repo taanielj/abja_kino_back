@@ -15,16 +15,18 @@ public class RoomService {
 
 
     @Transactional
-    public void createRoom(RoomDto roomDto) {
+    public void addRoom(RoomDto roomDto) {
         Room room = roomMapper.toRoom(roomDto);
 
-
-        //save room to generate id
         roomRepository.save(room);
+        addSeats(room);
 
-        //create seats
-        for (int i = 0; i < roomDto.getRows(); i++) {
-            for (int j = 0; j < roomDto.getRows(); j++){
+        roomRepository.save(room);
+    }
+
+    private void addSeats(Room room) {
+        for (int i = 0; i < room.getRows(); i++) {
+            for (int j = 0; j < room.getCols(); j++){
                 Seat seat = new Seat();
                 seat.setRow(i);
                 seat.setCol(j);
@@ -32,10 +34,6 @@ public class RoomService {
                 room.getSeats().add(seat);
             }
         }
-
-        //save room, this will save seats as well because the room entity
-        // has a list of seats annotated with @OneToMany(mappedBy = "room") with cascade = CascadeType.ALL
-        roomRepository.save(room);
     }
 
     void deleteRoom(int roomId) {
@@ -49,11 +47,7 @@ public class RoomService {
         return roomMapper.toRoomDtos(roomRepository.findAll());
     }
 
-    public void addRoom(RoomDto dto) {
-        validateRoom(dto.getName());
-        Room room = roomMapper.toRoom(dto);
-        roomRepository.save(room);
-    }
+
 
     private void validateRoom(String roomName) {
         if(roomName == null || roomName.isEmpty()) {

@@ -21,12 +21,10 @@ public class Seat {
     @JoinColumn(name = "room_id", nullable = false)
     private Room room;
 
-    @Size(max = 255)
     @NotNull
     @Column(name = "col", nullable = false)
     private Integer col;
 
-    @Size(max = 255)
     @NotNull
     @Column(name = "\"row\"", nullable = false)
     private Integer row;

@@ -19,13 +19,9 @@ public class RoomController {
     }
 
     @PostMapping
-    public void createRoom(RoomDto roomDto) {
-        roomService.createRoom(roomDto);
-    }
-    @PostMapping("/add")
-    @Operation(summary = "Lisab uue saali",
+    @Operation(summary = "Lisab uue saali koos kohtadega",
             description = """
-                    Süsteemis luuakse uus saal.
+                    Süsteemis luuakse uus saal koos kohtadega.
                     Kui saal on juba olemas vistakse viga errorCode'ga""")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK"),
@@ -33,6 +29,7 @@ public class RoomController {
     public void addRoom(@RequestBody RoomDto roomDto) {
         roomService.addRoom(roomDto);
     }
+
     @PutMapping("/{id}")
     @Operation(summary = "Muudab saali nime.",
             description = """
