@@ -11,5 +11,6 @@ public class SeatDto {
     private Integer row;
     private Integer col;
     private Boolean available;
+    private Boolean selected = false;
 
 }
