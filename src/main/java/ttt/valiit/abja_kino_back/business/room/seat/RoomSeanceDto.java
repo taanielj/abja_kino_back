@@ -1,10 +1,9 @@
-package ttt.valiit.abja_kino_back.business.room;
+package ttt.valiit.abja_kino_back.business.room.seat;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import ttt.valiit.abja_kino_back.business.room.seat.SeatDto;
 
 import java.util.List;
 
@@ -14,6 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 public class RoomSeanceDto {
 
+    private String roomName;
     private Integer rows;
     private Integer cols;
     private List<SeatDto> seats;

@@ -1,8 +1,9 @@
-package ttt.valiit.abja_kino_back.business.room;
+package ttt.valiit.abja_kino_back.business.room.seat;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
+import ttt.valiit.abja_kino_back.business.room.Room;
 
 import java.io.Serializable;
 

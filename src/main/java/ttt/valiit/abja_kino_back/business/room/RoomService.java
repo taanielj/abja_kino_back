@@ -3,6 +3,8 @@ package ttt.valiit.abja_kino_back.business.room;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import ttt.valiit.abja_kino_back.business.room.seat.RoomDto;
+import ttt.valiit.abja_kino_back.business.room.seat.RoomSeanceDto;
 import ttt.valiit.abja_kino_back.business.room.seat.Seat;
 import ttt.valiit.abja_kino_back.business.room.seat.SeatDto;
 import ttt.valiit.abja_kino_back.business.seance.Seance;
@@ -135,7 +137,7 @@ public class RoomService {
         roomSeanceDto.setSeats(seatDTOs);
         roomSeanceDto.setRows(room.getRows());
         roomSeanceDto.setCols(room.getCols());
-
+        roomSeanceDto.setRoomName(room.getName());
         return roomSeanceDto;
     }
 }
