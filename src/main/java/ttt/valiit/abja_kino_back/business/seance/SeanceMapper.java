@@ -62,6 +62,7 @@ public interface SeanceMapper {
     static String instantToDateTime(Instant instant) {
         return instant == null ? null : instant.atZone(TIME_ZONE).format(DATE_TIME_FORMATTER);
     }
+
     @Named("byteArrayToImageString")
     static String byteArrayToImageString(byte[] imageByteArray) {
         return imageByteArray == null ? null : ImageUtil.byteArrayToBase64ImageData(imageByteArray);
