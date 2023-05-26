@@ -1,4 +1,4 @@
-package ttt.valiit.abja_kino_back.business.ticket;
+package ttt.valiit.abja_kino_back.business.ticket.type;
 
 import org.springframework.stereotype.Service;
 import ttt.valiit.abja_kino_back.infrastructure.exception.DatabaseNameConflictException;
@@ -7,11 +7,11 @@ import ttt.valiit.abja_kino_back.infrastructure.exception.ResourceNotFoundExcept
 import java.util.List;
 
 @Service
-public class TicketService {
+public class TicketTypeService {
     private final TicketTypeMapper ticketTypeMapper;
     private final TicketTypeRepository ticketTypeRepository;
 
-    public TicketService(TicketTypeMapper ticketTypeMapper, TicketTypeRepository ticketTypeRepository) {
+    public TicketTypeService(TicketTypeMapper ticketTypeMapper, TicketTypeRepository ticketTypeRepository) {
         this.ticketTypeMapper = ticketTypeMapper;
         this.ticketTypeRepository = ticketTypeRepository;
     }
@@ -41,7 +41,7 @@ public class TicketService {
         );
 
         if (ticketTypeRepository.existsBy(dto.getName()) && !ticketType.getName().equals(dto.getName())) {
-            throw new DatabaseNameConflictException("Selle nimega film on juba olemas!");
+            throw new DatabaseNameConflictException("Selle nimega piletitüüp on juba olemas");
         }
 
         ticketType.setName(dto.getName());

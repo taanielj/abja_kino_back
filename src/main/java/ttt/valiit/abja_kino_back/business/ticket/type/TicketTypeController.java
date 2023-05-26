@@ -1,4 +1,4 @@
-package ttt.valiit.abja_kino_back.business.ticket;
+package ttt.valiit.abja_kino_back.business.ticket.type;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -9,12 +9,12 @@ import java.util.List;
 
 @RequestMapping("/ticket")
 @RestController
-public class TicketController {
+public class TicketTypeController {
 
 
-    private final TicketService ticketService;
+    private final TicketTypeService ticketService;
 
-    public TicketController(TicketService ticketService) {this.ticketService = ticketService;
+    public TicketTypeController(TicketTypeService ticketService) {this.ticketService = ticketService;
     }
     @GetMapping ("/types")
     public List<TicketTypeDto> getAllTicketTypes() {

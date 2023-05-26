@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
-import ttt.valiit.abja_kino_back.business.user.roleauthority.Role;
+import ttt.valiit.abja_kino_back.business.user.role.Role;
 
 @Getter
 @Setter

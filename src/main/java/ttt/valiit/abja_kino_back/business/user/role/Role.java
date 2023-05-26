@@ -1,4 +1,4 @@
-package ttt.valiit.abja_kino_back.business.user.roleauthority;
+package ttt.valiit.abja_kino_back.business.user.role;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;

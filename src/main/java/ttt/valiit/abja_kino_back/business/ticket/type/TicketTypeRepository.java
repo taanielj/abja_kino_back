@@ -1,4 +1,4 @@
-package ttt.valiit.abja_kino_back.business.ticket;
+package ttt.valiit.abja_kino_back.business.ticket.type;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

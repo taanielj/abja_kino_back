@@ -1,4 +1,4 @@
-package ttt.valiit.abja_kino_back.business.ticket;
+package ttt.valiit.abja_kino_back.business.ticket.type;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;

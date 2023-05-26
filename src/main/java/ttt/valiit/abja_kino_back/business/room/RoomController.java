@@ -53,4 +53,9 @@ public class RoomController {
     public RoomDto getRoom(@PathVariable Integer id) {
         return roomService.getRoom(id);
     }
+
+    @GetMapping("/seance/{id}")
+    public RoomSeanceDto getRoomSeance(@PathVariable Integer id) {
+        return roomService.getRoomSeance(id);
+    }
 }

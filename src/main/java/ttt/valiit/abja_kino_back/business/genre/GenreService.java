@@ -3,12 +3,14 @@ package ttt.valiit.abja_kino_back.business.genre;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ttt.valiit.abja_kino_back.business.movie.MovieRepository;
-import ttt.valiit.abja_kino_back.infrastructure.exception.DatabaseConstraintExcept;
+import ttt.valiit.abja_kino_back.infrastructure.exception.DatabaseConstraintException;
 import ttt.valiit.abja_kino_back.infrastructure.exception.DatabaseNameConflictException;
 import ttt.valiit.abja_kino_back.infrastructure.exception.ResourceNotFoundException;
 
 import java.util.List;
 import java.util.Objects;
+
+import static ttt.valiit.abja_kino_back.infrastructure.Error.*;
 
 @Service
 @RequiredArgsConstructor
@@ -31,22 +33,23 @@ public class GenreService {
 
     private void validateGenre(String genreName) {
         if (genreName == null || genreName.isEmpty()) {
-            throw new DatabaseConstraintExcept("Žanri nimi ei tohi olla tühi");
+            throw new DatabaseConstraintException(DATABASE_NAME_MUST_NOT_BE_EMPTY.getMessage());
         }
 
         if (genreRepository.existsBy(genreName)) {
-            throw new DatabaseConstraintExcept("Žanr on juba olemas");
+            throw new DatabaseConstraintException(GENRE_EXISTS.getMessage());
         }
     }
 
 
     public void deleteGenreBy(Integer id) {
         Genre genre = genreRepository.findById(id).orElseThrow(
-                () -> new ResourceNotFoundException("Žanri ID ei leitud")
+                () -> new ResourceNotFoundException(RESOURCE_NOT_FOUND.getMessage())
         );
 
         if (movieRepository.existsByGenre(id)) {
-            throw new DatabaseNameConflictException("Žanr on seotud filmiga");
+            throw new DatabaseNameConflictException(DATABASE_NAME_CONFLICT.getMessage()
+            );
         }
         genreRepository.delete(genre);
     }
@@ -54,7 +57,7 @@ public class GenreService {
     public void updateGenreName(Integer id, String newName) {
         Genre genre = genreRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Žanri ID ei leitud"));
 
-        if(Objects.equals(genre.getName(), newName)){
+        if (Objects.equals(genre.getName(), newName)) {
             return;
         }
 
