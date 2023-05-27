@@ -3,8 +3,9 @@ package ttt.valiit.abja_kino_back.security;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
-import ttt.valiit.abja_kino_back.domain.user.User;
-import ttt.valiit.abja_kino_back.domain.user.UserRepository;
+
+import ttt.valiit.abja_kino_back.business.user.User;
+import ttt.valiit.abja_kino_back.business.user.UserRepository;
 
 import java.util.Optional;
 
