@@ -1,0 +1,20 @@
+package ttt.valiit.abja_kino_back.business.ticket;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+
+import java.time.Instant;
+import java.util.List;
+
+public interface TicketRepository extends JpaRepository<Ticket, Integer> {
+    @Query("select t from Ticket t where t.seance.id = ?1 order by t.seat.row, t.seat.col")
+    List<Ticket> findSeanceTickets(Integer seanceId);
+
+    @Query("select t.id from Ticket t where t.user.id = ?1 and t.seance.startTime <= ?2 order by t.seance.startTime")
+    Integer[] getAllActiveUserTickets(Integer id, Instant startTime);
+
+    @Query("select t.id from Ticket t where t.user.id = ?1 and t.seance.startTime >= ?2 order by t.seance.startTime")
+    Integer[] getAllExpiredUserTickets(Integer id, Instant startTime);
+
+
+}

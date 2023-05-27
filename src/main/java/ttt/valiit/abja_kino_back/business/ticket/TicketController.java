@@ -1,25 +1,38 @@
 package ttt.valiit.abja_kino_back.business.ticket;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ttt.valiit.abja_kino_back.domain.genre.Genre;
-import ttt.valiit.abja_kino_back.domain.ticketType.TicketType;
 
-import java.util.List;
+import java.time.Clock;
 
 @RequestMapping("/ticket")
 @RestController
 public class TicketController {
 
-
     private final TicketService ticketService;
 
-    public TicketController(TicketService ticketService) {this.ticketService = ticketService;
+
+    public TicketController(TicketService ticketService, Clock clock) {
+        this.ticketService = ticketService;
+
     }
-    @GetMapping ("/types")
-    public List<TicketType> getAllTicketTypes() {
-        return ticketService.getAllTicketTypes();
+
+    @GetMapping("/all-active-ids-by-user/{userId}")
+    public Integer[] getAllActiveUserTickets(@PathVariable("userId") Integer userId) {
+        return ticketService.getAllActiveUserTickets(userId);
     }
+
+    @GetMapping("/all-expired-ids-by-user/{userId}")
+    public Integer[] getAllExpiredUserTickets(@PathVariable("userId") Integer userId) {
+        return ticketService.getAllExpiredUserTickets(userId);
+    }
+
+    @GetMapping("/{id}")
+    public TicketDto getTicketBy(@PathVariable("id") Integer ticketId) {
+        return ticketService.getTicketBy(ticketId);
+    }
+
 
 }

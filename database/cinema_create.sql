@@ -18,8 +18,7 @@ CREATE TABLE movie (
                        director varchar(255)  NOT NULL,
                        youtube_link varchar(255)  NOT NULL,
                        description text  NOT NULL,
-                       poster_landscape bytea  NOT NULL,
-                       poster_portrait bytea  NOT NULL,
+                       poster_image bytea  NOT NULL,
                        status char(1)  NOT NULL,
                        CONSTRAINT movie_pk PRIMARY KEY (id)
 );
@@ -48,6 +47,7 @@ CREATE TABLE seance (
                         start_time timestamp  NOT NULL,
                         language varchar(255)  NOT NULL,
                         subtitles varchar(255)  NOT NULL,
+                        status char(1)  NOT NULL,
                         CONSTRAINT seance_pk PRIMARY KEY (id)
 );
 
@@ -55,8 +55,8 @@ CREATE TABLE seance (
 CREATE TABLE seat (
                       id serial  NOT NULL,
                       room_id int  NOT NULL,
-                      col varchar(255)  NOT NULL,
-                      row varchar(255)  NOT NULL,
+                      col int NOT NULL,
+                      row int NOT NULL,
                       CONSTRAINT seat_pk PRIMARY KEY (id)
 );
 
