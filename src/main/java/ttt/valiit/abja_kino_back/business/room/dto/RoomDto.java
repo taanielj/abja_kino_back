@@ -1,4 +1,4 @@
-package ttt.valiit.abja_kino_back.business.room.seat;
+package ttt.valiit.abja_kino_back.business.room.dto;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;

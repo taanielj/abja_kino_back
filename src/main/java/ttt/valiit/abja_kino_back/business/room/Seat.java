@@ -1,10 +1,9 @@
-package ttt.valiit.abja_kino_back.business.room.seat;
+package ttt.valiit.abja_kino_back.business.room;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
-import ttt.valiit.abja_kino_back.business.room.Room;
 
 @Getter
 @Setter
