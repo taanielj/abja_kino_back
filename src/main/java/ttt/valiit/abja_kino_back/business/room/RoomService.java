@@ -16,6 +16,9 @@ import ttt.valiit.abja_kino_back.infrastructure.exception.ResourceNotFoundExcept
 
 import java.util.List;
 
+import static ttt.valiit.abja_kino_back.infrastructure.Error.ROOM_CANNOT_BE_DELETED;
+import static ttt.valiit.abja_kino_back.infrastructure.Error.ROOM_SEATS_CANNOT_BE_EDITED;
+
 @Service
 @RequiredArgsConstructor
 public class RoomService {
@@ -39,10 +42,10 @@ public class RoomService {
     private void updateSeats(Room room) {
         room.getSeats().clear();
 
-
         if (seanceRepository.existsByRoomId(room.getId())) {
-            throw new DatabaseConstraintException("Saali ei saa muuta, sest selles on seansse");
+            throw new DatabaseConstraintException(ROOM_SEATS_CANNOT_BE_EDITED.getMessage());
         }
+
 
 
         for (int i = 0; i < room.getRows(); i++) {
@@ -57,12 +60,11 @@ public class RoomService {
     }
 
     void deleteRoom(int roomId) {
-        //check if room has seances
+
         if (seanceRepository.existsByRoomId(roomId)) {
-            throw new DatabaseConstraintException("Saali ei saa kustutada, sest selles on seansse");
+            throw new DatabaseConstraintException(ROOM_CANNOT_BE_DELETED.getMessage());
         }
-        //delete room, seats will be deleted as well because of the @OneToMany(mappedBy = "room"
-        //cascade = CascadeType.ALL, orphanRemoval = true) annotation on the room entity
+
         roomRepository.deleteById(roomId);
     }
 
@@ -93,6 +95,14 @@ public class RoomService {
         Room existingRoom = roomRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Room not found"));
         validateRoomName(roomDto.getName(), existingRoom.getName());
         existingRoom.setName(roomDto.getName());
+        roomRepository.save(existingRoom);
+
+        if(existingRoom.getRows().equals(roomDto.getRows()) && existingRoom.getCols().equals(roomDto.getCols())) {
+            return;
+        }
+
+        existingRoom.setRows(roomDto.getRows());
+        existingRoom.setCols(roomDto.getCols());
         updateSeats(existingRoom);
         roomRepository.save(existingRoom);
     }

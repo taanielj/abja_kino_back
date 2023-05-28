@@ -43,7 +43,7 @@ public class TicketTypeController {
     public void updateTicketType(@PathVariable ("id") Integer id,@RequestBody TicketTypeDto ticketTypeDto) {
         ticketService.updateTicketType(id, ticketTypeDto);
     }
-    @DeleteMapping ("/types/{id}")
+    @DeleteMapping ("/{id}")
     public void deleteTicketType(@PathVariable Integer id) {
         ticketService.deleteTicketType(id);
     }

@@ -28,6 +28,8 @@ public enum Error {
     DATABASE_CONSTRAINT("Andmebaasi tervikluse rikkumine"),
     RESOURCE_NOT_FOUND("Ressurssi ei leitud"),
     ACCESS_DENIED("Ligipääs keelatud"),
+    ROOM_CANNOT_BE_DELETED("Saali ei saa kustutada, sest selles on seansse"),
+    ROOM_SEATS_CANNOT_BE_EDITED("Saali kohti ei saa muuta, sest selles on seansse"),
     INVALID_CREDENTIALS("Vale kasutajanimi või parool");
     private final String message;
 
