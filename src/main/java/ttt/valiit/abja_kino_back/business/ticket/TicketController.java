@@ -5,16 +5,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.time.Clock;
-
-@RequestMapping("/ticket")
+@RequestMapping("/api/v1/ticket")
 @RestController
 public class TicketController {
 
     private final TicketService ticketService;
 
 
-    public TicketController(TicketService ticketService, Clock clock) {
+    public TicketController(TicketService ticketService) {
         this.ticketService = ticketService;
 
     }

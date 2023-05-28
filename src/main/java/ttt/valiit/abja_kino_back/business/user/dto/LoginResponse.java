@@ -22,7 +22,6 @@ public class LoginResponse implements Serializable {
     @Size(max = 255)
     @NotNull
     private String roleName;
-    @Size(max = 255)
     private String token;
 
 }

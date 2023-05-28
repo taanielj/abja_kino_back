@@ -7,11 +7,14 @@ import jakarta.validation.Valid;
 
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import ttt.valiit.abja_kino_back.business.user.dto.LoginRequest;
 import ttt.valiit.abja_kino_back.business.user.dto.LoginResponse;
 import ttt.valiit.abja_kino_back.business.user.dto.RegistrationRequest;
 
+import java.util.List;
 
-@RequestMapping("/user")
+
+@RequestMapping("/api/v1/user")
 @RestController
 @Validated
 public class UserController {
@@ -33,7 +36,7 @@ public class UserController {
         return userService.register(registrationRequest);
     }
 
-    @GetMapping("/login")
+    @PostMapping("/login")
     @Operation(summary = "Sisse logimine. Tagastab userId ja roleName",
             description = """
                     Süsteemist otsitakse username ja password abil kasutajat.
@@ -41,9 +44,14 @@ public class UserController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK"),
             @ApiResponse(responseCode = "403", description = "Vale kasutajanimi või parool")})
-    public LoginResponse login(@RequestParam String username, @RequestParam String password) {
-        return userService.login(username, password);
+    public LoginResponse login(@RequestBody LoginRequest loginRequest) {
+        return userService.login(loginRequest);
     }
 
+
+    @GetMapping("/all")
+    public List<UserDto> getAllUsers() {
+        return userService.getAllUsers();
+    }
 
 }

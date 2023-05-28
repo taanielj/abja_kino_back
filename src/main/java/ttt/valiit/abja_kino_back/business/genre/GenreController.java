@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RequestMapping("/genre")
+@RequestMapping("/api/v1/genre")
 @RestController
 public class GenreController {
 
@@ -16,7 +16,6 @@ public class GenreController {
     public GenreController(GenreService genreService) {
         this.genreService = genreService;
     }
-
 
 
     @GetMapping("/all")
@@ -30,7 +29,7 @@ public class GenreController {
         return genreService.getAllGenres();
     }
 
-    @PostMapping("/add")
+    @PostMapping
     @Operation(summary = "Lisab uue žanri",
             description = """
                     Süsteemis luuakse uus žanr.
@@ -42,18 +41,17 @@ public class GenreController {
         genreService.addGenre(genreName);
     }
 
-    @GetMapping ("/{id}")
+    @GetMapping("/{id}")
     @Operation(summary = "Tagastab žanri nime id järgi",
-            description = """
-                    Kui žanri ei ole olemas vastatakse  errorCode'ga""")
+            description = "Kui žanri ei ole olemas vastatakse  errorCode'ga")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK"),
             @ApiResponse(responseCode = "401", description = "Žanr on juba olemas")})
-    public String getGenre(@PathVariable ("id") Integer id) {
+    public String getGenre(@PathVariable("id") Integer id) {
         return genreService.getGenreName(id);
     }
 
-    @PutMapping ("/{id}")
+    @PutMapping("/{id}")
     @Operation(summary = "Muudab žanri nime.",
             description = """
                     Süsteemis muudetakse žanri nime.
@@ -61,14 +59,15 @@ public class GenreController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK"),
             @ApiResponse(responseCode = "401", description = "Žanr on juba olemas")})
-    public void updateGenre(@PathVariable ("id") Integer id, @RequestParam String genreName) {
+    public void updateGenre(@PathVariable("id") Integer id, @RequestParam String genreName) {
         genreService.updateGenreName(id, genreName);
     }
 
     @DeleteMapping("/{id}")
     @Operation(summary = "Kustutab žanri nime järgi.")
     public void deleteGenre(@PathVariable("id") Integer id) {
-        genreService.deleteGenreBy(id);}
+        genreService.deleteGenreBy(id);
+    }
 
 
 }

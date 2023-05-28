@@ -86,6 +86,7 @@ CREATE TABLE "user" (
                         password varchar(255)  NOT NULL,
                         role_id int  NOT NULL,
                         email varchar(255)  NOT NULL,
+                        status char(1)  NOT NULL,
                         CONSTRAINT user_pk PRIMARY KEY (id)
 );
 

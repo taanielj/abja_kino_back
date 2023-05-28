@@ -26,7 +26,9 @@ public enum Error {
     DATABASE_NAME_CONFLICT(" nimega on juba olemas"),
     DATABASE_NAME_MUST_NOT_BE_EMPTY("Nimi ei tohi olla tühi"),
     DATABASE_CONSTRAINT("Andmebaasi tervikluse rikkumine"),
-    RESOURCE_NOT_FOUND("Ressurssi ei leitud");
+    RESOURCE_NOT_FOUND("Ressurssi ei leitud"),
+    ACCESS_DENIED("Ligipääs keelatud"),
+    INVALID_CREDENTIALS("Vale kasutajanimi või parool");
     private final String message;
 
 

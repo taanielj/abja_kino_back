@@ -7,7 +7,7 @@ import ttt.valiit.abja_kino_back.business.movie.dto.MovieAdminSummary;
 
 import java.util.List;
 
-@RequestMapping("/movie")
+@RequestMapping("/api/v1/movie")
 @RestController
 public class MovieController {
     private final MovieService movieService;
@@ -36,7 +36,7 @@ public class MovieController {
         movieService.deleteMovie(id);
     }
 
-    @GetMapping("/all-ids")
+    @GetMapping("/ids")
     public Integer[] getAllMovieIds() {
         return movieService.getAllMovieIds();
     }

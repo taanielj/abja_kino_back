@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RequestMapping("/ticket")
+@RequestMapping("/api/v1/ticket/type")
 @RestController
 public class TicketTypeController {
 
@@ -16,7 +16,7 @@ public class TicketTypeController {
 
     public TicketTypeController(TicketTypeService ticketService) {this.ticketService = ticketService;
     }
-    @GetMapping ("/types")
+    @GetMapping ("/all")
     public List<TicketTypeDto> getAllTicketTypes() {
         return ticketService.getAllTicketTypes();
     }

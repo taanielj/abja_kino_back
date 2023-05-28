@@ -11,7 +11,7 @@ import ttt.valiit.abja_kino_back.business.room.dto.RoomSeanceDto;
 import java.util.List;
 
 @RestController
-@RequestMapping("/room")
+@RequestMapping("/api/v1/room")
 public class RoomController {
 
     private final RoomService roomService;

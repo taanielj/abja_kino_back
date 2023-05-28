@@ -8,7 +8,7 @@ import ttt.valiit.abja_kino_back.business.seance.dto.SeanceScheduleDto;
 import java.util.List;
 
 @RestController
-@RequestMapping("/seance")
+@RequestMapping("/api/v1/seance")
 public class SeanceController {
 
     private final SeanceService seanceService;
