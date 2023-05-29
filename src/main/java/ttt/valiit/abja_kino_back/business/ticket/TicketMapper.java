@@ -6,6 +6,7 @@ import java.time.Instant;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 
+
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING)
 public interface TicketMapper {
 
@@ -28,4 +29,5 @@ public interface TicketMapper {
     static String instantToDateTime(Instant instant) {
         return instant == null ? null : instant.atZone(ZoneId.systemDefault()).minusHours(6).format(DATE_TIME_FORMATTER) + "Z";
     }
+
 }

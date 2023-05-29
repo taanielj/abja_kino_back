@@ -3,6 +3,7 @@ package ttt.valiit.abja_kino_back.business.ticket;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import ttt.valiit.abja_kino_back.business.room.Seat;
 import ttt.valiit.abja_kino_back.business.seance.Seance;
@@ -10,6 +11,7 @@ import ttt.valiit.abja_kino_back.business.ticket.type.TicketType;
 import ttt.valiit.abja_kino_back.business.user.User;
 
 @Getter
+@NoArgsConstructor
 @Setter
 @Entity
 @Table(name = "ticket")
