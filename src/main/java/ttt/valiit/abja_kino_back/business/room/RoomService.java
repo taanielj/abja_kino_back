@@ -130,6 +130,7 @@ public class RoomService {
         return seats.stream()
                 .map(seat -> {
                     SeatDto seatDto = new SeatDto();
+                    seatDto.setId(seat.getId());
                     seatDto.setRow(seat.getRow());
                     seatDto.setCol(seat.getCol());
                     seatDto.setAvailable(!isSeatBooked(seat, tickets));

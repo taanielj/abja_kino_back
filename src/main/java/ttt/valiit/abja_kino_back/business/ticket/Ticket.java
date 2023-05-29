@@ -9,8 +9,6 @@ import ttt.valiit.abja_kino_back.business.seance.Seance;
 import ttt.valiit.abja_kino_back.business.ticket.type.TicketType;
 import ttt.valiit.abja_kino_back.business.user.User;
 
-import java.time.Instant;
-
 @Getter
 @Setter
 @Entity
@@ -41,8 +39,5 @@ public class Ticket {
     @JoinColumn(name = "ticket_type_id", nullable = false)
     private TicketType ticketType;
 
-    @NotNull
-    @Column(name = "purchase_time", nullable = false)
-    private Instant purchaseTime;
 
 }
