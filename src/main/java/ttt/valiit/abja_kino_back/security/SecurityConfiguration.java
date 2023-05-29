@@ -3,16 +3,12 @@ package ttt.valiit.abja_kino_back.security;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.annotation.Order;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import ttt.valiit.abja_kino_back.security.jwt.JwtFilter;
 
 @Configuration
@@ -20,27 +16,40 @@ import ttt.valiit.abja_kino_back.security.jwt.JwtFilter;
 @RequiredArgsConstructor
 public class SecurityConfiguration {
 
-
-
     private final UserDetailsServiceImpl userDetailsService;
     private final JwtFilter jwtFilter;
 
-
-
     @Bean
     public PasswordEncoder passwordEncoder() {
-
-
         return new BCryptPasswordEncoder(13);
     }
 
-
-
-    @Order(2)
     @Bean
     public SecurityFilterChain apiSecurityFilterChain(HttpSecurity http) throws Exception {
+
+        http
+                .authorizeHttpRequests()
+                .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").hasRole("ADMIN")
+                .anyRequest().permitAll()
+                .and()
+                .formLogin()
+                .and()
+                .httpBasic().disable()
+                .csrf().disable();
+
+        return http.build();
+    }
+
+    /*@Bean
+    public SecurityFilterChain apiSecurityFilterChain(HttpSecurity http) throws Exception {
         String roleAdmin = "ADMIN";
-        String[] paths = {"/api/v1/movie/**", "/api/v1/genre/**", "/api/v1/seance/**", "/api/v1/ticket/type/**"};
+        String[] paths = {
+                "/api/v1/movie/**",
+                "/api/v1/genre/**",
+                "/api/v1/seance/**",
+                "/api/v1/ticket/type/**",
+                "/api/v1/room/**",
+        };
 
         http
                 .authorizeHttpRequests()
@@ -67,7 +76,7 @@ public class SecurityConfiguration {
                 .csrf().disable();
 
         return http.build();
-    }
+    }*/
 
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
@@ -79,3 +88,5 @@ public class SecurityConfiguration {
 
 
 }
+
+

@@ -16,6 +16,7 @@ import ttt.valiit.abja_kino_back.security.jwt.JwtUtil;
 import java.util.List;
 
 import static ttt.valiit.abja_kino_back.infrastructure.Error.INVALID_CREDENTIALS;
+import static ttt.valiit.abja_kino_back.infrastructure.Status.ACTIVE;
 
 @Service
 @RequiredArgsConstructor
@@ -49,6 +50,7 @@ public class UserService {
         User user = userMapper.toUser(registrationRequest);
         user.setPassword(passwordEncoder.encode(registrationRequest.getPassword()));
         user.setRole(getDefaultRole());
+        user.setStatus(ACTIVE.getLetter());
         userRepository.save(user);
         return user;
     }
