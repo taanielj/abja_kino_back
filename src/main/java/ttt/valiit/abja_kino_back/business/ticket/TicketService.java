@@ -38,7 +38,6 @@ public class TicketService {
                 () -> new ResourceNotFoundException(TICKET_NOT_FOUND.getMessage())
         );
 
-
         return ticketMapper.toTicketDto(ticket);
     }
 }
