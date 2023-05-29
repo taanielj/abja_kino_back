@@ -5,8 +5,8 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.web.bind.annotation.*;
-import ttt.valiit.abja_kino_back.business.room.seat.RoomDto;
-import ttt.valiit.abja_kino_back.business.room.seat.RoomSeanceDto;
+import ttt.valiit.abja_kino_back.business.room.dto.RoomDto;
+import ttt.valiit.abja_kino_back.business.room.dto.RoomSeanceDto;
 
 import java.util.List;
 
