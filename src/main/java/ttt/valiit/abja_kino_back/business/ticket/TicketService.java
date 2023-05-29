@@ -12,6 +12,7 @@ public class TicketService {
     private final TicketRepository ticketRepository;
     private final TicketMapper ticketMapper;
     private final Clock clock;
+    //Timezone id:
     public TicketService(TicketRepository ticketRepository, TicketMapper ticketMapper, Clock clock) {
         this.ticketRepository = ticketRepository;
         this.ticketMapper = ticketMapper;
@@ -32,9 +33,12 @@ public class TicketService {
 
 
     public TicketDto getTicketBy(Integer ticketId) {
+
         Ticket ticket = ticketRepository.findById(ticketId).orElseThrow(
                 () -> new ResourceNotFoundException(TICKET_NOT_FOUND.getMessage())
         );
+
+
         return ticketMapper.toTicketDto(ticket);
     }
 }

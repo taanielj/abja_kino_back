@@ -11,10 +11,10 @@ public interface TicketRepository extends JpaRepository<Ticket, Integer> {
     List<Ticket> findSeanceTickets(Integer seanceId);
 
     @Query("select t.id from Ticket t where t.user.id = ?1 and t.seance.startTime <= ?2 order by t.seance.startTime")
-    Integer[] getAllActiveUserTickets(Integer id, Instant startTime);
+    Integer[] getAllExpiredUserTickets(Integer id, Instant startTime);
 
     @Query("select t.id from Ticket t where t.user.id = ?1 and t.seance.startTime >= ?2 order by t.seance.startTime")
-    Integer[] getAllExpiredUserTickets(Integer id, Instant startTime);
+    Integer[] getAllActiveUserTickets(Integer id, Instant startTime);
 
 
 }

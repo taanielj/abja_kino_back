@@ -49,8 +49,8 @@ public class RoomService {
         for (int i = 0; i < room.getRows(); i++) {
             for (int j = 0; j < room.getCols(); j++) {
                 Seat seat = new Seat();
-                seat.setRow(i);
-                seat.setCol(j);
+                seat.setRow(i + 1);
+                seat.setCol(j + 1);
                 seat.setRoom(room);
                 room.getSeats().add(seat);
             }

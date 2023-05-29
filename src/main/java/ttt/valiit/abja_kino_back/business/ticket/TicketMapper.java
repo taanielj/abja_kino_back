@@ -9,8 +9,8 @@ import java.time.format.DateTimeFormatter;
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING)
 public interface TicketMapper {
 
-    DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
-    ZoneId TIME_ZONE = ZoneId.of("Europe/Tallinn");
+    DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
+
 
     @Mapping(source = "ticketType.name", target = "ticketTypeName")
     @Mapping(source = "seance.startTime", target = "seanceStartTime", qualifiedByName = "instantToDateTime")
@@ -26,6 +26,6 @@ public interface TicketMapper {
 
     @Named("instantToDateTime")
     static String instantToDateTime(Instant instant) {
-        return instant == null ? null : instant.atZone(TIME_ZONE).format(DATE_TIME_FORMATTER);
+        return instant == null ? null : instant.atZone(ZoneId.systemDefault()).minusHours(6).format(DATE_TIME_FORMATTER) + "Z";
     }
 }
