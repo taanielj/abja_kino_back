@@ -1,5 +1,6 @@
 package ttt.valiit.abja_kino_back.infrastructure;
 
+import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -83,6 +84,17 @@ public class GlobalExceptionHandler {
         ApiError apiError = new ApiError(
                 HttpStatus.FORBIDDEN,
                 HttpStatus.FORBIDDEN.value(),
+                ex.getMessage(),
+                request.getRequestURI()
+        );
+        return new ResponseEntity<>(apiError, apiError.getStatus());
+    }
+
+    @ExceptionHandler(ExpiredJwtException.class)
+    public static ResponseEntity<ApiError> handleExpiredJwt(ExpiredJwtException ex, HttpServletRequest request) {
+        ApiError apiError = new ApiError(
+                HttpStatus.UNAUTHORIZED,
+                HttpStatus.UNAUTHORIZED.value(),
                 ex.getMessage(),
                 request.getRequestURI()
         );

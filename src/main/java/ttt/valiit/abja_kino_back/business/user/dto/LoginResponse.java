@@ -23,5 +23,6 @@ public class LoginResponse implements Serializable {
     @NotNull
     private String roleName;
     private String token;
+    private String refreshToken;
 
 }

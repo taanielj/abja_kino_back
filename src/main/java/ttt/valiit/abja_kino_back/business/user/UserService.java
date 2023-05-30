@@ -77,8 +77,10 @@ public class UserService {
     private LoginResponse getLoginResponse(User user) {
         UserDetails userDetails = new UserDetailsImpl(user);
         String token = jwtUtil.generateToken(userDetails);
+        String refreshToken = jwtUtil.generateRefreshToken(userDetails);
         LoginResponse loginResponse = userMapper.toLoginResponse(user);
         loginResponse.setToken(token);
+        loginResponse.setRefreshToken(refreshToken);
 
         return loginResponse;
     }
@@ -93,5 +95,7 @@ public class UserService {
         }
         return user;
     }
+
+
 
 }
