@@ -49,7 +49,7 @@ public class UserController {
     }
 
 
-    @GetMapping("/all")
+    @GetMapping("/admin-summary")
     public List<UserDto> getAllUsers() {
         return userService.getAllUsers();
     }
