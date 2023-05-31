@@ -112,6 +112,10 @@ public class SeanceService {
                 () -> new ResourceNotFoundException("Seance with id " + id + " not found")
         );
 
+        if(ticketRepository.existsBySeanceId(id) && clock.instant().isBefore(seance.getStartTime())) {
+            throw new ResourceNotFoundException("Seance with id " + id + " has active tickets");
+        }
+
         seance.setStatus(DELETED.getLetter());
         seanceRepository.save(seance);
 
