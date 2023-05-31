@@ -59,6 +59,8 @@ public interface SeanceMapper {
                 .toInstant();
     }
 
+
+
     @Named("instantToDateTime")
     static String instantToDateTime(Instant instant) {
         return instant == null ? null : instant.atZone(TIME_ZONE).format(DATE_TIME_FORMATTER);

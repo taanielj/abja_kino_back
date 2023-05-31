@@ -31,7 +31,8 @@ public enum Error {
     ACCESS_DENIED("Ligipääs keelatud"),
     ROOM_CANNOT_BE_DELETED("Saali ei saa kustutada, sest selles on seansse"),
     ROOM_SEATS_CANNOT_BE_EDITED("Saali kohti ei saa muuta, sest selles on seansse"),
-    INVALID_CREDENTIALS("Vale kasutajanimi või parool");
+    INVALID_CREDENTIALS("Vale kasutajanimi või parool"),
+    TICKETS_EXIST_WITH_THIS_TICKET_TYPE("Selle piletitüübiga on juba pileteid müüdud");
     private final String message;
 
 
