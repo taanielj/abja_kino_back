@@ -8,6 +8,7 @@ import ttt.valiit.abja_kino_back.business.seance.dto.SeanceAdminDto;
 import ttt.valiit.abja_kino_back.business.seance.dto.SeanceAdminSummary;
 import ttt.valiit.abja_kino_back.business.seance.dto.SeanceScheduleDto;
 import ttt.valiit.abja_kino_back.business.ticket.TicketRepository;
+import ttt.valiit.abja_kino_back.infrastructure.exception.DatabaseConstraintException;
 import ttt.valiit.abja_kino_back.infrastructure.exception.ResourceNotFoundException;
 
 import java.time.Clock;
@@ -113,7 +114,7 @@ public class SeanceService {
         );
 
         if(ticketRepository.existsBySeanceId(id) && clock.instant().isBefore(seance.getStartTime())) {
-            throw new ResourceNotFoundException("Seance with id " + id + " has active tickets");
+            throw new DatabaseConstraintException("Seance with id " + id + " has active tickets");
         }
 
         seance.setStatus(DELETED.getLetter());
