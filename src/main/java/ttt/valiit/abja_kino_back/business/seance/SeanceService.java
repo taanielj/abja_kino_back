@@ -93,6 +93,11 @@ public class SeanceService {
         Seance seance = seanceRepository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException(SEANCE_NOT_FOUND.getMessage())
         );
+
+        if(ticketRepository.existsBySeanceId(id) && clock.instant().isBefore(seance.getStartTime())) {
+            throw new DatabaseConstraintException(SEANCE_HAS_ACTIVE_TICKETS.getMessage());
+        }
+
         seanceMapper.updateSeanceFromDto(seanceAdminDto, seance);
 
         seance.setRoom(roomRepository.findById(seanceAdminDto.getRoomId()).orElseThrow(

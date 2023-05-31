@@ -1,4 +1,4 @@
-package ttt.valiit.abja_kino_back.config;
+package ttt.valiit.abja_kino_back;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
