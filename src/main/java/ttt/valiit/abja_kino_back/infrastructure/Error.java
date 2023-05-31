@@ -12,6 +12,7 @@ public enum Error {
     MOVIE_NOT_FOUND("Filmi ei leitud"),
     ROOM_NOT_FOUND("Saali ei leitud"),
     SEANCE_NOT_FOUND("Seanssi ei leitud"),
+    SEANCE_HAS_ACTIVE_TICKETS("Seansil on aktiivseid pileteid"),
     SEAT_NOT_FOUND("Kohta ei leitud"),
     TICKET_TYPE_NOT_FOUND("Piletitüüpi ei leitud"),
     TICKET_NOT_FOUND("Piletit ei leitud"),

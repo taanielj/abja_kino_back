@@ -110,11 +110,11 @@ public class SeanceService {
     public void deleteSeance(Integer id) {
 
         Seance seance = seanceRepository.findById(id).orElseThrow(
-                () -> new ResourceNotFoundException("Seance with id " + id + " not found")
+                () -> new ResourceNotFoundException(SEANCE_NOT_FOUND.getMessage())
         );
 
         if(ticketRepository.existsBySeanceId(id) && clock.instant().isBefore(seance.getStartTime())) {
-            throw new DatabaseConstraintException("Seance with id " + id + " has active tickets");
+            throw new DatabaseConstraintException(SEANCE_HAS_ACTIVE_TICKETS.getMessage());
         }
 
         seance.setStatus(DELETED.getLetter());
