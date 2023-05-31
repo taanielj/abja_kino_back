@@ -90,13 +90,7 @@ public class SeanceService {
     }
 
     public void updateSeance(Integer id, SeanceAdminDto seanceAdminDto) {
-        Seance seance = seanceRepository.findById(id).orElseThrow(
-                () -> new ResourceNotFoundException(SEANCE_NOT_FOUND.getMessage())
-        );
-
-        if(ticketRepository.existsBySeanceId(id) && clock.instant().isBefore(seance.getStartTime())) {
-            throw new DatabaseConstraintException(SEANCE_HAS_ACTIVE_TICKETS.getMessage());
-        }
+        Seance seance = getSeanceAndValidateChangeable(id);
 
         seanceMapper.updateSeanceFromDto(seanceAdminDto, seance);
 
@@ -113,7 +107,12 @@ public class SeanceService {
     }
 
     public void deleteSeance(Integer id) {
+        Seance seance = getSeanceAndValidateChangeable(id);
+        seance.setStatus(DELETED.getLetter());
+        seanceRepository.save(seance);
+    }
 
+    private Seance getSeanceAndValidateChangeable(Integer id) {
         Seance seance = seanceRepository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException(SEANCE_NOT_FOUND.getMessage())
         );
@@ -121,10 +120,7 @@ public class SeanceService {
         if(ticketRepository.existsBySeanceId(id) && clock.instant().isBefore(seance.getStartTime())) {
             throw new DatabaseConstraintException(SEANCE_HAS_ACTIVE_TICKETS.getMessage());
         }
-
-        seance.setStatus(DELETED.getLetter());
-        seanceRepository.save(seance);
-
+        return seance;
     }
 
 

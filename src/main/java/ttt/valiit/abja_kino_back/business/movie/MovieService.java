@@ -41,16 +41,8 @@ public class MovieService {
 
     public void addNewMovie(MovieDto movieDto) {
 
-        if (movieRepository.deletedByTitle(movieDto.getTitle())) {
-            reactivateMovie(movieDto);
-            return;
-        }
-
-        if (movieRepository.existsBy(movieDto.getTitle())) {
-            throw new DatabaseNameConflictException("Selle nimega film on juba olemas!");
-        }
-
-        Movie movie = movieMapper.toMovie(movieDto);
+        Movie movie = getAndValidateMovie(movieDto);
+        if (movie == null) return;
 
         Genre genre = genreRepository.findById(movieDto.getGenreId()).orElseThrow(
                 () -> new ResourceNotFoundException("Sellise id-ga žanrit ei leitud!")
@@ -60,15 +52,6 @@ public class MovieService {
         movie.setStatus(ACTIVE.getLetter());
         movieRepository.save(movie);
     }
-
-    private void reactivateMovie(MovieDto movieDto) {
-        Integer movieId = movieRepository.getIdByTitle(movieDto.getTitle());
-        Movie movie = movieMapper.toMovie(movieDto);
-        movie.setStatus(ACTIVE.getLetter());
-        movie.setId(movieId);
-        movieRepository.save(movie);
-    }
-
 
     public List<MovieAdminSummary> getMovieAdminSummary() {
         List<Movie> movies = movieRepository.findAllMoviesBy(ACTIVE.getLetter());
@@ -81,8 +64,6 @@ public class MovieService {
         }
 
         return movieSummaries;
-
-
     }
 
     public List<MovieListDto> getAllMovies() {
@@ -95,7 +76,6 @@ public class MovieService {
         }
 
         return movieListDtos;
-
     }
 
     public Integer[] getAllMovieIds() {
@@ -118,8 +98,6 @@ public class MovieService {
         ));
 
         movieRepository.save(movie);
-
-
     }
 
     public void deleteMovie(Integer id) {
@@ -134,5 +112,27 @@ public class MovieService {
         movie.setStatus(DELETED.getLetter());
         movieRepository.save(movie);
 
+    }
+
+    private Movie getAndValidateMovie(MovieDto movieDto) {
+        if (movieRepository.deletedByTitle(movieDto.getTitle())) {
+            reactivateMovie(movieDto);
+            return null;
+        }
+
+        if (movieRepository.existsBy(movieDto.getTitle())) {
+            throw new DatabaseNameConflictException("Selle nimega film on juba olemas!");
+        }
+
+        Movie movie = movieMapper.toMovie(movieDto);
+        return movie;
+    }
+
+    private void reactivateMovie(MovieDto movieDto) {
+        Integer movieId = movieRepository.getIdByTitle(movieDto.getTitle());
+        Movie movie = movieMapper.toMovie(movieDto);
+        movie.setStatus(ACTIVE.getLetter());
+        movie.setId(movieId);
+        movieRepository.save(movie);
     }
 }
