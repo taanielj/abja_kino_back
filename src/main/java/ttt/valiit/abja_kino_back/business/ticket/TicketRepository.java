@@ -16,5 +16,10 @@ public interface TicketRepository extends JpaRepository<Ticket, Integer> {
     @Query("select t.id from Ticket t where t.user.id = ?1 and t.seance.startTime >= ?2 order by t.seance.startTime")
     Integer[] getAllActiveUserTickets(Integer id, Instant startTime);
 
+    @Query("select count(t) from Ticket t where t.seance.id = ?1")
+    Integer countBySeance(Integer id);
+
+
+
 
 }

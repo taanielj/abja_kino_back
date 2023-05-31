@@ -2,16 +2,18 @@ package ttt.valiit.abja_kino_back.business.seance;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import ttt.valiit.abja_kino_back.business.seance.dto.SeanceAdminSummary;
-import ttt.valiit.abja_kino_back.business.seance.dto.SeanceAdminDto;
-import ttt.valiit.abja_kino_back.business.seance.dto.SeanceScheduleDto;
 import ttt.valiit.abja_kino_back.business.movie.MovieRepository;
 import ttt.valiit.abja_kino_back.business.room.RoomRepository;
+import ttt.valiit.abja_kino_back.business.seance.dto.SeanceAdminDto;
+import ttt.valiit.abja_kino_back.business.seance.dto.SeanceAdminSummary;
+import ttt.valiit.abja_kino_back.business.seance.dto.SeanceScheduleDto;
+import ttt.valiit.abja_kino_back.business.ticket.TicketRepository;
 import ttt.valiit.abja_kino_back.infrastructure.exception.ResourceNotFoundException;
 
 import java.time.Clock;
 import java.util.List;
 
+import static ttt.valiit.abja_kino_back.infrastructure.Error.*;
 import static ttt.valiit.abja_kino_back.infrastructure.Status.ACTIVE;
 import static ttt.valiit.abja_kino_back.infrastructure.Status.DELETED;
 
@@ -23,6 +25,7 @@ public class SeanceService {
     private final SeanceRepository seanceRepository;
     private final MovieRepository movieRepository;
     private final RoomRepository roomRepository;
+    private final TicketRepository ticketRepository;
     private final SeanceMapper seanceMapper;
     private final Clock clock;
 
@@ -45,11 +48,11 @@ public class SeanceService {
         Seance seance = seanceMapper.toSeance(seanceAdminDto);
 
         seance.setRoom(roomRepository.findById(seanceAdminDto.getRoomId()).orElseThrow(
-                () -> new ResourceNotFoundException("Selle id-ga ruumi ei leitud")
+                () -> new ResourceNotFoundException(ROOM_NOT_FOUND.getMessage())
         ));
 
         seance.setMovie(movieRepository.findById(seanceAdminDto.getMovieId()).orElseThrow(
-                () -> new ResourceNotFoundException("Selle id-ga filmi ei leitud")
+                () -> new ResourceNotFoundException(MOVIE_NOT_FOUND.getMessage())
         ));
 
         seance.setStatus(ACTIVE.getLetter());
@@ -65,30 +68,38 @@ public class SeanceService {
 
     public SeanceScheduleDto getSeanceScheduleDto(Integer id) {
         Seance seance = seanceRepository.findById(id).orElseThrow(
-                () -> new ResourceNotFoundException("Selle id-ga seanssi ei leitud")
+                () -> new ResourceNotFoundException(SEANCE_NOT_FOUND.getMessage())
         );
-        return seanceMapper.toScheduleDto(seance);
+        Integer totalSeats = seance.getRoom().getCols() * seance.getRoom().getRows();
+        Integer bookedSeats = ticketRepository.countBySeance(seance.getId());
+        SeanceScheduleDto seanceScheduleDto = seanceMapper.toScheduleDto(seance);
+
+        seanceScheduleDto.setTotalSeats(totalSeats);
+        seanceScheduleDto.setAvailableSeats(totalSeats - bookedSeats);
+
+
+        return seanceScheduleDto;
     }
 
     public SeanceAdminDto getSeanceAdminDto(Integer id) {
         Seance seance = seanceRepository.findById(id).orElseThrow(
-                () -> new ResourceNotFoundException("Selle id-ga seanssi ei leitud")
+                () -> new ResourceNotFoundException(SEANCE_NOT_FOUND.getMessage())
         );
         return seanceMapper.toAdminDto(seance);
     }
 
     public void updateSeance(Integer id, SeanceAdminDto seanceAdminDto) {
         Seance seance = seanceRepository.findById(id).orElseThrow(
-                () -> new ResourceNotFoundException("Selle id-ga seanssi ei leitud")
+                () -> new ResourceNotFoundException(SEANCE_NOT_FOUND.getMessage())
         );
         seanceMapper.updateSeanceFromDto(seanceAdminDto, seance);
 
         seance.setRoom(roomRepository.findById(seanceAdminDto.getRoomId()).orElseThrow(
-                () -> new ResourceNotFoundException("Selle id-ga ruumi ei leitud")
+                () -> new ResourceNotFoundException(ROOM_NOT_FOUND.getMessage())
         ));
 
         seance.setMovie(movieRepository.findById(seanceAdminDto.getMovieId()).orElseThrow(
-                () -> new ResourceNotFoundException("Selle id-ga filmi ei leitud")
+                () -> new ResourceNotFoundException(MOVIE_NOT_FOUND.getMessage())
         ));
 
 
@@ -101,12 +112,10 @@ public class SeanceService {
                 () -> new ResourceNotFoundException("Seance with id " + id + " not found")
         );
 
-
         seance.setStatus(DELETED.getLetter());
         seanceRepository.save(seance);
 
     }
-
 
 
 }

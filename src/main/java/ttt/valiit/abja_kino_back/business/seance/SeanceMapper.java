@@ -33,6 +33,7 @@ public interface SeanceMapper {
     @Mapping(source = "movie.genre.name", target = "movieGenreName")
     @Mapping(source = "room.name", target = "roomName")
     @Mapping(source = "movie.id", target = "movieId")
+    @Mapping(source = "movie.youtubeLink", target = "movieYoutubeLink")
     SeanceScheduleDto toScheduleDto(Seance seance);
 
     @Mapping(source = "startTime", target = "dateTime", qualifiedByName = "instantToDateTime")

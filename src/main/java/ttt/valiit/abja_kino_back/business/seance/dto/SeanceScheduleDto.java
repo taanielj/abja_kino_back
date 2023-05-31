@@ -15,26 +15,17 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 public class SeanceScheduleDto implements Serializable {
-    @Size(max = 255)
-    @NotNull
+
     private String roomName;
     private Integer movieId;
-    @Size(max = 255)
-    @NotNull
     private String movieGenreName;
-    @NotNull
     private Integer movieRuntime;
-    @Size(max = 255)
-    @NotNull
     private String movieTitle;
-    @NotNull
     private String moviePosterImage;
-    @NotNull
     private String dateTime;
-    @Size(max = 255)
-    @NotNull
     private String language;
-    @Size(max = 255)
-    @NotNull
     private String subtitles;
+    private String movieYoutubeLink;
+    private Integer totalSeats;
+    private Integer availableSeats;
 }
