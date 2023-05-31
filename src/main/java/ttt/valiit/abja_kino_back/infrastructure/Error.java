@@ -8,6 +8,7 @@ import lombok.Getter;
 @Getter
 public enum Error {
     GENRE_NOT_FOUND("Žanri ei leitud"),
+    GENRE_HAS_MOVIES("Žanr on filmiga seotud"),
     MOVIE_NOT_FOUND("Filmi ei leitud"),
     ROOM_NOT_FOUND("Saali ei leitud"),
     SEANCE_NOT_FOUND("Seanssi ei leitud"),

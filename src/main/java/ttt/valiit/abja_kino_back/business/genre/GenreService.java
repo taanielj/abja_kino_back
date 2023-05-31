@@ -48,7 +48,7 @@ public class GenreService {
         );
 
         if (movieRepository.existsByGenre(id)) {
-            throw new DatabaseNameConflictException(DATABASE_NAME_CONFLICT.getMessage()
+            throw new DatabaseConstraintException(GENRE_HAS_MOVIES.getMessage()
             );
         }
         genreRepository.delete(genre);
