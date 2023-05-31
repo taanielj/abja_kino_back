@@ -124,8 +124,7 @@ public class MovieService {
             throw new DatabaseNameConflictException("Selle nimega film on juba olemas!");
         }
 
-        Movie movie = movieMapper.toMovie(movieDto);
-        return movie;
+        return movieMapper.toMovie(movieDto);
     }
 
     private void reactivateMovie(MovieDto movieDto) {

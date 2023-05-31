@@ -51,7 +51,7 @@ public interface MovieMapper {
     @Mapping(source = "runtime", target = "runtime")
     @Mapping(source = "director", target = "director")
     @Mapping(source = "youtubeLink", target = "youtubeLink")
-    @Mapping(source = "genreId", target = "genre.id")
+    @Mapping(ignore = true, target = "genre.id")
     @Mapping(source = "description", target = "description")
     void updateMovieFromDto(MovieDto movieDto, @MappingTarget Movie movie);
 
