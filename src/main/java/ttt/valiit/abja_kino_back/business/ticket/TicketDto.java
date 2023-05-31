@@ -23,7 +23,7 @@ public class TicketDto implements Serializable {
     @NotNull
     private final String seanceMovieTitle;
     @NotNull
-    private final Instant seanceStartTime;
+    private final String seanceStartTime;
     @Size(max = 255)
     @NotNull
     private final String ticketTypeName;

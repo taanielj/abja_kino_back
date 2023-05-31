@@ -56,10 +56,7 @@ public class UserService {
     }
 
     public LoginResponse login(LoginRequest loginRequest) {
-
         User user = getUser(loginRequest);
-
-
         return getLoginResponse(user);
     }
 

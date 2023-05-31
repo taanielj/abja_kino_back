@@ -61,7 +61,7 @@ public class TicketService {
 
     private User getUser(TicketPurchaseDto ticketPurchaseDto) {
         return userRepository.findById(ticketPurchaseDto.getUserId()).orElseThrow(
-                () -> new ResourceNotFoundException(TICKET_NOT_FOUND.getMessage())
+                () -> new ResourceNotFoundException(USER_NOT_FOUND.getMessage())
         );
     }
 

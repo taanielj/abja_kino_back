@@ -13,6 +13,6 @@ public class AppConfig {
     @Bean
     public Clock clock() {
         //set system time zone
-        return Clock.system(ZoneId.systemDefault());
+        return Clock.system(ZoneId.of("Europe/Tallinn"));
     }
 }
