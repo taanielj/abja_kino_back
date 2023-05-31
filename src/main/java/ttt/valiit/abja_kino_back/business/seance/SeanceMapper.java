@@ -45,10 +45,10 @@ public interface SeanceMapper {
     List<SeanceAdminSummary> toAdminSummaries(List<Seance> seances);
 
 
-    @Mapping(source = "movieId", target = "movie.id")
+    @Mapping(ignore = true, target = "movie.id")
     @Mapping(source = "language", target = "language")
     @Mapping(source = "subtitles", target = "subtitles")
-    @Mapping(source = "roomId", target = "room.id")
+    @Mapping(ignore = true, target = "room.id")
     @Mapping(source = "dateTime", target = "startTime", qualifiedByName = "dateTimeToInstant")
     void updateSeanceFromDto(SeanceAdminDto seanceAdminDto, @MappingTarget Seance seance);
 
