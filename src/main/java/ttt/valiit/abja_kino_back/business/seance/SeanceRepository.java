@@ -10,7 +10,7 @@ public interface SeanceRepository extends JpaRepository<Seance, Integer> {
     @Query("select s from Seance s where s.startTime > ?1 and s.status = 'A' order by s.movie.runtime ")
     List<Seance> findByStartTimeGreaterThan(Instant startTime);
 
-    @Query("select count(s) from Seance s where s.movie.id = ?1")
+    @Query("select count(s) from Seance s where s.movie.id = ?1 and s.status = 'A'")
     long countByMovie(Integer id);
 
     @Query("select s from Seance s where s.status = ?1 order by s.startTime")
