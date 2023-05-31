@@ -1,8 +1,9 @@
 package ttt.valiit.abja_kino_back.business.seance.dto;
 
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import ttt.valiit.abja_kino_back.business.seance.Seance;
 
 import java.io.Serializable;

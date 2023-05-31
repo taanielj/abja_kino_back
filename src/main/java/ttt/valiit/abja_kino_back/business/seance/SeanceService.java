@@ -102,7 +102,6 @@ public class SeanceService {
                 () -> new ResourceNotFoundException(MOVIE_NOT_FOUND.getMessage())
         ));
 
-
         seanceRepository.save(seance);
     }
 

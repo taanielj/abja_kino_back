@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ttt.valiit.abja_kino_back.business.movie.MovieRepository;
 import ttt.valiit.abja_kino_back.infrastructure.exception.DatabaseConstraintException;
-import ttt.valiit.abja_kino_back.infrastructure.exception.DatabaseNameConflictException;
 import ttt.valiit.abja_kino_back.infrastructure.exception.ResourceNotFoundException;
 
 import java.util.List;
