@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import ttt.valiit.abja_kino_back.business.room.dto.RoomDto;
 import ttt.valiit.abja_kino_back.business.room.dto.RoomSeanceDto;
 import ttt.valiit.abja_kino_back.business.room.dto.SeatDto;
+import ttt.valiit.abja_kino_back.business.room.seat.Seat;
 import ttt.valiit.abja_kino_back.business.seance.Seance;
 import ttt.valiit.abja_kino_back.business.seance.SeanceRepository;
 import ttt.valiit.abja_kino_back.business.ticket.Ticket;
@@ -31,21 +32,20 @@ public class RoomService {
 
     @Transactional
     public void addRoom(RoomDto roomDto) {
+
         Room room = roomMapper.toRoom(roomDto);
         validateRoomName(room.getName());
         roomRepository.save(room);
         updateSeats(room);
-
         roomRepository.save(room);
     }
 
     private void updateSeats(Room room) {
-        room.getSeats().clear();
 
+        room.getSeats().clear();
         if (seanceRepository.existsByRoomId(room.getId())) {
             throw new DatabaseConstraintException(ROOM_SEATS_CANNOT_BE_EDITED.getMessage());
         }
-
 
 
         for (int i = 0; i < room.getRows(); i++) {
@@ -72,7 +72,6 @@ public class RoomService {
         return roomMapper.toRoomDtos(roomRepository.findAllAlphabetic());
     }
 
-
     private void validateRoomName(String roomName) {
         if (roomName == null || roomName.isEmpty()) {
             throw new DatabaseConstraintException("Ruumi nimi ei tohi olla tühi");
@@ -83,36 +82,26 @@ public class RoomService {
     }
 
     private void validateRoomName(String newName, String oldName) {
+
         if (newName == null || newName.isEmpty()) {
             throw new DatabaseConstraintException("Ruumi nimi ei tohi olla tühi");
         }
+
         if (!newName.equals(oldName) && roomRepository.existsBy(newName)) {
             throw new DatabaseNameConflictException("Selle nimega saal on juba olemas");
         }
     }
 
     public void updateRoom(Integer id, RoomDto roomDto) {
-        Room existingRoom = roomRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Room not found"));
-        validateRoomName(roomDto.getName(), existingRoom.getName());
-        existingRoom.setName(roomDto.getName());
-        roomRepository.save(existingRoom);
+        Room existingRoom = updateName(id, roomDto);
 
-        if(existingRoom.getRows().equals(roomDto.getRows()) && existingRoom.getCols().equals(roomDto.getCols())) {
-            return;
-        }
-
-        existingRoom.setRows(roomDto.getRows());
-        existingRoom.setCols(roomDto.getCols());
-        updateSeats(existingRoom);
-        roomRepository.save(existingRoom);
+        updateSeats(roomDto, existingRoom);
     }
-
 
     public RoomDto getRoom(Integer id) {
         Room room = roomRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Room not found"));
         return roomMapper.toRoomDto(room);
     }
-
 
     public RoomSeanceDto getRoomSeance(Integer seanceId) {
         Seance seance = seanceRepository.findById(seanceId).orElseThrow(
@@ -149,5 +138,24 @@ public class RoomService {
         roomSeanceDto.setCols(room.getCols());
         roomSeanceDto.setRoomName(room.getName());
         return roomSeanceDto;
+    }
+
+    private void updateSeats(RoomDto roomDto, Room existingRoom) {
+        if(existingRoom.getRows().equals(roomDto.getRows()) && existingRoom.getCols().equals(roomDto.getCols())) {
+            return;
+        }
+
+        existingRoom.setRows(roomDto.getRows());
+        existingRoom.setCols(roomDto.getCols());
+        updateSeats(existingRoom);
+        roomRepository.save(existingRoom);
+    }
+
+    private Room updateName(Integer id, RoomDto roomDto) {
+        Room existingRoom = roomRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Room not found"));
+        validateRoomName(roomDto.getName(), existingRoom.getName());
+        existingRoom.setName(roomDto.getName());
+        roomRepository.save(existingRoom);
+        return existingRoom;
     }
 }

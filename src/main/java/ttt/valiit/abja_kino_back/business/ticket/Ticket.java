@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import ttt.valiit.abja_kino_back.business.room.Seat;
+import ttt.valiit.abja_kino_back.business.room.seat.Seat;
 import ttt.valiit.abja_kino_back.business.seance.Seance;
 import ttt.valiit.abja_kino_back.business.ticket.type.TicketType;
 import ttt.valiit.abja_kino_back.business.user.User;

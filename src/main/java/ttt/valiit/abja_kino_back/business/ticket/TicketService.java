@@ -2,8 +2,8 @@ package ttt.valiit.abja_kino_back.business.ticket;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import ttt.valiit.abja_kino_back.business.room.Seat;
-import ttt.valiit.abja_kino_back.business.room.SeatRepository;
+import ttt.valiit.abja_kino_back.business.room.seat.Seat;
+import ttt.valiit.abja_kino_back.business.room.seat.SeatRepository;
 import ttt.valiit.abja_kino_back.business.seance.Seance;
 import ttt.valiit.abja_kino_back.business.seance.SeanceRepository;
 import ttt.valiit.abja_kino_back.business.ticket.type.TicketType;

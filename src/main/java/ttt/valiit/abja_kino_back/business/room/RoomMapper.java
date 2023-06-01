@@ -11,12 +11,8 @@ public interface RoomMapper {
     @Mapping(ignore = true, target = "id")
     Room toRoom(RoomDto roomDto);
 
-
-
     RoomDto toRoomDto(Room room);
+
     List<RoomDto> toRoomDtos(List<Room> rooms);
-
-
-
 
 }
