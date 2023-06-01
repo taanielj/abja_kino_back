@@ -6,6 +6,8 @@ import ttt.valiit.abja_kino_back.business.movie.dto.MovieDto;
 import ttt.valiit.abja_kino_back.business.movie.dto.MovieListDto;
 import ttt.valiit.abja_kino_back.util.ImageUtil;
 
+import java.util.List;
+
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING)
 public interface MovieMapper {
     @Mapping(ignore = true, target = "id")
@@ -20,6 +22,7 @@ public interface MovieMapper {
 
     @Mapping(source = "title", target = "title")
     @Mapping(source = "genre.id", target = "genreId")
+    @Mapping(source = "genre.name", target = "genreName")
     @Mapping(source = "youtubeLink", target = "youtubeLink")
     @Mapping(source = "runtime", target = "runtime")
     @Mapping(source = "director", target = "director")
@@ -55,4 +58,5 @@ public interface MovieMapper {
     @Mapping(source = "description", target = "description")
     void updateMovieFromDto(MovieDto movieDto, @MappingTarget Movie movie);
 
+    List<MovieDto> toMovieDtoList(List<Movie> movies);
 }

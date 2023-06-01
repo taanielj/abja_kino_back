@@ -10,6 +10,7 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING)
 public interface SeanceMapper {
@@ -36,6 +37,8 @@ public interface SeanceMapper {
     @Mapping(source = "movie.id", target = "movieId")
     @Mapping(source = "movie.youtubeLink", target = "movieYoutubeLink")
     SeanceScheduleDto toScheduleDto(Seance seance);
+
+    List<SeanceScheduleDto> toScheduleDtoList(List<Seance> seances);
 
     @Mapping(source = "startTime", target = "dateTime", qualifiedByName = "instantToDateTime")
     @Mapping(source = "movie.title", target = "movieTitle")

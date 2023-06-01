@@ -18,23 +18,23 @@ public class TicketController {
         this.ticketService = ticketService;
     }
 
-    @GetMapping("/all-active-ids-by-user/{userId}")
+    @GetMapping("/all-active-by-user/{userId}")
     @Operation(summary = "Tagastab kõik aktiivsed piletid kasutaja ID järgi",
             description = """
                     Süsteemis tagastatakse kõik aktiivsed piletid kasutaja ID järgi.
                     Kui kasutajal ei ole aktiivseid pileteid tagastatakse tühi massiiv""")
     @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "OK")})
-    public Integer[] getAllActiveUserTickets(@PathVariable("userId") Integer userId) {
+    public List<TicketDto> getAllActiveUserTickets(@PathVariable("userId") Integer userId) {
         return ticketService.getAllActiveUserTickets(userId);
     }
 
-    @GetMapping("/all-expired-ids-by-user/{userId}")
+    @GetMapping("/all-expired-by-user/{userId}")
     @Operation(summary = "Tagastab kõik aegunud piletid kasutaja ID järgi",
             description = """
                     Süsteemis tagastatakse kõik aegunud piletid kasutaja ID järgi.
                     Kui kasutajal ei ole aegunud pileteid tagastatakse tühi massiiv""")
     @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "OK")})
-    public Integer[] getAllExpiredUserTickets(@PathVariable("userId") Integer userId) {
+    public List<TicketDto> getAllExpiredUserTickets(@PathVariable("userId") Integer userId) {
         return ticketService.getAllExpiredUserTickets(userId);
     }
 

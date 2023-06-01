@@ -5,6 +5,7 @@ import org.mapstruct.*;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING)
@@ -26,4 +27,5 @@ public interface TicketMapper {
         return instant == null ? null : instant.atZone(TIME_ZONE).format(DATE_TIME_FORMATTER);
     }
 
+    List<TicketDto> toTicketDtoList(List<Ticket> tickets);
 }

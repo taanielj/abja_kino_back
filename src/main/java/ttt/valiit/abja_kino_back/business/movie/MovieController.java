@@ -65,13 +65,13 @@ public class MovieController {
         movieService.deleteMovie(id);
     }
 
-    @GetMapping("/ids")
+    @GetMapping("/all")
     @Operation(summary = "Tagastab kõikide filmide id-d",
             description = "Kui filme ei ole tagastatakse tühi massiiv")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK")})
-    public Integer[] getAllMovieIds() {
-        return movieService.getAllMovieIds();
+    public List<MovieDto> getAllMovies() {
+        return movieService.getAllMovies();
     }
 
     @GetMapping("/admin-summary")
@@ -83,13 +83,13 @@ public class MovieController {
         return movieService.getMovieAdminSummary();
     }
 
-    @GetMapping("/all")
+    @GetMapping("/list")
     @Operation(summary = "Tagastab kõikide filmide info",
             description = "Kui filme ei ole tagastatakse tühi massiiv")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK")})
-    public List<MovieListDto> getAllMovies() {
-        return movieService.getAllMovies();
+    public List<MovieListDto> getMovieList() {
+        return movieService.getMovieList();
     }
 
 }

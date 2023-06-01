@@ -60,7 +60,7 @@ public class MovieService {
         return movieSummaries;
     }
 
-    public List<MovieListDto> getAllMovies() {
+    public List<MovieListDto> getMovieList() {
         List<Movie> movies = movieRepository.findAllMoviesBy(ACTIVE.getLetter());
         List<MovieListDto> movieListDtos = new ArrayList<>();
 
@@ -72,8 +72,10 @@ public class MovieService {
         return movieListDtos;
     }
 
-    public Integer[] getAllMovieIds() {
-        return movieRepository.findAllActiveMovieIds();
+    public List<MovieDto> getAllMovies() {
+        List<Movie> movies = movieRepository.findAllActiveMovies();
+
+        return movieMapper.toMovieDtoList(movies);
     }
 
     public void updateMovie(Integer id, MovieDto movieDto) {

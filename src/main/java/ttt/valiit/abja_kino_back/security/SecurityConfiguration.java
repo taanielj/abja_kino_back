@@ -67,6 +67,8 @@ public class SecurityConfiguration {
                 .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").hasRole("ADMIN")
                 .anyRequest().permitAll()
                 .and()
+                .httpBasic().disable()
+                .csrf().disable()
                 .formLogin();
 
         return http.build();

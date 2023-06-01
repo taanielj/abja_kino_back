@@ -31,18 +31,14 @@ public class SeanceService {
     private final SeanceMapper seanceMapper;
     private final Clock clock;
 
-    public int[] findAllFutureSeances() {
-        return seanceRepository.findByStartTimeGreaterThan(clock.instant())
-                .stream()
-                .mapToInt(Seance::getId)
-                .toArray();
+    public List<SeanceScheduleDto> findAllFutureSeances() {
+        List<Seance> seances = seanceRepository.findByStartTimeGreaterThan(clock.instant());
+        return seanceMapper.toScheduleDtoList(seances);
     }
 
-    public int[] findMovieAllFutureSeances(Integer movieId) {
-        return seanceRepository.findByStartTimeGreaterThanAndMovieId(clock.instant(), movieId)
-                .stream()
-                .mapToInt(Seance::getId)
-                .toArray();
+    public List<SeanceScheduleDto> findMovieAllFutureSeances(Integer movieId) {
+        List<Seance> seances =  seanceRepository.findByStartTimeGreaterThanAndMovieId(clock.instant(), movieId);
+        return seanceMapper.toScheduleDtoList(seances);
     }
 
     public void createSeance(SeanceAdminDto seanceAdminDto) {

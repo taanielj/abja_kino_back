@@ -20,12 +20,12 @@ public class SeanceController {
         this.seanceService = seanceService;
     }
 
-    @GetMapping("/all-future-id")
+    @GetMapping("/all-future")
     @Operation(summary = "Tagastab kõikide tulevaste seansside id-d",
             description = "Kui seansse ei ole olemas vastatakse tühja massiiviga")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK")})
-    public int[] getAllFutureSeanceIds() {
+    public List<SeanceScheduleDto> getAllFutureSeanceIds() {
         return seanceService.findAllFutureSeances();
     }
 
@@ -34,7 +34,7 @@ public class SeanceController {
             description = "Kui seansse ei ole olemas vastatakse tühja massiiviga")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK")})
-    public int[] getAllMovieFutureSeanceIds(@PathVariable("movie-id") Integer movieId) {
+    public List<SeanceScheduleDto> getAllMovieFutureSeanceIds(@PathVariable("movie-id") Integer movieId) {
         return seanceService.findMovieAllFutureSeances(movieId);
     }
 

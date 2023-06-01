@@ -28,12 +28,14 @@ public class TicketService {
     private final TicketMapper ticketMapper;
     private final Clock clock;
 
-    public Integer[] getAllActiveUserTickets(Integer userId) {
-        return ticketRepository.getAllActiveUserTickets(userId, clock.instant());
+    public List<TicketDto> getAllActiveUserTickets(Integer userId) {
+        List<Ticket> tickets = ticketRepository.getAllActiveUserTickets(userId, clock.instant());
+        return ticketMapper.toTicketDtoList(tickets);
     }
 
-    public Integer[] getAllExpiredUserTickets(Integer userId) {
-        return ticketRepository.getAllExpiredUserTickets(userId, clock.instant());
+    public List<TicketDto> getAllExpiredUserTickets(Integer userId) {
+        List<Ticket> tickets = ticketRepository.getAllExpiredUserTickets(userId, clock.instant());
+        return ticketMapper.toTicketDtoList(tickets);
     }
 
 
