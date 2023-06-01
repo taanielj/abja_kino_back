@@ -31,7 +31,6 @@ public class SeanceService {
     private final SeanceMapper seanceMapper;
     private final Clock clock;
 
-
     public int[] findAllFutureSeances() {
         return seanceRepository.findByStartTimeGreaterThan(clock.instant())
                 .stream()
@@ -50,15 +49,11 @@ public class SeanceService {
         Seance seance = seanceMapper.toSeance(seanceAdminDto);
 
         seance.setRoom(roomRepository.findById(seanceAdminDto.getRoomId()).orElseThrow(
-                () -> new ResourceNotFoundException(ROOM_NOT_FOUND.getMessage())
-        ));
-
+                () -> new ResourceNotFoundException(ROOM_NOT_FOUND.getMessage())));
         seance.setMovie(movieRepository.findById(seanceAdminDto.getMovieId()).orElseThrow(
-                () -> new ResourceNotFoundException(MOVIE_NOT_FOUND.getMessage())
-        ));
+                () -> new ResourceNotFoundException(MOVIE_NOT_FOUND.getMessage())));
 
         seance.setStatus(ACTIVE.getLetter());
-
         seanceRepository.save(seance);
     }
 
@@ -67,7 +62,7 @@ public class SeanceService {
         List<Seance> seances = seanceRepository.findAllSeancesBy(ACTIVE.getLetter());
         List<SeanceAdminSummary> seanceAdminSummaries = new ArrayList<>();
 
-        for(Seance seance : seances) {
+        for (Seance seance : seances) {
             Integer totalSeats = seance.getRoom().getCols() * seance.getRoom().getRows();
             Integer bookedSeats = ticketRepository.countBySeance(seance.getId());
             SeanceAdminSummary seanceAdminSummary = seanceMapper.toAdminSummary(seance);
@@ -75,8 +70,6 @@ public class SeanceService {
             seanceAdminSummary.setAvailableSeats(totalSeats - bookedSeats);
             seanceAdminSummaries.add(seanceAdminSummary);
         }
-
-
 
         return seanceAdminSummaries;
     }
@@ -106,17 +99,14 @@ public class SeanceService {
     }
 
     public void updateSeance(Integer id, SeanceAdminDto seanceAdminDto) {
+
         Seance seance = getSeanceAndValidateChangeable(id);
-
         seanceMapper.updateSeanceFromDto(seanceAdminDto, seance);
-
         seance.setRoom(roomRepository.findById(seanceAdminDto.getRoomId()).orElseThrow(
-                () -> new ResourceNotFoundException(ROOM_NOT_FOUND.getMessage())
-        ));
+                () -> new ResourceNotFoundException(ROOM_NOT_FOUND.getMessage())));
 
         seance.setMovie(movieRepository.findById(seanceAdminDto.getMovieId()).orElseThrow(
-                () -> new ResourceNotFoundException(MOVIE_NOT_FOUND.getMessage())
-        ));
+                () -> new ResourceNotFoundException(MOVIE_NOT_FOUND.getMessage())));
 
         seanceRepository.save(seance);
     }
@@ -132,7 +122,7 @@ public class SeanceService {
                 () -> new ResourceNotFoundException(SEANCE_NOT_FOUND.getMessage())
         );
 
-        if(ticketRepository.existsBySeanceId(id) && clock.instant().isBefore(seance.getStartTime())) {
+        if (ticketRepository.existsBySeanceId(id) && clock.instant().isBefore(seance.getStartTime())) {
             throw new DatabaseConstraintException(SEANCE_HAS_ACTIVE_TICKETS.getMessage());
         }
         return seance;

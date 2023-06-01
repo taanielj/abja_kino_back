@@ -1,14 +1,15 @@
 package ttt.valiit.abja_kino_back.business.seance;
 
 import org.mapstruct.*;
-import ttt.valiit.abja_kino_back.business.seance.dto.SeanceAdminSummary;
 import ttt.valiit.abja_kino_back.business.seance.dto.SeanceAdminDto;
+import ttt.valiit.abja_kino_back.business.seance.dto.SeanceAdminSummary;
 import ttt.valiit.abja_kino_back.business.seance.dto.SeanceScheduleDto;
 import ttt.valiit.abja_kino_back.util.ImageUtil;
 
-import java.time.*;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
 
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING)
 public interface SeanceMapper {
@@ -42,9 +43,6 @@ public interface SeanceMapper {
     @Mapping(source = "id", target = "id")
     SeanceAdminSummary toAdminSummary(Seance seance);
 
-    List<SeanceAdminSummary> toAdminSummaries(List<Seance> seances);
-
-
     @Mapping(ignore = true, target = "movie.id")
     @Mapping(source = "language", target = "language")
     @Mapping(source = "subtitles", target = "subtitles")
@@ -58,8 +56,6 @@ public interface SeanceMapper {
                 .atZone(TIME_ZONE)
                 .toInstant();
     }
-
-
 
     @Named("instantToDateTime")
     static String instantToDateTime(Instant instant) {
