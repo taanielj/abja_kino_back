@@ -69,5 +69,4 @@ public class GenreController {
         genreService.deleteGenreBy(id);
     }
 
-
 }

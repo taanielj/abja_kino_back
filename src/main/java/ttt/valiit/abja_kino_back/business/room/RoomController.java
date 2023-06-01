@@ -52,6 +52,7 @@ public class RoomController {
     public List<RoomDto> getAllRooms() {
         return roomService.getAllRooms();
     }
+
     @DeleteMapping("/{id}")
     @Operation(summary = "Kustutab saali.",
             description = """
@@ -83,4 +84,5 @@ public class RoomController {
     public RoomSeanceDto getRoomSeance(@PathVariable Integer id) {
         return roomService.getRoomSeance(id);
     }
+
 }

@@ -3,12 +3,16 @@ package ttt.valiit.abja_kino_back.security;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import ttt.valiit.abja_kino_back.security.jwt.JwtFilter;
 
 @Configuration
@@ -25,14 +29,29 @@ public class SecurityConfiguration {
     }
 
     @Bean
+    @Order(2)
     public SecurityFilterChain apiSecurityFilterChain(HttpSecurity http) throws Exception {
-
+        String mainUrl = "/api/v1/**";
+        String admin = "ADMIN";
         http
                 .authorizeHttpRequests()
-                .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").hasRole("ADMIN")
+                .requestMatchers(
+                        "/api/v1/movie/admin-summary",
+                        "/api/v1/seance/admin-summary",
+                        "/api/v1/user/admin-summary"
+                ).hasRole(admin)
+                .requestMatchers(HttpMethod.POST, "/api/v1/user/login", "/api/v1/user/register").permitAll()
+                .requestMatchers(HttpMethod.GET, "/api/v1/ticket/type/**").permitAll()
+                .requestMatchers(HttpMethod.GET, "/api/v1/ticket/*").authenticated()
+                .requestMatchers(HttpMethod.POST, "/api/v1/ticket/*").authenticated()
+                .requestMatchers(HttpMethod.GET, mainUrl).permitAll()
+                .requestMatchers(HttpMethod.POST, mainUrl).hasRole(admin)
+                .requestMatchers(HttpMethod.PUT, mainUrl).hasRole(admin)
+                .requestMatchers(HttpMethod.DELETE, mainUrl).hasRole(admin)
                 .anyRequest().permitAll()
                 .and()
-                .formLogin()
+                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .httpBasic().disable()
                 .csrf().disable();
@@ -40,43 +59,18 @@ public class SecurityConfiguration {
         return http.build();
     }
 
-    /*@Bean
-    public SecurityFilterChain apiSecurityFilterChain(HttpSecurity http) throws Exception {
-        String roleAdmin = "ADMIN";
-        String[] paths = {
-                "/api/v1/movie/**",
-                "/api/v1/genre/**",
-                "/api/v1/seance/**",
-                "/api/v1/ticket/type/**",
-                "/api/v1/room/**",
-        };
-
+    @Bean
+    @Order(1)
+    public SecurityFilterChain swaggerSecurityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests()
-                .requestMatchers(HttpMethod.POST, "/api/v1/user/login", "/api/v1/user/register").permitAll()
-                .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").hasRole(roleAdmin)
-                .requestMatchers(HttpMethod.GET, "/api/v1/movie/admin-summary").hasRole(roleAdmin)
-                .requestMatchers(HttpMethod.GET, "/api/v1/seance/admin-summary").hasRole(roleAdmin)
-                .requestMatchers(HttpMethod.GET, "/api/v1/ticket/type/**").permitAll()
-                .requestMatchers(HttpMethod.GET, "/api/v1/ticket/**").authenticated()
-                .requestMatchers(HttpMethod.POST, "/api/v1/ticket/**").authenticated()
-                .requestMatchers(HttpMethod.GET, "/api/v1/room/**").authenticated()
-
-                .requestMatchers(HttpMethod.GET, paths).permitAll()
-                .requestMatchers(HttpMethod.POST, paths).hasRole(roleAdmin)
-                .requestMatchers(HttpMethod.PUT, paths).hasRole(roleAdmin)
-                .requestMatchers(HttpMethod.DELETE, paths).hasRole(roleAdmin)
-                .anyRequest().authenticated()
+                .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").hasRole("ADMIN")
+                .anyRequest().permitAll()
                 .and()
-                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
-                .formLogin().disable()
-                .httpBasic().disable()
-                .csrf().disable();
+                .formLogin();
 
         return http.build();
-    }*/
+    }
 
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
@@ -85,6 +79,7 @@ public class SecurityConfiguration {
         provider.setPasswordEncoder(passwordEncoder());
         return provider;
     }
+
 
 
 }
