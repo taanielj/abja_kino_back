@@ -28,10 +28,10 @@ public class UserController {
     @Operation(summary = "Registreerimine. Tagastab userId ja roleName",
             description = """
                     Süsteemis luuakse uus kasutaja.
-                    Kui kasutajanimi on juba olemas vistakse viga errorCode'ga """)
+                    Kui kasutajanimi on juba olemas vistakse viga errorCode'ga 409(CONFLICT)""")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK"),
-            @ApiResponse(responseCode = "401", description = "Kasutajanimi on juba olemas")})
+            @ApiResponse(responseCode = "409", description = "Kasutajanimi on juba olemas")})
     public LoginResponse registration(@Valid @RequestBody RegistrationRequest registrationRequest) {
         return userService.register(registrationRequest);
     }
@@ -40,7 +40,7 @@ public class UserController {
     @Operation(summary = "Sisse logimine. Tagastab userId ja roleName",
             description = """
                     Süsteemist otsitakse username ja password abil kasutajat.
-                    Kui vastet ei leita vistakse viga errorCode'ga """)
+                    Kui vastet ei leita vistakse viga errorCode'ga 403(FORBIDDEN)""")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK"),
             @ApiResponse(responseCode = "403", description = "Vale kasutajanimi või parool")})
@@ -50,6 +50,9 @@ public class UserController {
 
 
     @GetMapping("/admin-summary")
+    @Operation(summary = "Tagastab kõik kasutajad",
+            description = "kui kasutajaid ei ole tagastatakse tühi massiiv")
+    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "OK")})
     public List<UserDto> getAllUsers() {
         return userService.getAllUsers();
     }

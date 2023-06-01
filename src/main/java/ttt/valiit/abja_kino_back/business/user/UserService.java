@@ -30,17 +30,13 @@ public class UserService {
     private final TicketRepository ticketRepository;
     private final JwtUtil jwtUtil;
 
-
-
     public LoginResponse register(RegistrationRequest registrationRequest) {
-
         User user = registerAndGetUser(registrationRequest);
-
-
         return getLoginResponse(user);
     }
 
     private User registerAndGetUser(RegistrationRequest registrationRequest) {
+
         if (userRepository.existsBy(registrationRequest.getUsername())) {
             throw new UsernameExistsException("Kasutajanimi on juba kasutusel");
         }

@@ -14,11 +14,10 @@ import static ttt.valiit.abja_kino_back.infrastructure.Error.*;
 @Service
 @RequiredArgsConstructor
 public class TicketTypeService {
+
     private final TicketTypeMapper ticketTypeMapper;
     private final TicketTypeRepository ticketTypeRepository;
     private final TicketRepository ticketRepository;
-
-
 
     public List<TicketTypeDto> getAllTicketTypes() {
         return ticketTypeMapper.toDto(ticketTypeRepository.findAllPriceDescending());
@@ -38,8 +37,6 @@ public class TicketTypeService {
         TicketType ticketType = ticketTypeMapper.toEntity(dto);
         ticketTypeRepository.save(ticketType);
     }
-
-
 
     public void updateTicketType(Integer id, TicketTypeDto dto) {
 

@@ -16,6 +16,7 @@ public class TicketTypeController {
 
     public TicketTypeController(TicketTypeService ticketService) {this.ticketService = ticketService;
     }
+
     @GetMapping ("/all")
     public List<TicketTypeDto> getAllTicketTypes() {
         return ticketService.getAllTicketTypes();
@@ -25,25 +26,34 @@ public class TicketTypeController {
     @Operation(summary = "Lisab uue piletitüübi",
             description = """
                     Süsteemis luuakse uus piletitüüp.
-                    Kui piletitüüp on juba olemas vistakse viga errorCode'ga""")
+                    Kui piletitüüp on juba olemas vistakse viga errorCode'ga 409(CONFLICT)""")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK"),
-            @ApiResponse(responseCode = "401", description = "Piletitüüp on juba olemas")})
+            @ApiResponse(responseCode = "409", description = "Piletitüüp on juba olemas")})
     public void addTicketType(@RequestBody TicketTypeDto ticketTypeDto) {
         ticketService.addTicketType(ticketTypeDto);
     }
+
     @PutMapping ("/{id}")
     @Operation(summary = "Muudab piletitüübi nime.",
             description = """
                     Süsteemis muudetakse piletitüübi nime.
-                    Kui piletitüüpi ei ole olemas vistakse viga errorCode'ga""")
+                    Kui piletitüüpi ei ole olemas vistakse viga errorCode'ga 409(CONFLICT)""")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK"),
-            @ApiResponse(responseCode = "401", description = "Piletitüüp on juba olemas")})
+            @ApiResponse(responseCode = "409", description = "Piletitüüp on juba olemas")})
     public void updateTicketType(@PathVariable ("id") Integer id,@RequestBody TicketTypeDto ticketTypeDto) {
         ticketService.updateTicketType(id, ticketTypeDto);
     }
+
     @DeleteMapping ("/{id}")
+    @Operation(summary = "Kustutab piletitüübi.",
+            description = """
+                    Süsteemis kustutatakse piletitüüp.
+                    Kui piletitüüpi on seotud aktiivse piletiga vistakse viga errorCode'ga 409(CONFLICT)""")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "OK"),
+            @ApiResponse(responseCode = "409", description = "Piletitüüp on seotud aktiivse piletiga")})
     public void deleteTicketType(@PathVariable Integer id) {
         ticketService.deleteTicketType(id);
     }

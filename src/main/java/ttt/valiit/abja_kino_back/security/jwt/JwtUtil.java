@@ -22,8 +22,6 @@ public class JwtUtil {
 
     private final JwtConfig jwtConfig;
 
-
-
     public Optional<String> extractUsername(String token) {
         return Optional.ofNullable(token)
                 .map(this::extractAllClaims)
@@ -70,6 +68,7 @@ public class JwtUtil {
         Map<String, Object> claims = new HashMap<>();
         return createRefreshToken(claims, userDetails.getUsername());
     }
+
     private String createRefreshToken(Map<String, Object> claims, String subject) {
         return Jwts.builder().setClaims(claims).setSubject(subject)
                 .setIssuedAt(new Date(System.currentTimeMillis()))

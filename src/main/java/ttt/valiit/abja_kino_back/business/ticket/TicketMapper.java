@@ -11,7 +11,6 @@ import java.time.format.DateTimeFormatter;
 public interface TicketMapper {
 
     DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
-
     ZoneId TIME_ZONE = ZoneId.of("Europe/Tallinn");
 
     @Mapping(source = "ticketType.name", target = "ticketTypeName")
@@ -22,16 +21,9 @@ public interface TicketMapper {
     @Mapping(source = "seat.col", target = "seatCol")
     TicketDto toTicketDto(Ticket ticket);
 
-
-
-
-
     @Named("instantToDateTime")
     static String instantToDateTime(Instant instant) {
         return instant == null ? null : instant.atZone(TIME_ZONE).format(DATE_TIME_FORMATTER);
     }
-
-
-
 
 }

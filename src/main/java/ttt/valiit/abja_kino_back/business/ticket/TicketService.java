@@ -30,12 +30,10 @@ public class TicketService {
 
     public Integer[] getAllActiveUserTickets(Integer userId) {
         return ticketRepository.getAllActiveUserTickets(userId, clock.instant());
-
     }
 
     public Integer[] getAllExpiredUserTickets(Integer userId) {
         return ticketRepository.getAllExpiredUserTickets(userId, clock.instant());
-
     }
 
 

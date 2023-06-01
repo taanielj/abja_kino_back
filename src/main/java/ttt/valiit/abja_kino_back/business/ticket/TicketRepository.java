@@ -25,7 +25,6 @@ public interface TicketRepository extends JpaRepository<Ticket, Integer> {
     @Query("select (count(t) > 0) from Ticket t where t.seance.id = ?1")
     boolean existsBySeanceId(Integer id);
 
-
     @Query("select count(t) from Ticket t where t.user.id = ?1")
     Integer countByUserId(Integer id);
 }

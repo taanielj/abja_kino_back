@@ -23,7 +23,6 @@ public interface UserMapper {
     @Mapping(ignore = true, target = "token")
     LoginResponse toLoginResponse(User user);
 
-
     @Mapping(source = "id", target = "id")
     @Mapping(source = "username", target = "username")
     @Mapping(source = "email", target = "email")
@@ -32,9 +31,5 @@ public interface UserMapper {
     UserDto toUserDto(User user);
 
     List<UserDto> toUserDtoList(List<User> users);
-
-
-
-
 
 }
