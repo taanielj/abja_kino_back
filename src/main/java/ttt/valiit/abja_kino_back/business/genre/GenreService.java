@@ -16,53 +16,44 @@ import static ttt.valiit.abja_kino_back.infrastructure.Error.*;
 public class GenreService {
     private final GenreRepository genreRepository;
     private final MovieRepository movieRepository;
+    private final GenreMapper genreMapper;
 
 
-    public List<Genre> getAllGenres() {
-
-        return genreRepository.findAllAlphabetic();
+    public List<GenreDto> getAllGenres() {
+        return genreMapper.toDto(genreRepository.findAllAlphabetic());
     }
 
     public void addGenre(String genreName) {
+
         validateGenre(genreName);
         Genre genre = new Genre();
         genre.setName(genreName);
         genreRepository.save(genre);
     }
 
-    private void validateGenre(String genreName) {
-        if (genreName == null || genreName.isEmpty()) {
-            throw new DatabaseConstraintException(DATABASE_NAME_MUST_NOT_BE_EMPTY.getMessage());
-        }
-
-        if (genreRepository.existsBy(genreName)) {
-            throw new DatabaseConstraintException(GENRE_EXISTS.getMessage());
-        }
-    }
-
 
     public void deleteGenreBy(Integer id) {
+
         Genre genre = genreRepository.findById(id).orElseThrow(
-                () -> new ResourceNotFoundException(RESOURCE_NOT_FOUND.getMessage())
-        );
+                () -> new ResourceNotFoundException(RESOURCE_NOT_FOUND.getMessage()));
 
         if (movieRepository.existsByGenre(id)) {
-            throw new DatabaseConstraintException(GENRE_HAS_MOVIES.getMessage()
-            );
+            throw new DatabaseConstraintException(GENRE_HAS_MOVIES.getMessage());
         }
+
         genreRepository.delete(genre);
     }
 
     public void updateGenreName(Integer id, String newName) {
-        Genre genre = genreRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Žanri ID ei leitud"));
+
+        Genre genre = genreRepository.findById(id).orElseThrow(
+                () -> new ResourceNotFoundException("Žanri ID ei leitud"));
 
         if (Objects.equals(genre.getName(), newName)) {
             return;
         }
 
         validateGenre(newName);
-
-
         genre.setName(newName);
         genreRepository.save(genre);
 
@@ -70,9 +61,20 @@ public class GenreService {
     }
 
     public String getGenreName(Integer id) {
+
         Genre genre = genreRepository.findById(id).orElseThrow(
-                () -> new ResourceNotFoundException("Žanri ID ei leitud")
-        );
+                () -> new ResourceNotFoundException("Žanri ID ei leitud"));
         return genre.getName();
+    }
+
+    private void validateGenre(String genreName) {
+
+        if (genreName == null || genreName.isEmpty()) {
+            throw new DatabaseConstraintException(DATABASE_NAME_MUST_NOT_BE_EMPTY.getMessage());
+        }
+
+        if (genreRepository.existsBy(genreName)) {
+            throw new DatabaseConstraintException(GENRE_EXISTS.getMessage());
+        }
     }
 }

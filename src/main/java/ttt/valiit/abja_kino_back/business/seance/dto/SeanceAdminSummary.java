@@ -24,4 +24,7 @@ public class SeanceAdminSummary implements Serializable {
     private String movieTitle;
     @NotNull
     private String dateTime;
+    private Integer totalSeats;
+    private Integer availableSeats;
+
 }

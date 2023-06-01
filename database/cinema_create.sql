@@ -67,7 +67,6 @@ CREATE TABLE ticket (
                         seat_id int  NOT NULL,
                         seance_id int  NOT NULL,
                         ticket_type_id int  NOT NULL,
-                        purchase_time timestamp  NOT NULL,
                         CONSTRAINT ticket_pk PRIMARY KEY (id)
 );
 

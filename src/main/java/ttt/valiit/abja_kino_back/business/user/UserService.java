@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import ttt.valiit.abja_kino_back.business.ticket.TicketRepository;
 import ttt.valiit.abja_kino_back.business.user.dto.LoginRequest;
 import ttt.valiit.abja_kino_back.business.user.dto.LoginResponse;
 import ttt.valiit.abja_kino_back.business.user.dto.RegistrationRequest;
@@ -26,6 +27,7 @@ public class UserService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
+    private final TicketRepository ticketRepository;
     private final JwtUtil jwtUtil;
 
 
@@ -61,7 +63,9 @@ public class UserService {
     }
 
     public List<UserDto> getAllUsers() {
-        return userMapper.toUserDtoList(userRepository.findAll());
+        List<UserDto> users = userMapper.toUserDtoList(userRepository.findAll());
+        users.forEach(userDto -> userDto.setBoughtTickets(ticketRepository.countByUserId(userDto.getId())));
+        return users;
     }
 
     private Role getDefaultRole() {

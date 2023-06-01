@@ -2,14 +2,17 @@ package ttt.valiit.abja_kino_back.business.user;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.Value;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.io.Serializable;
 
 /**
  * DTO for {@link User}
  */
-@Value
+
+@Setter
+@Getter
 public class UserDto implements Serializable {
     Integer id;
     @NotNull
@@ -23,4 +26,5 @@ public class UserDto implements Serializable {
     String roleName;
     @NotNull
     String status;
+    Integer boughtTickets;
 }

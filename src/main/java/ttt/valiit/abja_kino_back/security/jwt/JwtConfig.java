@@ -11,5 +11,8 @@ public class JwtConfig {
     @Value("${jwt.secret}")
     private String secretKey;
 
+    @Value("${jwt.expiration}")
+    private int expirationTime;
+
 
 }

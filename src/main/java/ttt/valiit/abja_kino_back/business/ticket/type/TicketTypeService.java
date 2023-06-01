@@ -21,7 +21,7 @@ public class TicketTypeService {
 
 
     public List<TicketTypeDto> getAllTicketTypes() {
-        return ticketTypeMapper.toDto(ticketTypeRepository.findAllAlphabetic());
+        return ticketTypeMapper.toDto(ticketTypeRepository.findAllPriceDescending());
     }
 
     void deleteTicketType(int id) {

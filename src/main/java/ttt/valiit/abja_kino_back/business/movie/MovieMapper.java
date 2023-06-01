@@ -2,6 +2,8 @@ package ttt.valiit.abja_kino_back.business.movie;
 
 import org.mapstruct.*;
 import ttt.valiit.abja_kino_back.business.movie.dto.MovieAdminSummary;
+import ttt.valiit.abja_kino_back.business.movie.dto.MovieDto;
+import ttt.valiit.abja_kino_back.business.movie.dto.MovieListDto;
 import ttt.valiit.abja_kino_back.util.ImageUtil;
 
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING)

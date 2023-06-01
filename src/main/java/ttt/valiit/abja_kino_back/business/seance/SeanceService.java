@@ -12,6 +12,7 @@ import ttt.valiit.abja_kino_back.infrastructure.exception.DatabaseConstraintExce
 import ttt.valiit.abja_kino_back.infrastructure.exception.ResourceNotFoundException;
 
 import java.time.Clock;
+import java.util.ArrayList;
 import java.util.List;
 
 import static ttt.valiit.abja_kino_back.infrastructure.Error.*;
@@ -64,13 +65,27 @@ public class SeanceService {
 
     public List<SeanceAdminSummary> getSeanceAdminSummary() {
         List<Seance> seances = seanceRepository.findAllSeancesBy(ACTIVE.getLetter());
-        return seanceMapper.toAdminSummaries(seances);
+        List<SeanceAdminSummary> seanceAdminSummaries = new ArrayList<>();
+
+        for(Seance seance : seances) {
+            Integer totalSeats = seance.getRoom().getCols() * seance.getRoom().getRows();
+            Integer bookedSeats = ticketRepository.countBySeance(seance.getId());
+            SeanceAdminSummary seanceAdminSummary = seanceMapper.toAdminSummary(seance);
+            seanceAdminSummary.setTotalSeats(totalSeats);
+            seanceAdminSummary.setAvailableSeats(totalSeats - bookedSeats);
+            seanceAdminSummaries.add(seanceAdminSummary);
+        }
+
+
+
+        return seanceAdminSummaries;
     }
 
     public SeanceScheduleDto getSeanceScheduleDto(Integer id) {
         Seance seance = seanceRepository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException(SEANCE_NOT_FOUND.getMessage())
         );
+
         Integer totalSeats = seance.getRoom().getCols() * seance.getRoom().getRows();
         Integer bookedSeats = ticketRepository.countBySeance(seance.getId());
         SeanceScheduleDto seanceScheduleDto = seanceMapper.toScheduleDto(seance);
@@ -86,6 +101,7 @@ public class SeanceService {
         Seance seance = seanceRepository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException(SEANCE_NOT_FOUND.getMessage())
         );
+
         return seanceMapper.toAdminDto(seance);
     }
 

@@ -10,8 +10,8 @@ public interface TicketTypeRepository extends JpaRepository<TicketType, Integer>
     @Query("select (count(t) > 0) from TicketType t where t.name = ?1")
     boolean existsBy(String name);
 
-    @Query("select t from TicketType t order by t.name")
-    List<TicketType> findAllAlphabetic();
+    @Query("select t from TicketType t order by t.price desc")
+    List<TicketType> findAllPriceDescending();
 
     @Query("select t from TicketType t where t.name = ?1")
     Optional <TicketType> findByName(String ticketTypeName);
