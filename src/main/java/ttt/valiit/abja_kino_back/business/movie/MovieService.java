@@ -1,5 +1,6 @@
 package ttt.valiit.abja_kino_back.business.movie;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ttt.valiit.abja_kino_back.business.movie.dto.MovieAdminSummary;
 import ttt.valiit.abja_kino_back.business.genre.Genre;
@@ -14,10 +15,12 @@ import ttt.valiit.abja_kino_back.infrastructure.exception.ResourceNotFoundExcept
 import java.util.ArrayList;
 import java.util.List;
 
+import static ttt.valiit.abja_kino_back.infrastructure.Error.*;
 import static ttt.valiit.abja_kino_back.infrastructure.Status.ACTIVE;
 import static ttt.valiit.abja_kino_back.infrastructure.Status.DELETED;
 
 @Service
+@RequiredArgsConstructor
 public class MovieService {
 
     private final MovieRepository movieRepository;
@@ -25,21 +28,11 @@ public class MovieService {
     private final SeanceRepository seanceRepository;
     private final MovieMapper movieMapper;
 
-    public MovieService(MovieRepository movieRepository, GenreRepository genreRepository, SeanceRepository seanceRepository, MovieMapper movieMapper) {
-        this.movieRepository = movieRepository;
-        this.genreRepository = genreRepository;
-        this.seanceRepository = seanceRepository;
-        this.movieMapper = movieMapper;
-    }
-
-
     public MovieDto getMovie(Integer movieId) {
         Movie movie = movieRepository.findById(movieId).orElseThrow(
-                () -> new ResourceNotFoundException("Sellise id-ga filmi ei leitud!")
-        );
+                () -> new ResourceNotFoundException(MOVIE_NOT_FOUND.getMessage()));
         return movieMapper.toMovieDto(movie);
     }
-
 
     public void addNewMovie(MovieDto movieDto) {
 
@@ -47,8 +40,7 @@ public class MovieService {
         if (movie == null) return;
 
         Genre genre = genreRepository.findById(movieDto.getGenreId()).orElseThrow(
-                () -> new ResourceNotFoundException("Sellise id-ga žanrit ei leitud!")
-        );
+                () -> new ResourceNotFoundException(GENRE_NOT_FOUND.getMessage()));
 
         movie.setGenre(genre);
         movie.setStatus(ACTIVE.getLetter());
@@ -86,29 +78,25 @@ public class MovieService {
 
     public void updateMovie(Integer id, MovieDto movieDto) {
         Movie movie = movieRepository.findById(id).orElseThrow(
-                () -> new ResourceNotFoundException("Sellise id'ga filmi ei leitud")
-        );
+                () -> new ResourceNotFoundException(MOVIE_NOT_FOUND.getMessage()));
 
         if (movieRepository.existsBy(movieDto.getTitle()) && !movie.getTitle().equals(movieDto.getTitle())) {
-            throw new DatabaseNameConflictException("Selle nimega film on juba olemas!");
+            throw new DatabaseNameConflictException(MOVIE_EXISTS.getMessage());
         }
 
         movieMapper.updateMovieFromDto(movieDto, movie);
-
         movie.setGenre(genreRepository.findById(movieDto.getGenreId()).orElseThrow(
-                () -> new ResourceNotFoundException("Sellise id-ga žanrit ei leitud!")
-        ));
+                () -> new ResourceNotFoundException(GENRE_NOT_FOUND.getMessage())));
 
         movieRepository.save(movie);
     }
 
     public void deleteMovie(Integer id) {
         Movie movie = movieRepository.findById(id).orElseThrow(
-                () -> new ResourceNotFoundException("Sellise id'ga filmi ei leitud")
-        );
+                () -> new ResourceNotFoundException(MOVIE_NOT_FOUND.getMessage()));
 
         if (seanceRepository.countByMovieAndStatus(id, ACTIVE.getLetter())) {
-            throw new DatabaseConstraintException("Sellel filmil on aktiivseid seansse!");
+            throw new DatabaseConstraintException(MOVIE_HAS_SEANCES.getMessage());
         }
 
         movie.setStatus(DELETED.getLetter());
@@ -123,7 +111,7 @@ public class MovieService {
         }
 
         if (movieRepository.existsBy(movieDto.getTitle())) {
-            throw new DatabaseNameConflictException("Selle nimega film on juba olemas!");
+            throw new DatabaseNameConflictException(MOVIE_EXISTS.getMessage());
         }
 
         return movieMapper.toMovie(movieDto);

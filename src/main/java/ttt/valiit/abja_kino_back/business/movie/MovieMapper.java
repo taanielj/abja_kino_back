@@ -31,7 +31,6 @@ public interface MovieMapper {
     @Mapping(source = "title", target = "title")
     MovieListDto toMovieListDto(Movie movie);
 
-
     @Named("imageStringToByteArray")
     static byte[] imageStringToByteArray(String imageString) {
         return imageString == null ? null : ImageUtil.base64ImageDataToByteArray(imageString);
@@ -47,7 +46,6 @@ public interface MovieMapper {
     @Mapping(source = "genre.name", target = "genreName")
     MovieAdminSummary toAdminSummary(Movie movie);
 
-
     @Mapping(source = "posterImage", target = "posterImage", qualifiedByName = "imageStringToByteArray")
     @Mapping(source = "title", target = "title")
     @Mapping(source = "runtime", target = "runtime")
@@ -56,6 +54,5 @@ public interface MovieMapper {
     @Mapping(ignore = true, target = "genre.id")
     @Mapping(source = "description", target = "description")
     void updateMovieFromDto(MovieDto movieDto, @MappingTarget Movie movie);
-
 
 }

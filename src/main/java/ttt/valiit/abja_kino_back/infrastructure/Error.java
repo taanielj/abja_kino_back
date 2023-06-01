@@ -21,6 +21,7 @@ public enum Error {
 
     MOVIE_EXISTS("Film on juba olemas"),
     MOVIE_NOT_FOUND("Filmi ei leitud"),
+    MOVIE_HAS_SEANCES("Film on seansiga seotud"),
 
     RESOURCE_NOT_FOUND("Ressurssi ei leitud"),
 
