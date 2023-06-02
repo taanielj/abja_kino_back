@@ -33,12 +33,14 @@ public class SeanceService {
 
     public List<SeanceScheduleDto> findAllFutureSeances() {
         List<Seance> seances = seanceRepository.findByStartTimeGreaterThan(clock.instant());
-        return seanceMapper.toScheduleDtoList(seances);
+        return getSeanceScheduleDtos(seances);
+
     }
 
     public List<SeanceScheduleDto> findMovieAllFutureSeances(Integer movieId) {
         List<Seance> seances =  seanceRepository.findByStartTimeGreaterThanAndMovieId(clock.instant(), movieId);
-        return seanceMapper.toScheduleDtoList(seances);
+        return getSeanceScheduleDtos(seances);
+
     }
 
     public void createSeance(SeanceAdminDto seanceAdminDto) {
@@ -111,6 +113,20 @@ public class SeanceService {
         Seance seance = getSeanceAndValidateChangeable(id);
         seance.setStatus(DELETED.getLetter());
         seanceRepository.save(seance);
+    }
+
+    private List<SeanceScheduleDto> getSeanceScheduleDtos(List<Seance> seances) {
+        List<SeanceScheduleDto> seanceScheduleDtos = new ArrayList<>();
+
+        for(Seance seance : seances) {
+            SeanceScheduleDto seanceScheduleDto = seanceMapper.toScheduleDto(seance);
+            int totalSeats = seance.getRoom().getRows() * seance.getRoom().getCols();
+            int bookedSeats = ticketRepository.countBySeance(seance.getId());
+            seanceScheduleDto.setTotalSeats(totalSeats);
+            seanceScheduleDto.setAvailableSeats(totalSeats - bookedSeats);
+            seanceScheduleDtos.add(seanceScheduleDto);
+        }
+        return seanceScheduleDtos;
     }
 
     private Seance getSeanceAndValidateChangeable(Integer id) {
