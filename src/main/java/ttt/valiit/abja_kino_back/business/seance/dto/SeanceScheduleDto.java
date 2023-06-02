@@ -17,6 +17,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 public class SeanceScheduleDto implements Serializable {
 
+    private Integer seanceId;
     private String roomName;
     private Integer movieId;
     private String movieGenreName;

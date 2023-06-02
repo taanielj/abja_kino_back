@@ -36,6 +36,7 @@ public interface SeanceMapper {
     @Mapping(source = "room.name", target = "roomName")
     @Mapping(source = "movie.id", target = "movieId")
     @Mapping(source = "movie.youtubeLink", target = "movieYoutubeLink")
+    @Mapping(source = "id", target = "seanceId")
     SeanceScheduleDto toScheduleDto(Seance seance);
 
     List<SeanceScheduleDto> toScheduleDtoList(List<Seance> seances);
