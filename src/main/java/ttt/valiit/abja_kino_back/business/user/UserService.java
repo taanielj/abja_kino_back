@@ -8,6 +8,7 @@ import ttt.valiit.abja_kino_back.business.ticket.TicketRepository;
 import ttt.valiit.abja_kino_back.business.user.dto.LoginRequest;
 import ttt.valiit.abja_kino_back.business.user.dto.LoginResponse;
 import ttt.valiit.abja_kino_back.business.user.dto.RegistrationRequest;
+import ttt.valiit.abja_kino_back.business.user.dto.UserDto;
 import ttt.valiit.abja_kino_back.business.user.role.Role;
 import ttt.valiit.abja_kino_back.business.user.role.RoleRepository;
 import ttt.valiit.abja_kino_back.infrastructure.exception.InvalidCredentialsException;

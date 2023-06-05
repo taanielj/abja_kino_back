@@ -6,6 +6,7 @@ import org.mapstruct.MappingConstants;
 import org.mapstruct.ReportingPolicy;
 import ttt.valiit.abja_kino_back.business.user.dto.LoginResponse;
 import ttt.valiit.abja_kino_back.business.user.dto.RegistrationRequest;
+import ttt.valiit.abja_kino_back.business.user.dto.UserDto;
 
 import java.util.List;
 

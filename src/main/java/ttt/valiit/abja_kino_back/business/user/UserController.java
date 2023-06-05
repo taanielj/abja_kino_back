@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import ttt.valiit.abja_kino_back.business.user.dto.LoginRequest;
 import ttt.valiit.abja_kino_back.business.user.dto.LoginResponse;
 import ttt.valiit.abja_kino_back.business.user.dto.RegistrationRequest;
+import ttt.valiit.abja_kino_back.business.user.dto.UserDto;
 
 import java.util.List;
 
