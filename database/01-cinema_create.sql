@@ -1,5 +1,5 @@
 -- Created by Vertabelo (http://vertabelo.com)
--- Last modification date: 2023-05-17 12:13:00.273
+-- Last amodification date: 2023-05-17 12:13:00.273
 
 -- tables
 -- Table: genre
