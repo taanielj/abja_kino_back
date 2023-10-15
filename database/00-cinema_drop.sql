@@ -1,6 +1,6 @@
 -- Kustutab public schema (mis põhimõtteliselt kustutab kõik tabelid)
 
-DROP SCHEMA public CASCADE;
+DROP SCHEMA public CASCADE IF EXISTS;
 -- Loob uue public schema vajalikud õigused
 CREATE SCHEMA public;
 -- taastab vajalikud andmebaasi õigused
