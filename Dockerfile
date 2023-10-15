@@ -17,5 +17,5 @@ WORKDIR /app
 # copy build artifact from the 'builder' stage
 COPY --from=builder /app/build/libs/*.jar ./app.jar
 
-# set the startup command to run your binary
-ENTRYPOINT ["java", "-jar", "./app.jar"]
+# set the startup command to run your binary, sleep timer is needed to ensure db init script is executed before app starts
+ENTRYPOINT ["sh", "-c", "sleep 5 && java -jar ./app.jar"]
