@@ -10,7 +10,7 @@ import java.util.List;
 
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING)
 public interface MovieMapper {
-    @Mapping(ignore = true, target = "id")
+    @Mapping(source = "id", target = "id")
     @Mapping(source = "title", target = "title")
     @Mapping(source = "runtime", target = "runtime")
     @Mapping(source = "director", target = "director")

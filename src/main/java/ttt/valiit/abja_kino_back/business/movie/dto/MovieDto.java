@@ -15,6 +15,7 @@ import java.io.Serializable;
 @Setter
 @NoArgsConstructor
 public class MovieDto implements Serializable {
+    private Integer id;
     private String title;
     private Integer runtime;
     private String director;
