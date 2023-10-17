@@ -2,7 +2,6 @@ package ttt.valiit.abja_kino_back.business.user;
 
 import lombok.RequiredArgsConstructor;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -20,6 +19,8 @@ import ttt.valiit.abja_kino_back.security.jwt.JwtUtil;
 import java.util.List;
 
 import static ttt.valiit.abja_kino_back.infrastructure.Error.INVALID_CREDENTIALS;
+import static ttt.valiit.abja_kino_back.infrastructure.Error.USER_EXISTS;
+import static ttt.valiit.abja_kino_back.infrastructure.Error.USER_EMAIL_EXISTS;
 import static ttt.valiit.abja_kino_back.infrastructure.Status.ACTIVE;
 
 @Service
@@ -32,26 +33,20 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final TicketRepository ticketRepository;
     private final JwtUtil jwtUtil;
-    @Value("${admin.username}")
-    private String adminUsername = "admin";
-    // default password is "admin" when not set in application.properties
-    @Value("${admin.password}")
-    private String adminPassword = "admin";
-    private String adminEmail = "admin@abjakino.ee";
 
     public LoginResponse register(RegistrationRequest registrationRequest) {
         User user = registerAndGetUser(registrationRequest);
         return getLoginResponse(user);
     }
 
-    private User registerAndGetUser(RegistrationRequest registrationRequest) {
+    User registerAndGetUser(RegistrationRequest registrationRequest) {
 
         if (userRepository.existsBy(registrationRequest.getUsername())) {
-            throw new UsernameExistsException("Kasutajanimi on juba kasutusel");
+            throw new UsernameExistsException(USER_EXISTS.getMessage());
         }
 
         if (userRepository.existsByEmail(registrationRequest.getEmail())) {
-            throw new UsernameExistsException("Email on juba kasutusel");
+            throw new UsernameExistsException(USER_EMAIL_EXISTS.getMessage());
         }
 
         User user = userMapper.toUser(registrationRequest);
@@ -73,42 +68,7 @@ public class UserService {
         return users;
     }
 
-    public void initAdminUser() {
-        User adminUser = userRepository.findByUsername(adminUsername).orElse(null);
-        
-        if (adminUser == null) {
-            createAdminUser();
-        } else {
-            updateAdminPasswordIfNeeded(adminUser);
-        }
-    }
     
-    private void createAdminUser() {
-        RegistrationRequest registrationRequest = new RegistrationRequest();
-        registrationRequest.setUsername(adminUsername);
-        registrationRequest.setPassword(adminPassword);
-        registrationRequest.setEmail(adminEmail);
-        
-        User adminUser = registerAndGetUser(registrationRequest);
-        adminUser.setRole(getAdminRole());
-        userRepository.save(adminUser);
-    }
-    
-    private void updateAdminPasswordIfNeeded(User adminUser) {
-        if (!passwordEncoder.matches(adminPassword, adminUser.getPassword())) {
-            // Password in properties is different from stored password, update it
-            adminUser.setPassword(passwordEncoder.encode(adminPassword));
-            userRepository.save(adminUser);
-        }
-    }
-    
-    private Role getAdminRole() {
-        return roleRepository.findByName("ADMIN").orElseGet(() -> {
-            Role role = new Role("ADMIN");
-            return roleRepository.save(role);
-        });
-    }
-
 
     private Role getDefaultRole() {
         return roleRepository.findByName("CUSTOMER").orElseGet(() -> {

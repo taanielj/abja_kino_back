@@ -43,6 +43,7 @@ public enum Error {
     TICKETS_EXIST_WITH_THIS_TICKET_TYPE("Selle piletitüübiga on juba pileteid müüdud"),
 
     USER_EXISTS("Kasutaja on juba olemas"),
+    USER_EMAIL_EXISTS("Email on juba kasutusel"),
     USER_NOT_FOUND("Kasutajat ei leitud");
 
     private final String message;
