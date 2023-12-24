@@ -64,13 +64,10 @@ public class SecurityConfiguration {
     public SecurityFilterChain swaggerSecurityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests()
-                .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").hasRole("ADMIN")
-                .anyRequest().permitAll()
+                .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
                 .and()
                 .httpBasic().disable()
-                .csrf().disable()
-                .formLogin()
-                .loginPage("/api/login");
+                .csrf().disable();
         return http.build();
     }
 
