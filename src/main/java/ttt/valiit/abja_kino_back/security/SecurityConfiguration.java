@@ -29,7 +29,6 @@ public class SecurityConfiguration {
     }
 
     @Bean
-    @Order(2)
     public SecurityFilterChain apiSecurityFilterChain(HttpSecurity http) throws Exception {
         String mainUrl = "/api/v1/**";
         String admin = "ADMIN";
@@ -40,6 +39,7 @@ public class SecurityConfiguration {
                         "/api/v1/seance/admin-summary",
                         "/api/v1/user/admin-summary"
                 ).hasRole(admin)
+                .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
                 .requestMatchers(HttpMethod.POST, "/api/v1/user/login", "/api/v1/user/register").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/v1/ticket/type/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/v1/ticket/*").authenticated()
@@ -59,17 +59,6 @@ public class SecurityConfiguration {
         return http.build();
     }
 
-    @Bean
-    @Order(1)
-    public SecurityFilterChain swaggerSecurityFilterChain(HttpSecurity http) throws Exception {
-        http
-                .authorizeHttpRequests()
-                .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
-                .and()
-                .httpBasic().disable()
-                .csrf().disable();
-        return http.build();
-    }
 
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
